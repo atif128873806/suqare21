@@ -1,0 +1,210 @@
+
+> backend@0.0.1 start:dev
+> nest start --watch
+
+[2J[3J[H[[90m12:47:39 AM[0m] Starting compilation in watch mode...
+
+[[90m12:47:40 AM[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCommonModule dependencies initialized[39m[38;5;3m +8ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCloudinaryModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mChatbotModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLeadModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPropertyModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +7ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPropertyController {/properties}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/upload-images, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLeadController {/leads}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads/:id/status, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mChatbotController {/chatbot}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/chatbot/message, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/chatbot/conversations, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 304425  - [39m02/05/2026, 12:47:41 AM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +38ms[39m
+Application is running on: http://[::1]:3001
+[31m[Nest] 304425  - [39m02/05/2026, 12:55:30 AM [31m  ERROR[39m [38;5;3m[ExceptionsHandler] [39mPrismaClientValidationError: 
+Invalid `this.prisma.property.create()` invocation in
+/home/atif/square21/backend/src/property/property.service.ts:10:37
+
+   7 constructor(private prisma: PrismaService) { }
+   8 
+   9 async create(createPropertyDto: CreatePropertyDto) {
+→ 10     return this.prisma.property.create({
+           data: {
+             title: "addafafs",
+             description: "adfsadf",
+             type: "INDUSTRIAL",
+             purpose: "RENT",
+             status: "AVAILABLE",
+             area: 343434,
+             areaUnit: "sqft",
+             price: 343434,
+             priceUnit: "PKR",
+             ~~~~~~~~~
+             priceType: "monthly",
+             location: "dsfadfas",
+             images: [
+               "https://res.cloudinary.com/dwufqlkzv/image/upload/v1770234929/square21/properties/xnupmwfplnu27ikb5fug.png",
+               "https://res.cloudinary.com/dwufqlkzv/image/upload/v1770234929/square21/properties/jlwat3jzqelkigznl2bk.png"
+             ],
+             features: [
+               "afdafs"
+             ],
+             isFeatured: false,
+         ?   id?: String,
+         ?   createdAt?: DateTime,
+         ?   updatedAt?: DateTime,
+         ?   leads?: LeadCreateNestedManyWithoutPropertyInput
+           }
+         })
+
+Unknown argument `priceUnit`. Available options are marked with ?.
+    at throwValidationException [90m(/home/atif/square21/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/core/errorRendering/throwValidationException.ts:46:9[90m)[39m
+    at Vr.handleRequestError [90m(/home/atif/square21/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:202:7[90m)[39m
+    at Vr.handleAndLogRequestError [90m(/home/atif/square21/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:174:12[90m)[39m
+    at Vr.request [90m(/home/atif/square21/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/RequestHandler.ts:143:12[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
+    at async a [90m(/home/atif/square21/backend/[39mnode_modules/[4m@prisma/client[24m/src/runtime/getPrismaClient.ts:805:24[90m)[39m
+    at async [90m/home/atif/square21/backend/[39mnode_modules/[4m@nestjs/core[24m/router/router-execution-context.js:46:28
+    at async [90m/home/atif/square21/backend/[39mnode_modules/[4m@nestjs/core[24m/router/router-proxy.js:9:17 {
+  clientVersion: [32m'7.3.0'[39m
+}
+[2J[3J[H[[90m12:57:23 AM[0m] File change detected. Starting incremental compilation...
+
+[[90m12:57:23 AM[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCommonModule dependencies initialized[39m[38;5;3m +13ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCloudinaryModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mChatbotModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLeadModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPropertyModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +8ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPropertyController {/properties}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/upload-images, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLeadController {/leads}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads/:id/status, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mChatbotController {/chatbot}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/chatbot/message, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/chatbot/conversations, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +41ms[39m
+[31m[Nest] 307263  - [39m02/05/2026, 12:57:24 AM [31m  ERROR[39m [38;5;3m[NestApplication] [39m[31mError: listen EADDRINUSE: address already in use :::3001[39m[38;5;3m +1ms[39m
+node:net:1940
+    const ex = new UVExceptionWithHostPort(err, 'listen', address, port);
+               ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at ExpressAdapter.listen (/home/atif/square21/backend/node_modules/@nestjs/platform-express/adapters/express-adapter.js:127:32)
+    at /home/atif/square21/backend/node_modules/@nestjs/core/nest-application.js:188:30
+    at new Promise (<anonymous>)
+    at NestApplication.listen (/home/atif/square21/backend/node_modules/@nestjs/core/nest-application.js:178:16)
+    at async bootstrap (/home/atif/square21/backend/src/main.ts:16:3) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v25.3.0
+[2J[3J[H[[90m12:57:25 AM[0m] File change detected. Starting incremental compilation...
+
+[[90m12:57:25 AM[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCommonModule dependencies initialized[39m[38;5;3m +17ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCloudinaryModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mChatbotModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLeadModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPropertyModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +14ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPropertyController {/properties}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/upload-images, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/properties/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLeadController {/leads}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/leads/:id/status, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mChatbotController {/chatbot}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/chatbot/message, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/chatbot/conversations, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +35ms[39m
+[31m[Nest] 307391  - [39m02/05/2026, 12:57:26 AM [31m  ERROR[39m [38;5;3m[NestApplication] [39m[31mError: listen EADDRINUSE: address already in use :::3001[39m[38;5;3m +1ms[39m
+node:net:1940
+    const ex = new UVExceptionWithHostPort(err, 'listen', address, port);
+               ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at ExpressAdapter.listen (/home/atif/square21/backend/node_modules/@nestjs/platform-express/adapters/express-adapter.js:127:32)
+    at /home/atif/square21/backend/node_modules/@nestjs/core/nest-application.js:188:30
+    at new Promise (<anonymous>)
+    at NestApplication.listen (/home/atif/square21/backend/node_modules/@nestjs/core/nest-application.js:178:16)
+    at async bootstrap (/home/atif/square21/backend/src/main.ts:16:3) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v25.3.0

@@ -1,0 +1,106 @@
+import { LeadService } from './lead.service';
+import { CreateLeadDto } from './dto/lead.dto';
+export declare class LeadController {
+    private readonly leadService;
+    constructor(leadService: LeadService);
+    create(createLeadDto: CreateLeadDto): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: string;
+        phone: string;
+        preferredArea: string | null;
+        budget: number | null;
+        source: string;
+        propertyId: string | null;
+        message: string | null;
+    }>;
+    findAll(): Promise<({
+        property: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            title: string;
+            description: string;
+            type: import(".prisma/client").$Enums.PropertyType;
+            purpose: import(".prisma/client").$Enums.PropertyPurpose;
+            status: import(".prisma/client").$Enums.PropertyStatus;
+            area: number | null;
+            areaUnit: string | null;
+            price: number;
+            priceUnit: string | null;
+            priceType: string | null;
+            location: string;
+            mapHtml: string | null;
+            images: string[];
+            videos: string[];
+            features: string[];
+            isFeatured: boolean;
+        } | null;
+    } & {
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: string;
+        phone: string;
+        preferredArea: string | null;
+        budget: number | null;
+        source: string;
+        propertyId: string | null;
+        message: string | null;
+    })[]>;
+    findOne(id: string): Promise<{
+        property: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            title: string;
+            description: string;
+            type: import(".prisma/client").$Enums.PropertyType;
+            purpose: import(".prisma/client").$Enums.PropertyPurpose;
+            status: import(".prisma/client").$Enums.PropertyStatus;
+            area: number | null;
+            areaUnit: string | null;
+            price: number;
+            priceUnit: string | null;
+            priceType: string | null;
+            location: string;
+            mapHtml: string | null;
+            images: string[];
+            videos: string[];
+            features: string[];
+            isFeatured: boolean;
+        } | null;
+    } & {
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: string;
+        phone: string;
+        preferredArea: string | null;
+        budget: number | null;
+        source: string;
+        propertyId: string | null;
+        message: string | null;
+    }>;
+    updateStatus(id: string, status: string): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: string;
+        phone: string;
+        preferredArea: string | null;
+        budget: number | null;
+        source: string;
+        propertyId: string | null;
+        message: string | null;
+    }>;
+}

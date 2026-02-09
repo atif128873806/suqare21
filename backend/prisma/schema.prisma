@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PropertyType {
+  INDUSTRIAL
+  COMMERCIAL
+  RESIDENTIAL
+}
+
+enum PropertyPurpose {
+  RENT
+  LEASE
+  SALE
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  RENTED
+  SOLD
+}
+
+model Property {
+  id          String         @id @default(uuid())
+  title       String
+  description String
+  type        PropertyType
+  purpose     PropertyPurpose
+  status      PropertyStatus  @default(AVAILABLE)
+  area        Float?         // in Kanal/Marla/SqFt
+  areaUnit    String?        // "Marla", "Kanal", "SqFt"
+  price       Float
+  priceUnit   String?        // "PKR", "USD"
+  priceType   String?        // "monthly", "yearly", "total"
+  location    String         // CDA Sector/Area
+  mapHtml     String?        // Custom Google Map embed code
+  images      String[]       // Cloudinary URLs
+  videos      String[]       // Cloudinary video URLs
+  features    String[]
+  isFeatured  Boolean         @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  leads       Lead[]
+}
+
+model Lead {
+  id            String   @id @default(uuid())
+  name          String
+  phone         String
+  email         String?
+  preferredArea String?
+  budget        Float?
+  source        String   // "WEBSITE_FORM", "CHATBOT"
+  property      Property? @relation(fields: [propertyId], references: [id])
+  propertyId    String?
+  message       String?
+  status        String   @default("NEW")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ChatConversation {
+  id         String   @id @default(uuid())
+  visitorId  String   @unique
+  history    Json     @default("[]") // [{role: "user", text: "..."}, {role: "model", text: "..."}]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model ChatLead {
+  id           String   @id @default(uuid())
+  visitorId    String   @unique
+  name         String
+  phone        String
+  budget       String?
+  area         String?
+  intent       String?  // "rent", "lease", "buy"
+  propertyType String?  // "industrial", "commercial", "residential"
+  source       String   @default("chatbot")
+  createdAt    DateTime @default(now())
+}

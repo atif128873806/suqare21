@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.5 0.25 24); /* Square21 Red: Approximated */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2 0 0); /* Black */
+  --secondary-foreground: oklch(1 0 0);
+  --accent: oklch(0.9 0.05 24);
+  --accent-foreground: oklch(0.145 0 0);
+  --border: oklch(0.9 0 0);
+  --radius: 0.5rem;
+}
+
+[data-theme='dark'] {
+  --background: oklch(0.1 0 0);
+  --foreground: oklch(0.9 0 0);
+  --primary: oklch(0.5 0.25 24);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3 0 0);
+  --secondary-foreground: oklch(1 0 0);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+}
