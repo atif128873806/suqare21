@@ -39,7 +39,7 @@ let LangChainService = class LangChainService {
         if (extractedData.area || extractedData.propertyType || extractedData.intent) {
             const properties = await this.searchProperties(extractedData);
             if (properties.length > 0) {
-                propertyContext = "\nRELEVANT PROPERTIES FOUND:\n" + properties.map(p => `- ${p.title} in ${p.location}: ${p.price} ${p.priceUnit} (${p.type}, ${p.purpose})`).join('\n');
+                propertyContext = "\nRELEVANT PROPERTIES FOUND:\n" + properties.map((p) => `- ${p.title} in ${p.location}: ${p.price} ${p.priceUnit} (${p.type}, ${p.purpose})`).join('\n');
             }
             else {
                 propertyContext = "\nNo specific matching properties found in database currently. Continue being helpful.";
