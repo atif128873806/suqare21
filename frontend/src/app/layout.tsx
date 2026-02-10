@@ -24,6 +24,10 @@ export const metadata: Metadata = {
     default: "Square21 Marketing | Leading Real Estate Agency in Islamabad",
     template: "%s | Square21 Marketing"
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   description: "Specializing in Industrial, Commercial, and Residential rentals. Commercial sales in CDA sectors. Premium real estate services in Islamabad's prime locations including I-9, I-10, and Blue Area.",
   keywords: ["Real Estate Islamabad", "Industrial Property Islamabad", "Commercial Rental Islamabad", "CDA Sectors Real Estate", "Square21 Marketing", "I-9 Industrial Area", "Property for Lease Islamabad"],
   authors: [{ name: "Square21 Marketing" }],
@@ -78,12 +82,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="antialiased">
         <AuthProvider>
-          <Header />
-          <main className="pt-20">
-            {children}
-          </main>
-          <Chatbot />
-          <Footer />
+          {children}
           <Toaster />
         </AuthProvider>
       </body>

@@ -188,9 +188,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
                     {/* Logo Section */}
                     <div className="p-8 pb-4">
                         <Link href="/" className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20">
-                                <Building2 className="text-white w-6 h-6" />
-                            </div>
+                            <img src="/logo.png" alt="Square21 Logo" className="w-12 h-12 object-contain" />
                             <div>
                                 <h1 className="text-slate-900 font-display text-xl font-bold tracking-tight">
                                     Square<span className="text-primary">21</span>

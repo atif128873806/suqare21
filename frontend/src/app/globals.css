@@ -19,8 +19,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    /* Primary: Bold Red */
-    --primary: 0 84% 45%;
+    /* Primary: Bold Red - Dimmer */
+    --primary: 0 84% 38%;
     --primary-foreground: 0 0% 100%;
 
     /* Secondary: Rich Black */

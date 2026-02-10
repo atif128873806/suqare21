@@ -73,7 +73,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                             <span className="text-white/90 text-sm">Islamabad&apos;s Trusted Real Estate Partner</span>
                         </div>
 
-                        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 animate-slide-up">
+                        <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-slide-up">
                             Find Your Perfect
                             <span className="block text-primary">Property in Islamabad</span>
                         </h1>
