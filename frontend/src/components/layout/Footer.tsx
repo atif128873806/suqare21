@@ -6,9 +6,9 @@ const Footer = () => {
     <footer className="bg-secondary text-secondary-foreground">
       {/* Main Footer */}
       <div className="section-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-12">
           {/* Company Info */}
-          <div>
+          <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-xl">S</span>
@@ -37,7 +37,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="col-span-1 lg:col-span-1">
             <h4 className="font-display text-lg font-semibold mb-6">Quick Links</h4>
             <ul className="space-y-3">
               {[
@@ -45,7 +45,6 @@ const Footer = () => {
                 { name: 'About Us', path: '/about' },
                 { name: 'Our Services', path: '/services' },
                 { name: 'Contact', path: '/contact' },
-                { name: 'Property Valuation', path: '/services#valuation' },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
@@ -60,7 +59,7 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="col-span-1 lg:col-span-1">
             <h4 className="font-display text-lg font-semibold mb-6">Our Services</h4>
             <ul className="space-y-3">
               {[
@@ -78,7 +77,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <h4 className="font-display text-lg font-semibold mb-6">Contact Us</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">

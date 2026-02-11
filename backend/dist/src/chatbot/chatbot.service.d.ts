@@ -14,14 +14,14 @@ export declare class ChatbotService {
     captureLead(data: CaptureChatLeadDto): Promise<{
         id: string;
         name: string;
-        area: string | null;
         createdAt: Date;
-        visitorId: string;
+        area: string | null;
         phone: string;
         budget: string | null;
+        source: string;
+        visitorId: string;
         intent: string | null;
         propertyType: string | null;
-        source: string;
     }>;
     getConversations(): Promise<{
         id: string;
@@ -33,13 +33,13 @@ export declare class ChatbotService {
     getChatLeads(): Promise<{
         id: string;
         name: string;
-        area: string | null;
         createdAt: Date;
-        visitorId: string;
+        area: string | null;
         phone: string;
         budget: string | null;
+        source: string;
+        visitorId: string;
         intent: string | null;
         propertyType: string | null;
-        source: string;
     }[]>;
 }
