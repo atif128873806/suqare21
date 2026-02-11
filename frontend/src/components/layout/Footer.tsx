@@ -89,13 +89,13 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary" />
-                <a href="tel:+923001234567" className="text-secondary-foreground/70 hover:text-primary text-sm">
-                  +92 300 1234567
+                <a href="tel:+923137200050" className="text-secondary-foreground/70 hover:text-primary text-sm">
+                  +92 313 7200050
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <MessageCircle className="w-5 h-5 text-primary" />
-                <a href="https://wa.me/923001234567" className="text-secondary-foreground/70 hover:text-primary text-sm">
+                <a href="https://wa.me/923137200050" className="text-secondary-foreground/70 hover:text-primary text-sm">
                   WhatsApp Us
                 </a>
               </li>

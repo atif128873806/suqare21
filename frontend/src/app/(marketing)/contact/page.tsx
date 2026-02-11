@@ -51,8 +51,8 @@ export default function ContactPage() {
     };
 
     const contactInfo = [
-        { icon: Phone, title: 'Phone', value: '+92 300 1234567', href: 'tel:+923001234567' },
-        { icon: MessageCircle, title: 'WhatsApp', value: '+92 300 1234567', href: 'https://wa.me/923001234567' },
+        { icon: Phone, title: 'Phone', value: '+92 313 7200050', href: 'tel:+923137200050' },
+        { icon: MessageCircle, title: 'WhatsApp', value: '+92 313 7200050', href: 'https://wa.me/923137200050' },
         { icon: Mail, title: 'Email', value: 'info@square21.pk', href: 'mailto:info@square21.pk' },
         { icon: MapPin, title: 'Office', value: 'Office #21, Blue Area, Islamabad', href: '#' },
     ];
@@ -192,7 +192,7 @@ export default function ContactPage() {
                                     <h3 className="font-semibold mb-2">Quick Contact</h3>
                                     <div className="space-y-2">
                                         <p className="text-muted-foreground">
-                                            <strong>Phone:</strong> <a href="tel:+923001234567" className="hover:text-primary">+92 300 1234567</a>
+                                            <strong>Phone:</strong> <a href="tel:+923137200050" className="hover:text-primary">+92 313 7200050</a>
                                         </p>
                                         <p className="text-muted-foreground">
                                             <strong>Email:</strong> <a href="mailto:info@square21.pk" className="hover:text-primary">info@square21.pk</a>
@@ -203,7 +203,7 @@ export default function ContactPage() {
                                     <p className="text-muted-foreground text-sm mb-4">
                                         Prefer instant communication? Reach us on WhatsApp for faster responses.
                                     </p>
-                                    <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer">
                                         <Button variant="whatsapp" className="w-full">
                                             <MessageCircle className="w-5 h-5 mr-2" />
                                             Chat on WhatsApp

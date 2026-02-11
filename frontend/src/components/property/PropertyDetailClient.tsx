@@ -191,12 +191,12 @@ export default function PropertyDetailClient({ property }: PropertyDetailClientP
                                 <p className="text-muted-foreground text-sm mb-6">Contact our team for details.</p>
 
                                 <div className="space-y-3">
-                                    <a href="tel:+923001234567" className="block">
+                                    <a href="tel:+923137200050" className="block">
                                         <Button variant="default" size="lg" className="w-full">
                                             <Phone className="w-5 h-5 mr-2" /> Call Now
                                         </Button>
                                     </a>
-                                    <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" className="block">
+                                    <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer" className="block">
                                         <Button variant="whatsapp" size="lg" className="w-full">
                                             <MessageCircle className="w-5 h-5 mr-2" /> WhatsApp
                                         </Button>

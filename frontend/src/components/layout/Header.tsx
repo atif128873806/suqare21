@@ -52,13 +52,13 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href="tel:+923001234567">
+            <a href="tel:+923137200050">
               <Button variant="ghost" size="sm" className="text-secondary-foreground/80 hover:text-secondary-foreground">
                 <Phone className="w-4 h-4 mr-2" />
-                +92 300 1234567
+                +92 313 7200050
               </Button>
             </a>
-            <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer">
               <Button variant="whatsapp" size="sm">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 WhatsApp
@@ -94,13 +94,13 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-3 pt-4 border-t border-border/10">
-              <a href="tel:+923001234567">
+              <a href="tel:+923137200050">
                 <Button variant="outline" className="w-full justify-start text-secondary-foreground border-secondary-foreground/20">
                   <Phone className="w-4 h-4 mr-2" />
-                  +92 300 1234567
+                  +92 313 7200050
                 </Button>
               </a>
-              <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer">
                 <Button variant="whatsapp" className="w-full">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   WhatsApp Us

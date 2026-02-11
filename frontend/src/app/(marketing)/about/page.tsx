@@ -118,7 +118,7 @@ export default function AboutPage() {
                                 Contact Us
                             </Button>
                         </Link>
-                        <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer">
+                        <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer">
                             <Button variant="whatsapp" size="xl">
                                 <MessageCircle className="w-5 h-5 mr-2" />
                                 WhatsApp
