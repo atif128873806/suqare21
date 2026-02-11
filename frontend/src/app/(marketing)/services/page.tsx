@@ -137,13 +137,13 @@ export default function ServicesPage() {
                         Our team is ready to help you find the perfect property solution for your needs. Get in touch with us today.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <a href="tel:+923137200050">
+                        <a href="tel:+923083333818">
                             <Button variant="heroOutline" size="xl" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                                 <Phone className="w-5 h-5 mr-2" />
                                 Call Us Now
                             </Button>
                         </a>
-                        <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer">
+                        <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
                             <Button variant="whatsapp" size="xl">
                                 <MessageCircle className="w-5 h-5 mr-2" />
                                 WhatsApp Us

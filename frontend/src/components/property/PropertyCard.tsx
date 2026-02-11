@@ -137,12 +137,12 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
             </Button>
           </Link>
-          <a href="tel:+923137200050">
+          <a href="tel:+923083333818">
             <Button variant="secondary" size="icon">
               <Phone className="w-4 h-4" />
             </Button>
           </a>
-          <a href="https://wa.me/923137200050" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
             <Button variant="whatsapp" size="icon">
               <MessageCircle className="w-4 h-4" />
             </Button>
