@@ -180,6 +180,34 @@ export const sampleProperties: Property[] = [
     isFeatured: true,
     createdAt: new Date('2026-02-13'),
     updatedAt: new Date('2026-02-13')
+  },
+  {
+    id: '9',
+    title: 'Prime Prefabricated Steel Shed for Rent I-9 Markaz, Islamabad',
+    description: 'Prime Prefabricated Steel Shed for Rent in I-9 Markaz Industrial Area. This spacious and well-ventilated structure features a total covered area of 22,000 sq. ft. with a height of 35 ft. Includes a separate office area for admin or sales operations, ample inside and outside parking, a 200 KVA dedicated transformer, and water boring. Ideally suited for car showrooms, brand outlets, display centers, warehousing, or corporate setups.',
+    type: 'INDUSTRIAL',
+    purpose: 'RENT',
+    status: 'AVAILABLE',
+    price: 0, // Price not specified, set to 0 as placeholder
+    priceUnit: 'PKR',
+    priceType: 'monthly',
+    area: 22000,
+    areaUnit: 'sqft',
+    location: 'I-9 | Islamabad | Main Sohni Road, I-9 Markaz Industrial Area',
+    features: [
+      'Separate Office Area',
+      '35 ft Height',
+      'Ample Parking',
+      '200 KVA Transformer',
+      'Water Boring',
+      'Well-ventilated',
+      'Steel Shed Structure'
+    ],
+    images: [],
+    videos: ['/videos/property3.mp4'],
+    isFeatured: true,
+    createdAt: new Date('2026-02-13'),
+    updatedAt: new Date('2026-02-13')
   }
 ];
 
