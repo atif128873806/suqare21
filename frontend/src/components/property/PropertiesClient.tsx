@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import PropertyCard from '@/components/property/PropertyCard';
 import PropertyFilters from '@/components/property/PropertyFilters';
-import { PropertyFilter, Property } from '@/types/property';
+import { PropertyFilter, Property, PropertyType, PropertyPurpose } from '@/types/property';
 import { useProperties } from '@/hooks/useProperties';
 
 interface PropertiesClientProps {
@@ -11,7 +12,24 @@ interface PropertiesClientProps {
 }
 
 export default function PropertiesClient({ initialProperties }: PropertiesClientProps) {
-    const [filters, setFilters] = useState<PropertyFilter>({});
+    const searchParams = useSearchParams();
+
+    // Initialize filters from URL parameters
+    const getInitialFilters = (): PropertyFilter => {
+        const filters: PropertyFilter = {};
+
+        const purpose = searchParams.get('purpose');
+        const location = searchParams.get('location');
+        const type = searchParams.get('type');
+
+        if (purpose) filters.purpose = purpose as PropertyPurpose;
+        if (location) filters.location = location;
+        if (type) filters.type = type as PropertyType;
+
+        return filters;
+    };
+
+    const [filters, setFilters] = useState<PropertyFilter>(getInitialFilters());
 
     const { properties, isLoading, error } = useProperties({
         filters,

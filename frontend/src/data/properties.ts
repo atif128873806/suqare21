@@ -117,11 +117,46 @@ export const sampleProperties: Property[] = [
     isFeatured: false,
     createdAt: new Date('2023-12-20'),
     updatedAt: new Date('2024-01-01')
+  },
+  {
+    id: '7',
+    title: 'Brand New 4 Marla House for Sale in I-10/1 Islamabad | CDA Transfer',
+    description: 'A beautiful and solidly built brand new house is available for sale in the prime location of I-10/1, Islamabad. This house is ideal for families looking for comfort, quality, and a secure investment. Features 5 spacious bedrooms, 5 modern bathrooms, TV lounge, drawing/dining area, stylish open kitchen, servant space, and car parking. Solid construction with premium finishing. CDA transfer available. Gas, water & electricity installed with proper sewerage system. Located near main road, market & mosque with easy access to Kashmir Highway & Metro Station.',
+    type: 'RESIDENTIAL',
+    purpose: 'SALE',
+    status: 'AVAILABLE',
+    price: 27500000,
+    priceUnit: 'PKR',
+    priceType: 'total',
+    area: 4,
+    areaUnit: 'marla',
+    location: 'I-10/1 | Islamabad | I-10/1, Near Main Road, Market & Mosque',
+    features: [
+      '5 Bedrooms',
+      '5 Bathrooms',
+      'TV Lounge',
+      'Drawing/Dining Area',
+      'Open Kitchen',
+      'Servant Space',
+      'Car Parking',
+      'Premium Finishing',
+      'Brand New',
+      'CDA Transfer',
+      'Gas, Water & Electricity',
+      'Sewerage System',
+      'Near Kashmir Highway',
+      'Near Metro Station'
+    ],
+    images: [],
+    videos: ['/videos/property1.mp4'],
+    isFeatured: true,
+    createdAt: new Date('2026-02-13'),
+    updatedAt: new Date('2026-02-13')
   }
 ];
 
 export const sectors = [
-  'I-8', 'I-9', 'I-10', 'I-11',
+  'I-8', 'I-9', 'I-10', 'I-10/1', 'I-11',
   'F-6', 'F-7', 'F-8', 'F-10', 'F-11',
   'E-11', 'E-7',
   'G-6', 'G-8', 'G-9', 'G-10', 'G-11',

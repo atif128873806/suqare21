@@ -44,6 +44,8 @@ let PropertyService = class PropertyService {
             whereClause.OR = [
                 { title: { contains: search, mode: 'insensitive' } },
                 { description: { contains: search, mode: 'insensitive' } },
+                { location: { contains: search, mode: 'insensitive' } },
+                { features: { has: search } },
             ];
         }
         if (minPrice || maxPrice) {

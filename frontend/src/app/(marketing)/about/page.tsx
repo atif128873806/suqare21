@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 import { Building2, Users, Award, TrendingUp, MessageCircle, CheckCircle } from 'lucide-react';
 
 export default function AboutPage() {
@@ -13,10 +14,30 @@ export default function AboutPage() {
     ];
 
     const team = [
-        { name: 'Muhammad Ali', role: 'CEO & Founder', expertise: 'Commercial Properties' },
-        { name: 'Sarah Ahmed', role: 'Senior Consultant', expertise: 'Industrial Leasing' },
-        { name: 'Hassan Raza', role: 'Property Advisor', expertise: 'Residential Sales' },
-        { name: 'Ayesha Khan', role: 'Valuation Specialist', expertise: 'Market Analysis' },
+        {
+            name: 'Mudassar Ahmad Khan',
+            role: 'CEO & Founder',
+            // expertise: 'Commercial Properties',
+            image: '/images/team/Founder.jpeg'
+        },
+        {
+            name: 'Shahbaz Khalid',
+            role: 'Senior Consultant',
+            // expertise: 'Industrial Leasing',
+            image: '/images/team/Consultant.jpeg'
+        },
+        {
+            name: 'Junaid Khan Swati',
+            role: 'Founder',
+            // expertise: 'Residential Sales',
+            image: '/images/team/Founderr.jpeg'
+        },
+        {
+            name: 'Syed Waleed Ahsan',
+            role: 'Senior Consultant',
+            // expertise: 'Market Analysis',
+            image: '/images/team/consultant.jpeg'
+        },
     ];
 
     return (
@@ -31,6 +52,37 @@ export default function AboutPage() {
                     </p>
                 </div>
             </section>
+
+            {/* Team */}
+            <section className="py-20">
+                <div className="section-container">
+                    <div className="text-center mb-12">
+                        <span className="text-primary text-sm font-semibold uppercase tracking-wider">Meet Our Team</span>
+                        <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">Expert Property Advisors</h2>
+                        <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+                            Our team of dedicated professionals brings years of experience and local market knowledge to help you find the perfect property.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {team.map((member, index) => (
+                            <div key={index} className="text-center group">
+                                <div className="relative w-48 h-64 mx-auto mb-4 overflow-hidden rounded-2xl group-hover:scale-105 transition-transform duration-300 shadow-md">
+                                    <Image
+                                        src={member.image}
+                                        alt={member.name}
+                                        fill
+                                        className="object-cover object-top"
+                                    />
+                                </div>
+                                <h3 className="font-display text-lg font-semibold">{member.name}</h3>
+                                <p className="text-primary text-sm font-medium">{member.role}</p>
+                                {/* <p className="text-muted-foreground text-sm mt-1">{member.expertise}</p> */}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
 
             {/* Mission & Vision */}
             <section className="py-20">
@@ -75,35 +127,9 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Team */}
-            <section className="py-20">
-                <div className="section-container">
-                    <div className="text-center mb-12">
-                        <span className="text-primary text-sm font-semibold uppercase tracking-wider">Meet Our Team</span>
-                        <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">Expert Property Advisors</h2>
-                        <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-                            Our team of dedicated professionals brings years of experience and local market knowledge to help you find the perfect property.
-                        </p>
-                    </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {team.map((member, index) => (
-                            <div key={index} className="text-center group">
-                                <div className="w-32 h-32 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-105 transition-transform">
-                                    <span className="font-display text-4xl font-bold text-primary-foreground">
-                                        {member.name.split(' ').map(n => n[0]).join('')}
-                                    </span>
-                                </div>
-                                <h3 className="font-display text-lg font-semibold">{member.name}</h3>
-                                <p className="text-primary text-sm font-medium">{member.role}</p>
-                                <p className="text-muted-foreground text-sm mt-1">{member.expertise}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
+            
             {/* CTA */}
-            <section className="py-20 bg-secondary text-secondary-foreground">
+            {/* <section className="py-20 bg-secondary text-secondary-foreground">
                 <div className="section-container text-center">
                     <Building2 className="w-16 h-16 text-primary mx-auto mb-6" />
                     <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
@@ -126,7 +152,7 @@ export default function AboutPage() {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 }

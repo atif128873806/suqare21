@@ -5,8 +5,6 @@ export declare class PropertyService {
     constructor(prisma: PrismaService);
     create(createPropertyDto: CreatePropertyDto): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         title: string;
         description: string;
         type: import(".prisma/client").$Enums.PropertyType;
@@ -23,11 +21,11 @@ export declare class PropertyService {
         videos: string[];
         features: string[];
         isFeatured: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(filters: any): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         title: string;
         description: string;
         type: import(".prisma/client").$Enums.PropertyType;
@@ -44,11 +42,11 @@ export declare class PropertyService {
         videos: string[];
         features: string[];
         isFeatured: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         title: string;
         description: string;
         type: import(".prisma/client").$Enums.PropertyType;
@@ -65,11 +63,11 @@ export declare class PropertyService {
         videos: string[];
         features: string[];
         isFeatured: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     update(id: string, updatePropertyDto: UpdatePropertyDto): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         title: string;
         description: string;
         type: import(".prisma/client").$Enums.PropertyType;
@@ -86,11 +84,11 @@ export declare class PropertyService {
         videos: string[];
         features: string[];
         isFeatured: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: string): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         title: string;
         description: string;
         type: import(".prisma/client").$Enums.PropertyType;
@@ -107,5 +105,7 @@ export declare class PropertyService {
         videos: string[];
         features: string[];
         isFeatured: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 }

@@ -76,7 +76,7 @@ CONSULTATION PROTOCOL (CRITICAL):
 
 3. **The Professional Closing (The "Finish Line")**:
    - **TRIGGER**: If Name, Phone, and core requirements are in memory:
-     - **MANDATORY MESSAGE**: "Thank you, [Name]. I have captured your requirements for [Area]. One of our senior consultants will reach out to you at [Phone] shortly to discuss the best options. In the meantime, you can browse our exclusive catalog here: https://wa.me/923001234567"
+     - **MANDATORY MESSAGE**: "Thank you, [Name]. I have captured your requirements for [Area]. One of our senior consultants will reach out to you at [Phone] shortly to discuss the best options. In the meantime, you can browse our exclusive catalog here: https://wa.me/923083333818"
      - **RULE**: Once the lead is complete, DO NOT ask more questions.
 
 4. **TONE**:
@@ -100,7 +100,7 @@ CONSULTATION PROTOCOL (CRITICAL):
             console.error('[Chatbot] AI Error:', error);
             if (error.message?.includes('429') || error.message?.includes('quota')) {
                 return {
-                    response: "I apologize, but I am currently experiencing a high volume of inquiries. Please call us directly at +92 300 1234567 so our human consultants can assist you immediately.",
+                    response: "I apologize, but I am currently experiencing a high volume of inquiries. Please call us directly at +92 308 3333818 so our human consultants can assist you immediately.",
                     extractedData
                 };
             }

@@ -13,9 +13,9 @@ export declare class ChatbotService {
     }>;
     captureLead(data: CaptureChatLeadDto): Promise<{
         id: string;
-        name: string;
-        createdAt: Date;
         area: string | null;
+        createdAt: Date;
+        name: string;
         phone: string;
         budget: string | null;
         source: string;
@@ -32,9 +32,9 @@ export declare class ChatbotService {
     }[]>;
     getChatLeads(): Promise<{
         id: string;
-        name: string;
-        createdAt: Date;
         area: string | null;
+        createdAt: Date;
+        name: string;
         phone: string;
         budget: string | null;
         source: string;

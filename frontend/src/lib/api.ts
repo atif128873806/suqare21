@@ -53,6 +53,7 @@ class ApiClient {
         minPrice?: number;
         maxPrice?: number;
         location?: string;
+        search?: string;
     }) {
         const params = new URLSearchParams();
         if (filters) {

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { api } from '@/lib/api';
 import PropertiesClient from '@/components/property/PropertiesClient';
@@ -16,5 +17,9 @@ export default async function PropertiesPage() {
         console.error('Error fetching initial properties:', error);
     }
 
-    return <PropertiesClient initialProperties={initialProperties} />;
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-muted/30 p-20 text-center">Loading...</div>}>
+            <PropertiesClient initialProperties={initialProperties} />
+        </Suspense>
+    );
 }

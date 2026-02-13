@@ -52,19 +52,31 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
     );
   };
 
-  const getImageSrc = (image: string | { src: string; height: number; width: number; blurDataURL?: string }) => {
+  const getImageSrc = (image: string | { src: string; height: number; width: number; blurDataURL?: string } | undefined | null) => {
+    if (!image) return '/placeholder.svg';
     return typeof image === 'string' ? image : image.src;
   };
 
   return (
     <div className="property-card group">
-      {/* Image Container */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={getImageSrc(property.images[0])}
-          alt={property.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+      {/* Media Container */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+        {property.videos && property.videos.length > 0 && (!property.images || property.images.length === 0 || property.images[0] === '/assets/property-residential.jpg') ? (
+          <video
+            src={property.videos[0]}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        ) : (
+          <img
+            src={getImageSrc(property.images?.[0])}
+            alt={property.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
         {/* Badges */}

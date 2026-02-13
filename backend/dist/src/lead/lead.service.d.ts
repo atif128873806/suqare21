@@ -5,11 +5,11 @@ export declare class LeadService {
     constructor(prisma: PrismaService);
     create(createLeadDto: CreateLeadDto): Promise<{
         id: string;
-        email: string | null;
-        name: string;
+        status: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
+        name: string;
+        email: string | null;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
@@ -20,8 +20,6 @@ export declare class LeadService {
     findAll(): Promise<({
         property: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             title: string;
             description: string;
             type: import(".prisma/client").$Enums.PropertyType;
@@ -38,14 +36,16 @@ export declare class LeadService {
             videos: string[];
             features: string[];
             isFeatured: boolean;
+            createdAt: Date;
+            updatedAt: Date;
         } | null;
     } & {
         id: string;
-        email: string | null;
-        name: string;
+        status: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
+        name: string;
+        email: string | null;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
@@ -56,8 +56,6 @@ export declare class LeadService {
     findOne(id: string): Promise<{
         property: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             title: string;
             description: string;
             type: import(".prisma/client").$Enums.PropertyType;
@@ -74,14 +72,16 @@ export declare class LeadService {
             videos: string[];
             features: string[];
             isFeatured: boolean;
+            createdAt: Date;
+            updatedAt: Date;
         } | null;
     } & {
         id: string;
-        email: string | null;
-        name: string;
+        status: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
+        name: string;
+        email: string | null;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
@@ -91,11 +91,11 @@ export declare class LeadService {
     }>;
     updateStatus(id: string, status: string): Promise<{
         id: string;
-        email: string | null;
-        name: string;
+        status: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
+        name: string;
+        email: string | null;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
