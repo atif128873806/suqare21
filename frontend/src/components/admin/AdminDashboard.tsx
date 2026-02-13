@@ -176,7 +176,8 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
         return <Badge variant="outline" className={styles[s as keyof typeof styles] || ''}>{status}</Badge>;
     };
 
-    const getImageSrc = (image: string | { src: string; height: number; width: number; blurDataURL?: string }) => {
+    const getImageSrc = (image: string | { src: string; height: number; width: number; blurDataURL?: string } | undefined | null) => {
+        if (!image) return '/placeholder.svg';
         return typeof image === 'string' ? image : image.src;
     };
 

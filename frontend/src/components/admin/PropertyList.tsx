@@ -75,7 +75,8 @@ const PropertyList = ({ properties, isLoading, onEdit, onDelete, onCreate }: Pro
                     {/* Mobile Card View */}
                     <div className="md:hidden space-y-3">
                         {filteredProperties.map((property) => {
-                            const getImageSrc = (image: string | { src: string }) => {
+                            const getImageSrc = (image: string | { src: string } | undefined | null) => {
+                                if (!image) return '/placeholder.svg';
                                 return typeof image === 'string' ? image : image.src;
                             };
                             const location = property.location.includes(' | ')
@@ -158,7 +159,8 @@ const PropertyList = ({ properties, isLoading, onEdit, onDelete, onCreate }: Pro
                                 </thead>
                                 <tbody className="divide-y divide-border">
                                     {filteredProperties.map((property) => {
-                                        const getImageSrc = (image: string | { src: string }) => {
+                                        const getImageSrc = (image: string | { src: string } | undefined | null) => {
+                                            if (!image) return '/placeholder.svg';
                                             return typeof image === 'string' ? image : image.src;
                                         };
 

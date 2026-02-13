@@ -79,7 +79,10 @@ const PropertyForm = ({ property, onSubmit, onCancel }: PropertyFormProps) => {
         address: initialLoc.address,
         mapHtml: property?.mapHtml || '',
         features: property?.features || [],
-        images: property?.images?.map(img => typeof img === 'string' ? img : img.src) || [],
+        images: property?.images?.map(img => {
+            if (!img) return '';
+            return typeof img === 'string' ? img : img.src;
+        }).filter(Boolean) || [],
         videos: property?.videos || [],
         isFeatured: property?.isFeatured || false,
     });
@@ -94,9 +97,10 @@ const PropertyForm = ({ property, onSubmit, onCancel }: PropertyFormProps) => {
     // Load existing images and videos if editing
     useEffect(() => {
         if (property?.images) {
-            const imageUrls = property.images.map(img =>
-                typeof img === 'string' ? img : img.src
-            );
+            const imageUrls = property.images.map(img => {
+                if (!img) return '';
+                return typeof img === 'string' ? img : img.src;
+            }).filter(Boolean);
             setExistingImages(imageUrls);
         }
         if (property?.videos) {
