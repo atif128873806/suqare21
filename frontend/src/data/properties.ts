@@ -152,12 +152,40 @@ export const sampleProperties: Property[] = [
     isFeatured: true,
     createdAt: new Date('2026-02-13'),
     updatedAt: new Date('2026-02-13')
+  },
+  {
+    id: '8',
+    title: 'Prime Commercial Space for Rent – F-8/3, Islamabad',
+    description: 'A premium commercial property located in one of Islamabad’s most prestigious sectors. This spacious and well-maintained building is ideal for high-end multinational companies (MNCs), software houses, IT firms, and corporate offices. The layout offers large open working areas with dedicated facilities on each floor, ensuring comfort and functionality for professional teams. Serious corporate clients are welcome to schedule a viewing.',
+    type: 'COMMERCIAL',
+    purpose: 'RENT',
+    status: 'AVAILABLE',
+    price: 2000000,
+    priceUnit: 'PKR',
+    priceType: 'monthly',
+    area: 5000,
+    areaUnit: 'sqft',
+    location: 'F-8/3 | Islamabad | F-8/3, Islamabad',
+    features: [
+      'Ground Floor + Lower Ground',
+      '2 Washrooms on Each Floor',
+      'Solar System Installed',
+      'Prime Location',
+      'Ideal for MNCs',
+      'Ideal for IT Firms',
+      'Open Layout'
+    ],
+    images: [],
+    videos: ['/videos/property2.mp4'],
+    isFeatured: true,
+    createdAt: new Date('2026-02-13'),
+    updatedAt: new Date('2026-02-13')
   }
 ];
 
 export const sectors = [
   'I-8', 'I-9', 'I-10', 'I-10/1', 'I-11',
-  'F-6', 'F-7', 'F-8', 'F-10', 'F-11',
+  'F-6', 'F-7', 'F-8', 'F-8/3', 'F-10', 'F-11',
   'E-11', 'E-7',
   'G-6', 'G-8', 'G-9', 'G-10', 'G-11',
   'Blue Area',
