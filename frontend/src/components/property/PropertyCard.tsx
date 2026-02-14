@@ -41,12 +41,12 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
   const getTypeBadge = () => {
     const colors = {
-      INDUSTRIAL: 'bg-amber-500/90',
-      COMMERCIAL: 'bg-blue-500/90',
-      RESIDENTIAL: 'bg-emerald-500/90',
+      INDUSTRIAL: 'bg-secondary text-secondary-foreground',
+      COMMERCIAL: 'bg-primary text-primary-foreground',
+      RESIDENTIAL: 'bg-slate-600 text-white',
     };
     return (
-      <Badge className={`${colors[property.type]} text-white border-0 text-xs uppercase tracking-wider`}>
+      <Badge className={`${colors[property.type]} border-0 text-xs uppercase tracking-wider shadow-sm`}>
         {property.type}
       </Badge>
     );
@@ -144,7 +144,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         {/* Actions */}
         <div className="flex gap-2 pt-4 border-t border-border">
           <Link href={`/property/${property.id}`} className="flex-1">
-            <Button variant="outline" className="w-full group/btn">
+            <Button variant="luxury-outline" className="w-full group/btn">
               View Details
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
             </Button>

@@ -15,22 +15,22 @@ export default function AboutPage() {
 
     const team = [
         {
-            name: 'Mudassar Ahmad Khan',
-            role: 'CEO & Founder',
+            name: 'Junaid Khan Swati',
+            role: 'Founder',
             // expertise: 'Commercial Properties',
+            image: '/images/team/Founderr.jpeg'
+        },
+        {
+            name: 'Mudassar Ahmad Khan',
+            role: 'CEO',
+            // expertise: 'Industrial Leasing',
             image: '/images/team/Founder.jpeg'
         },
         {
             name: 'Shahbaz Khalid',
             role: 'Senior Consultant',
-            // expertise: 'Industrial Leasing',
-            image: '/images/team/Consultant.jpeg'
-        },
-        {
-            name: 'Junaid Khan Swati',
-            role: 'Founder',
             // expertise: 'Residential Sales',
-            image: '/images/team/Founderr.jpeg'
+            image: '/images/team/Consultant.jpeg'
         },
         {
             name: 'Syed Waleed Ahsan',

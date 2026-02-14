@@ -17,10 +17,12 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         // Premium variants for real estate platform
         hero: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-premium hover:shadow-lg font-semibold tracking-wide uppercase text-xs",
-        heroOutline: "border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-secondary font-semibold tracking-wide uppercase text-xs",
-        premium: "bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 shadow-premium font-semibold",
+        heroOutline: "border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary font-semibold tracking-wide uppercase text-xs",
+        premium: "bg-gradient-to-r from-primary to-[#1e293b] text-primary-foreground hover:opacity-90 shadow-premium font-semibold",
         dark: "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md hover:shadow-lg",
         whatsapp: "bg-[#25D366] text-white hover:bg-[#20BD5A] shadow-md hover:shadow-lg font-medium",
+        luxury: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm uppercase tracking-wider text-xs font-semibold",
+        "luxury-outline": "border border-primary text-primary hover:bg-primary hover:text-primary-foreground uppercase tracking-wider text-xs font-semibold",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -41,7 +43,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "hero" | "heroOutline" | "premium" | "dark" | "whatsapp";
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "hero" | "heroOutline" | "premium" | "dark" | "whatsapp" | "luxury" | "luxury-outline";
   size?: "default" | "sm" | "lg" | "xl" | "icon";
 }
 
