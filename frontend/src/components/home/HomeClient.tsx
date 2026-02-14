@@ -74,9 +74,9 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
 
     const stats = [
         { number: 500, suffix: '+', label: 'Properties Listed' },
-        { number: 15, suffix: '+', label: 'Years Experience' },
+        { number: 6, suffix: '+', label: 'Years Experience' },
         { number: 1000, suffix: '+', label: 'Happy Clients' },
-        { number: 50, suffix: '+', label: 'Expert Agents' },
+        { number: 8, suffix: '+', label: 'Expert Agents' },
     ];
 
     const whyUs = [
@@ -162,12 +162,12 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                     </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 bg-secondary/95 backdrop-blur-md border-t border-white/10">
+                <div className="absolute bottom-0 left-0 right-0 bg-primary/95 backdrop-blur-md border-t border-white/10">
                     <div className="section-container py-6">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {stats.map((stat, index) => (
                                 <div key={index} className="text-center">
-                                    <p className="font-display text-2xl md:text-3xl font-bold text-primary">
+                                    <p className="font-display text-2xl md:text-3xl font-bold text-secondary">
                                         <Counter end={stat.number} suffix={stat.suffix} />
                                     </p>
                                     <p className="text-secondary-foreground/70 text-sm">{stat.label}</p>

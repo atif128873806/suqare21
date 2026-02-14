@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-6">
               <div>
                 <h3 className="font-display text-xl font-semibold">
-                  Square<span className="text-red-600">21</span>
+                  Square<span className="text-secondary">21</span>
                 </h3>
                 <p className="text-primary-foreground/60 text-xs uppercase tracking-widest">Marketing</p>
               </div>

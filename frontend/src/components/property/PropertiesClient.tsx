@@ -41,7 +41,7 @@ export default function PropertiesClient({ initialProperties }: PropertiesClient
     return (
         <div className="min-h-screen bg-muted/30">
             {/* Header */}
-            <section className="bg-secondary text-secondary-foreground py-20">
+            <section className="bg-primary text-primary-foreground py-20">
                 <div className="section-container">
                     <span className="text-primary text-sm font-semibold uppercase tracking-wider">Explore Our Portfolio</span>
                     <h1 className="font-display text-4xl md:text-5xl font-bold mt-2 mb-4">Property Listings</h1>

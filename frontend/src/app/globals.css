@@ -24,10 +24,10 @@
     --primary: 222 47% 11%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Muted Gold (Accent/Premium) */
-    --secondary: 38 45% 56%;
-    --secondary-foreground: 222 47% 11%;
-    /* Navy on Gold */
+    /* Secondary: Vibrant Red (Brand/Attention) */
+    --secondary: 0 84% 60%;
+    --secondary-foreground: 0 0% 100%;
+    /* White on Red */
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215 16% 47%;
@@ -77,11 +77,11 @@
     --popover-foreground: 210 40% 98%;
 
     --primary: 38 45% 56%;
-    /* Gold as Primary in Dark Mode */
+    /* Gold as Primary in Dark Mode - Optional, maybe keep logic */
     --primary-foreground: 222 47% 11%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 84% 60%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
