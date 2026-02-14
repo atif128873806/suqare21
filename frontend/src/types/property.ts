@@ -11,7 +11,7 @@ export interface Property {
   status: PropertyStatus;
   price: number;
   priceUnit: 'PKR' | 'USD';
-  priceType: 'monthly' | 'yearly' | 'total';
+  priceType: 'monthly' | 'yearly' | 'total' | 'per_sqft';
   area: number;
   areaUnit: 'sqft' | 'sqm' | 'marla' | 'kanal';
   location: string;

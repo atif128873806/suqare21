@@ -111,7 +111,9 @@ const PropertyList = ({ properties, isLoading, onEdit, onDelete, onCreate }: Pro
                                         </div>
                                         <div>
                                             <span className="text-xs text-muted-foreground">Price:</span>
-                                            <span className="font-medium ml-1 text-xs">{formatPrice(property.price)}</span>
+                                            <span className="font-medium ml-1 text-xs">
+                                                {property.price > 0 ? formatPrice(property.price) : 'On Request'}
+                                            </span>
                                         </div>
                                         <div>
                                             <span className="text-xs text-muted-foreground">Status:</span>
@@ -196,10 +198,14 @@ const PropertyList = ({ properties, isLoading, onEdit, onDelete, onCreate }: Pro
                                                     </span>
                                                 </td>
                                                 <td className="px-4 py-3">
-                                                    <span className="font-medium">{formatPrice(property.price)}</span>
-                                                    <span className="text-xs text-muted-foreground block">
-                                                        {property.priceType === 'monthly' ? '/month' : property.priceType === 'yearly' ? '/year' : ''}
+                                                    <span className="font-medium">
+                                                        {property.price > 0 ? formatPrice(property.price) : 'On Request'}
                                                     </span>
+                                                    {property.price > 0 && (
+                                                        <span className="text-xs text-muted-foreground block">
+                                                            {property.priceType === 'monthly' ? '/month' : property.priceType === 'yearly' ? '/year' : ''}
+                                                        </span>
+                                                    )}
                                                 </td>
                                                 <td className="px-4 py-3">
                                                     {getStatusBadge(property.status)}

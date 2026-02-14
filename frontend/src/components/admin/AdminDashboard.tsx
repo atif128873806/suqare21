@@ -368,7 +368,9 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
                                                         </p>
                                                     </div>
                                                     <div className="text-right hidden sm:block">
-                                                        <p className="font-bold text-slate-900 text-sm">PKR {property.price.toLocaleString()}</p>
+                                                        <p className="font-bold text-slate-900 text-sm">
+                                                            {property.price > 0 ? `PKR ${property.price.toLocaleString()}` : 'On Request'}
+                                                        </p>
                                                         {getStatusBadge(property.status)}
                                                     </div>
                                                 </div>

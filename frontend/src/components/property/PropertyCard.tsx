@@ -90,12 +90,18 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
         {/* Price */}
         <div className="absolute bottom-4 left-4 right-4">
-          <p className="text-white font-display text-2xl font-semibold">
-            {formatPrice(property.price)}
-            <span className="text-sm font-body font-normal text-white/80">
-              {property.priceType === 'monthly' ? ' /month' : property.priceType === 'yearly' ? ' /year' : ''}
-            </span>
-          </p>
+          {property.price > 0 ? (
+            <p className="text-white font-display text-2xl font-semibold">
+              {formatPrice(property.price)}
+              <span className="text-sm font-body font-normal text-white/80">
+                {property.priceType === 'monthly' ? ' /month' : property.priceType === 'yearly' ? ' /year' : property.priceType === 'per_sqft' ? ' /sqft' : ''}
+              </span>
+            </p>
+          ) : (
+            <p className="text-white font-display text-xl font-semibold">
+              Rental Spaces Available
+            </p>
+          )}
         </div>
       </div>
 
@@ -114,10 +120,12 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
                 : property.location}
             </span>
           </div>
-          <div className="flex items-center gap-1">
-            <Ruler className="w-4 h-4" />
-            <span>{property.area.toLocaleString()} {property.areaUnit}</span>
-          </div>
+          {property.area > 0 && (
+            <div className="flex items-center gap-1">
+              <Ruler className="w-4 h-4" />
+              <span>{property.area.toLocaleString()} {property.areaUnit}</span>
+            </div>
+          )}
         </div>
 
         <p className="text-muted-foreground text-sm line-clamp-2 mb-4">

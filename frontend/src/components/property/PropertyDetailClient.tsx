@@ -112,20 +112,28 @@ export default function PropertyDetailClient({ property }: PropertyDetailClientP
                                     <div>
                                         <p className="text-muted-foreground text-sm mb-1">Price</p>
                                         <p className="font-display text-3xl font-bold text-primary">
-                                            {formatPrice(property.price)}
-                                            <span className="text-lg font-normal text-muted-foreground">
-                                                {property.priceType === 'monthly' ? ' /month' : property.priceType === 'yearly' ? ' /year' : ''}
-                                            </span>
+                                            {property.price > 0 ? (
+                                                <>
+                                                    {formatPrice(property.price)}
+                                                    <span className="text-lg font-normal text-muted-foreground">
+                                                        {property.priceType === 'monthly' ? ' /month' : property.priceType === 'yearly' ? ' /year' : property.priceType === 'per_sqft' ? ' /sqft' : ''}
+                                                    </span>
+                                                </>
+                                            ) : (
+                                                <span className="text-2xl">Rental Spaces Available</span>
+                                            )}
                                         </p>
                                     </div>
                                     <div className="flex gap-6">
-                                        <div className="text-center">
-                                            <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                                                <Ruler className="w-4 h-4" />
-                                                <span className="text-sm">Area</span>
+                                        {property.area > 0 && (
+                                            <div className="text-center">
+                                                <div className="flex items-center gap-2 text-muted-foreground mb-1">
+                                                    <Ruler className="w-4 h-4" />
+                                                    <span className="text-sm">Area</span>
+                                                </div>
+                                                <p className="font-semibold">{property.area.toLocaleString()} {property.areaUnit}</p>
                                             </div>
-                                            <p className="font-semibold">{property.area.toLocaleString()} {property.areaUnit}</p>
-                                        </div>
+                                        )}
                                         <div className="text-center">
                                             <div className="flex items-center gap-2 text-muted-foreground mb-1">
                                                 <MapPin className="w-4 h-4" />
