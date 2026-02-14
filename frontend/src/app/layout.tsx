@@ -80,7 +80,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning={true}>
         <AuthProvider>
           {children}
           <Toaster />

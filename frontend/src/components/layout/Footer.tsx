@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-xl">S</span>
               </div>
               <div>
@@ -24,13 +24,13 @@ const Footer = () => {
               Islamabad&apos;s premier real estate agency specializing in industrial, commercial, and residential properties across CDA sectors.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 rounded bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 rounded bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 rounded bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>

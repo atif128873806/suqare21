@@ -4,54 +4,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Square21 Marketing - Premium Real Estate Design System */
-/* Colors: Red, Black, White - Corporate, Trustworthy, Premium */
+/* Square21 Marketing - Professional Business Design System */
+/* Colors: Red, Black, White - Corporate, Trustworthy, Bold */
 
 @layer base {
   :root {
     /* Core brand colors */
     --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
-    /* Lightened from 5% to 15% */
+    /* Pure White */
+    --foreground: 0 0% 10%;
+    /* Very Dark Black/Gray */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Primary: Vibrant Light Red (Brighter) */
-    --primary: 0 95% 55%;
+    /* Primary: Professional Red (Bold, not Neon) */
+    --primary: 354 70% 54%;
+    /* #D93025 equivalent or similar professional red */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Rich Black */
-    --secondary: 0 0% 10%;
-    /* Slightly lighter black */
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary: Deep Black/Charcoal */
+    --secondary: 0 0% 0%;
+    /* Pure Black */
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 50%;
-    /* Lightened from 45% */
+    --muted-foreground: 0 0% 40%;
 
-    /* Accent: Even Lighter Red */
-    --accent: 0 95% 65%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent: Darker Red or Charcoal */
+    --accent: 0 0% 96%;
+    /* Light gray for subtle accents */
+    --accent-foreground: 0 0% 10%;
 
-    --destructive: 0 84% 65%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 95% 60%;
+    --ring: 354 70% 54%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
+    /* Sharper corners for business look */
 
-    /* Custom tokens for real estate platform */
-    --hero-gradient: linear-gradient(135deg, hsl(0, 0%, 5%) 0%, hsl(0, 0%, 15%) 100%);
-    --card-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.1);
-    --card-shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.15);
-    --premium-gold: 45 90% 50%;
-    --success: 142 76% 36%;
+    /* Custom tokens */
+    --success: 142 70% 30%;
     --success-foreground: 0 0% 100%;
 
     /* Typography */
@@ -59,18 +58,19 @@
     --font-body: 'Inter', sans-serif;
 
     /* Sidebar */
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 84% 45%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 354 70% 54%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 0 84% 45%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 354 70% 54%;
   }
 
   .dark {
     --background: 0 0% 5%;
+    /* Very Dark Gray */
     --foreground: 0 0% 98%;
 
     --card: 0 0% 8%;
@@ -79,34 +79,35 @@
     --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 95% 65%;
+    --primary: 354 70% 54%;
+    /* Keep Red consistent */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
-    /* Lightened from 65% */
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 0 95% 75%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 0% 12%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    /* Darker red for destructive */
+    --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 95% 65%;
+    --ring: 354 70% 54%;
 
-    --sidebar-background: 0 0% 3%;
+    --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 95% 65%;
+    --sidebar-primary: 354 70% 54%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 12%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 0 95% 65%;
+    --sidebar-ring: 354 70% 54%;
   }
 }
 
@@ -127,98 +128,67 @@
   h5,
   h6 {
     font-family: var(--font-display);
+    @apply tracking-tight;
   }
 }
 
 @layer components {
 
-  /* Hero section styles */
+  /* Clean Professional Hero */
   .hero-section {
-    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
-    background: var(--hero-gradient);
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden bg-background;
+    /* Optional: Minimal pattern or solid color instead of heavy gradient */
   }
 
-  .hero-overlay {
-    @apply absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70;
-  }
-
-  /* Premium card styles */
+  /* Professional Card */
   .property-card {
-    @apply bg-card rounded-lg overflow-hidden transition-all duration-300;
-    box-shadow: var(--card-shadow);
+    @apply bg-card rounded border border-border overflow-hidden transition-all duration-200;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .property-card:hover {
-    @apply -translate-y-1;
-    box-shadow: var(--card-shadow-hover);
+    @apply border-primary/50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  /* Section container */
+  /* Section Container */
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Premium button styles */
+  /* Professional Button */
   .btn-premium {
-    @apply relative overflow-hidden transition-all duration-300;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-6 py-2 uppercase tracking-wide;
   }
 
-  .btn-premium::after {
-    content: '';
-    @apply absolute inset-0 bg-white/10 translate-x-[-100%] transition-transform duration-300;
-  }
-
-  .btn-premium:hover::after {
-    @apply translate-x-0;
-  }
-
-  /* Badge styles */
+  /* Badge Styles */
   .badge-premium {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wider;
   }
 
   .badge-available {
-    @apply bg-success text-success-foreground;
+    @apply bg-success/10 text-success border border-success/20;
   }
 
   .badge-rented {
-    @apply bg-accent text-accent-foreground;
+    @apply bg-muted text-muted-foreground border border-border;
   }
 
   .badge-sold {
     @apply bg-secondary text-secondary-foreground;
   }
 
-  /* Glass effect */
-  .glass-effect {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
-  }
-
-  /* Animated underline */
-  .animated-underline {
-    @apply relative;
-  }
-
-  .animated-underline::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
-  }
-
-  .animated-underline:hover::after {
-    @apply w-full;
-  }
-
-  /* Chatbot container */
+  /* Chatbot Container */
   .chatbot-container {
     @apply fixed bottom-6 right-6 z-50;
   }
 
   .chatbot-bubble {
-    @apply w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg cursor-pointer transition-transform duration-300 hover:scale-110;
+    @apply w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg cursor-pointer transition-transform duration-200 hover:scale-105;
   }
 
   .chatbot-window {
-    @apply absolute bottom-20 right-0 w-96 h-[500px] bg-card rounded-2xl shadow-2xl overflow-hidden border border-border;
+    @apply absolute bottom-20 right-0 w-96 h-[500px] bg-card rounded-lg shadow-xl overflow-hidden border border-border;
   }
 }
 
@@ -227,21 +197,12 @@
     text-wrap: balance;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
-
+  /* Minimal animations only */
   .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 0.5s ease-out forwards;
     opacity: 0;
   }
 
-  /* Scrollbar hide utility */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -251,10 +212,6 @@
     display: none;
   }
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -262,30 +219,6 @@
 
     to {
       opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-10px);
     }
   }
 }
