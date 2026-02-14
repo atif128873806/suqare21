@@ -10,12 +10,9 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-secondary rounded flex items-center justify-center">
-                <span className="text-secondary-foreground font-display font-bold text-xl">S</span>
-              </div>
               <div>
                 <h3 className="font-display text-xl font-semibold">
-                  Square<span className="text-secondary">21</span>
+                  Square<span className="text-red-600">21</span>
                 </h3>
                 <p className="text-primary-foreground/60 text-xs uppercase tracking-widest">Marketing</p>
               </div>

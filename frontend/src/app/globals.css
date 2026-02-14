@@ -136,6 +136,11 @@
     /* Optional: Minimal pattern or solid color instead of heavy gradient */
   }
 
+  .hero-overlay {
+    @apply absolute inset-0 bg-primary/60 z-0;
+    /* Navy tint for brand consistency */
+  }
+
   /* Professional Card */
   .property-card {
     @apply bg-card rounded border border-border overflow-hidden transition-all duration-200;
@@ -215,6 +220,23 @@
 
     to {
       opacity: 1;
+    }
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

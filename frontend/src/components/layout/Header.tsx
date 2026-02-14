@@ -64,12 +64,9 @@ const Header = () => {
 
             {/* Logo (Center on Mobile, Left on Desktop) */}
             <Link href="/" className="flex items-center gap-2 lg:mr-8">
-              <div className="relative w-8 h-8 lg:w-10 lg:h-10">
-                <img src="/logo.png" alt="Square21" className="object-contain w-full h-full" />
-              </div>
               <div className="block">
                 <h1 className="text-primary font-display text-lg lg:text-xl font-bold tracking-tight leading-none">
-                  Square<span className="text-secondary">21</span>
+                  Square<span className="text-red-600">21</span>
                 </h1>
                 <p className="text-muted-foreground text-[0.6rem] lg:text-xs uppercase tracking-[0.2em] leading-none mt-0.5">
                   Marketing

@@ -9,6 +9,7 @@ import { ArrowRight, Building2, Warehouse, Home, TrendingUp, Phone, MessageCircl
 import Image from 'next/image';
 import { Property } from '@/types/property';
 import heroBuilding from '@/assets/hero-building.jpg';
+import Counter from '@/components/ui/counter';
 
 interface HomeClientProps {
     initialProperties: Property[];
@@ -72,10 +73,10 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
     ];
 
     const stats = [
-        { value: '500+', label: 'Properties Listed' },
-        { value: '15+', label: 'Years Experience' },
-        { value: '1000+', label: 'Happy Clients' },
-        { value: '50+', label: 'Expert Agents' },
+        { number: 500, suffix: '+', label: 'Properties Listed' },
+        { number: 15, suffix: '+', label: 'Years Experience' },
+        { number: 1000, suffix: '+', label: 'Happy Clients' },
+        { number: 50, suffix: '+', label: 'Expert Agents' },
     ];
 
     const whyUs = [
@@ -146,13 +147,13 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                                 <span className="text-white/90 text-sm">Pakistan Most Trusted Agency</span>
                             </div>
 
-                            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 animate-slide-up">
-                                Bright Homes
-                                <span className="block text-primary">Luxury Real Estate</span>
+                            <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 animate-slide-up tracking-tight">
+                                Square21
+                                <span className="block text-primary">Marketing</span>
                             </h1>
 
-                            <p className="text-white/80 text-base md:text-lg mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                                Bright Homes gracefully facilitates real estate business owners by making property management easier & affordable.
+                            <p className="text-white/80 text-sm md:text-lg mb-8 animate-slide-up leading-relaxed" style={{ animationDelay: '0.1s' }}>
+                                Your trusted partner for commercial, industrial, and residential properties in Islamabad. We are dedicated to making your real estate journey smooth, successful, and rewarding.
                             </p>
                         </div>
 
@@ -166,13 +167,17 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {stats.map((stat, index) => (
                                 <div key={index} className="text-center">
-                                    <p className="font-display text-2xl md:text-3xl font-bold text-primary">{stat.value}</p>
+                                    <p className="font-display text-2xl md:text-3xl font-bold text-primary">
+                                        <Counter end={stat.number} suffix={stat.suffix} />
+                                    </p>
                                     <p className="text-secondary-foreground/70 text-sm">{stat.label}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
+
+
             </section>
 
             {/* Recent Listings Section */}
@@ -417,7 +422,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
 
             {/* Our Agents Section */}
             {/* <section className="py-24 bg-[#f8f9fa]"> */}
-                {/* <div className="section-container">
+            {/* <div className="section-container">
                     <div className="text-center mb-16">
                         <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4">Our Agents</h2>
                         <div className="w-24 h-1 bg-primary mx-auto mb-6 opacity-30"></div>
@@ -426,11 +431,11 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                         </p>
                     </div> */}
 
-                    {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {agents.map((agent, index) => (
                             <div key={index} className="bg-white rounded-2xl p-8 pt-12 shadow-sm border border-border/50 hover:shadow-xl transition-all duration-500 group relative mt-10"> */}
-                                {/* Agent Image Container */}
-                                {/* <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-2xl overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-500">
+            {/* Agent Image Container */}
+            {/* <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-2xl overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-500">
                                     <Image
                                         src={agent.image}
                                         alt={agent.name}
@@ -440,7 +445,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                                     />
                                 </div> */}
 
-                                {/* <div className="text-center">
+            {/* <div className="text-center">
                                     <div className="flex items-center justify-center gap-1.5 mb-3 mt-4">
                                         <h3 className="font-display text-xl font-bold text-[#1a1a1a] group-hover:text-primary transition-colors">
                                             {agent.name}
@@ -450,7 +455,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                                         </div>
                                     </div> */}
 
-                                    {/* <div className="space-y-1.5 mb-6">
+            {/* <div className="space-y-1.5 mb-6">
                                         <p className="text-primary font-semibold text-sm">
                                             {agent.phone}
                                         </p>
@@ -459,7 +464,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                                         </p>
                                     </div> */}
 
-                                    {/* <div className="mb-8 p-4 bg-muted/30 rounded-xl group-hover:bg-primary/5 transition-colors duration-500">
+            {/* <div className="mb-8 p-4 bg-muted/30 rounded-xl group-hover:bg-primary/5 transition-colors duration-500">
                                         <p className="text-primary text-2xl font-bold mb-1">{agent.listedProperties}</p>
                                         <p className="text-muted-foreground text-[11px] uppercase tracking-wider font-semibold">Listed Properties</p>
                                     </div>
