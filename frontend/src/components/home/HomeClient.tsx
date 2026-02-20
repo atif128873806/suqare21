@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -10,14 +10,28 @@ import Image from 'next/image';
 import { Property } from '@/types/property';
 import heroBuilding from '@/assets/hero-building.jpg';
 import Counter from '@/components/ui/counter';
-
+import GallerySection from './GallerySection';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+    type CarouselApi,
+} from '@/components/ui/carousel';
 interface HomeClientProps {
     initialProperties: Property[];
 }
 
 export default function HomeClient({ initialProperties }: HomeClientProps) {
-    const [residentialIndex, setResidentialIndex] = useState(0);
-    const [commercialIndex, setCommercialIndex] = useState(0);
+    const [residentialApi, setResidentialApi] = useState<CarouselApi>();
+    const [commercialApi, setCommercialApi] = useState<CarouselApi>();
+
+    const [residentialCurrent, setResidentialCurrent] = useState(0);
+    const [residentialCount, setResidentialCount] = useState(0);
+
+    const [commercialCurrent, setCommercialCurrent] = useState(0);
+    const [commercialCount, setCommercialCount] = useState(0);
 
     const residentialProperties = useMemo(() =>
         initialProperties.filter((p) => p.type === 'RESIDENTIAL'),
@@ -29,21 +43,23 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
         [initialProperties]
     );
 
-    const nextResidentialSlide = () => {
-        setResidentialIndex((prev) => (prev + 1) % Math.max(1, residentialProperties.length - 2));
-    };
+    useEffect(() => {
+        if (!residentialApi) return;
+        setResidentialCount(residentialApi.scrollSnapList().length);
+        setResidentialCurrent(residentialApi.selectedScrollSnap());
+        residentialApi.on("select", () => {
+            setResidentialCurrent(residentialApi.selectedScrollSnap());
+        });
+    }, [residentialApi]);
 
-    const prevResidentialSlide = () => {
-        setResidentialIndex((prev) => (prev - 1 + Math.max(1, residentialProperties.length - 2)) % Math.max(1, residentialProperties.length - 2));
-    };
-
-    const nextCommercialSlide = () => {
-        setCommercialIndex((prev) => (prev + 1) % Math.max(1, commercialProperties.length - 2));
-    };
-
-    const prevCommercialSlide = () => {
-        setCommercialIndex((prev) => (prev - 1 + Math.max(1, commercialProperties.length - 2)) % Math.max(1, commercialProperties.length - 2));
-    };
+    useEffect(() => {
+        if (!commercialApi) return;
+        setCommercialCount(commercialApi.scrollSnapList().length);
+        setCommercialCurrent(commercialApi.selectedScrollSnap());
+        commercialApi.on("select", () => {
+            setCommercialCurrent(commercialApi.selectedScrollSnap());
+        });
+    }, [commercialApi]);
 
     const services = [
         {
@@ -221,68 +237,52 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
 
             {/* Residential Listing Section */}
             <section className="py-16 bg-muted/30 relative overflow-hidden">
-                {/* Left Navigation Arrow */}
-                <div className="hidden lg:block absolute left-4 top-1/2 -translate-y-1/2 z-10">
-                    <button
-                        onClick={prevResidentialSlide}
-                        className="w-12 h-12 bg-white/80 hover:bg-primary hover:text-white text-primary rounded-full shadow-lg flex items-center justify-center transition-all border border-primary/20"
-                        disabled={residentialProperties.length <= 3}
-                    >
-                        <ArrowRight className="w-6 h-6 rotate-180" />
-                    </button>
-                </div>
+                <Carousel
+                    setApi={setResidentialApi}
+                    opts={{ align: "start" }}
+                    className="w-full relative"
+                >
+                    <CarouselPrevious className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg left-4 z-10" />
+                    <CarouselNext className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg right-4 z-10" />
 
-                {/* Right Navigation Arrow */}
-                <div className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2 z-10">
-                    <button
-                        onClick={nextResidentialSlide}
-                        className="w-12 h-12 bg-white/80 hover:bg-primary hover:text-white text-primary rounded-full shadow-lg flex items-center justify-center transition-all border border-primary/20"
-                        disabled={residentialProperties.length <= 3}
-                    >
-                        <ArrowRight className="w-6 h-6" />
-                    </button>
-                </div>
+                    <div className="section-container">
+                        <div className="text-center mb-10">
+                            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Residential Listing</h2>
+                            <p className="text-muted-foreground">Check out some of our Rental properties.</p>
+                        </div>
 
-                <div className="section-container">
-                    <div className="text-center mb-10">
-                        <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Residential Listing</h2>
-                        <p className="text-muted-foreground">Check out some of our Rental properties.</p>
-                    </div>
+                        {/* Property Grid with simple transition effect */}
+                        <div className="overflow-hidden">
+                            <CarouselContent className="-ml-6">
+                                {residentialProperties.map((property) => (
+                                    <CarouselItem key={property.id} className="pl-6 basis-full md:basis-1/2 lg:basis-1/3">
+                                        <PropertyCard property={property} />
+                                    </CarouselItem>
+                                ))}
+                                {residentialProperties.length === 0 && (
+                                    <div className="w-full py-12 text-center text-muted-foreground">
+                                        No residential properties available at the moment.
+                                    </div>
+                                )}
+                            </CarouselContent>
+                        </div>
 
-                    {/* Property Grid with simple transition effect */}
-                    <div className="overflow-hidden">
-                        <div
-                            className="flex gap-6 transition-transform duration-500 ease-in-out"
-                            style={{ transform: `translateX(-${residentialIndex * (100 / 3)}%)` }}
-                        >
-                            {residentialProperties.map((property) => (
-                                <div key={property.id} className="min-w-full md:min-w-[48%] lg:min-w-[31.5%]">
-                                    <PropertyCard property={property} />
-                                </div>
+                        {/* Pagination Dots - Centered below grid for all devices */}
+                        <div className="flex justify-center items-center gap-3 mt-10 relative z-20">
+                            {Array.from({ length: residentialCount }).map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => residentialApi?.scrollTo(index)}
+                                    className={`rounded-full transition-all ${index === residentialCurrent
+                                        ? 'bg-primary w-8 h-2.5'
+                                        : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
+                                        }`}
+                                    aria-label={`Go to slide ${index + 1}`}
+                                />
                             ))}
-                            {residentialProperties.length === 0 && (
-                                <div className="w-full py-12 text-center text-muted-foreground">
-                                    No residential properties available at the moment.
-                                </div>
-                            )}
                         </div>
                     </div>
-
-                    {/* Pagination Dots - Centered below grid for all devices */}
-                    <div className="flex justify-center items-center gap-3 mt-10">
-                        {Array.from({ length: Math.max(1, residentialProperties.length - 2) }).map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setResidentialIndex(index)}
-                                className={`rounded-full transition-all ${index === residentialIndex
-                                    ? 'bg-primary w-8 h-2.5'
-                                    : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
-                                    }`}
-                                aria-label={`Go to slide ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                </div>
+                </Carousel>
             </section>
 
 
@@ -314,76 +314,60 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
 
             {/* Commercial Listing Section */}
             <section className="py-20 relative overflow-hidden">
-                {/* Left Navigation Arrow */}
-                <div className="hidden lg:block absolute left-4 top-1/2 -translate-y-1/2 z-10">
-                    <button
-                        onClick={prevCommercialSlide}
-                        className="w-12 h-12 bg-white/80 hover:bg-primary hover:text-white text-primary rounded-full shadow-lg flex items-center justify-center transition-all border border-primary/20"
-                        disabled={commercialProperties.length <= 3}
-                    >
-                        <ArrowRight className="w-6 h-6 rotate-180" />
-                    </button>
-                </div>
+                <Carousel
+                    setApi={setCommercialApi}
+                    opts={{ align: "start" }}
+                    className="w-full relative"
+                >
+                    <CarouselPrevious className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg left-4 z-10" />
+                    <CarouselNext className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg right-4 z-10" />
 
-                {/* Right Navigation Arrow */}
-                <div className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2 z-10">
-                    <button
-                        onClick={nextCommercialSlide}
-                        className="w-12 h-12 bg-white/80 hover:bg-primary hover:text-white text-primary rounded-full shadow-lg flex items-center justify-center transition-all border border-primary/20"
-                        disabled={commercialProperties.length <= 3}
-                    >
-                        <ArrowRight className="w-6 h-6" />
-                    </button>
-                </div>
-
-                <div className="section-container">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                        <div>
-                            <span className="text-primary text-sm font-semibold uppercase tracking-wider">Commercial Properties</span>
-                            <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">Commercial Listing</h2>
+                    <div className="section-container">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 relative z-20">
+                            <div>
+                                <span className="text-primary text-sm font-semibold uppercase tracking-wider">Commercial Properties</span>
+                                <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">Commercial Listing</h2>
+                            </div>
+                            <Link href="/properties?type=COMMERCIAL" className="mt-4 md:mt-0">
+                                <Button variant="outline" className="group">
+                                    View All Commercial
+                                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                                </Button>
+                            </Link>
                         </div>
-                        <Link href="/properties?type=COMMERCIAL" className="mt-4 md:mt-0">
-                            <Button variant="outline" className="group">
-                                View All Commercial
-                                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                            </Button>
-                        </Link>
-                    </div>
 
-                    {/* Property Grid with simple transition effect */}
-                    <div className="overflow-hidden">
-                        <div
-                            className="flex gap-6 transition-transform duration-500 ease-in-out"
-                            style={{ transform: `translateX(-${commercialIndex * (100 / 3)}%)` }}
-                        >
-                            {commercialProperties.map((property) => (
-                                <div key={property.id} className="min-w-full md:min-w-[48%] lg:min-w-[31.5%]">
-                                    <PropertyCard property={property} />
-                                </div>
+                        {/* Property Grid with simple transition effect */}
+                        <div className="overflow-hidden">
+                            <CarouselContent className="-ml-6">
+                                {commercialProperties.map((property) => (
+                                    <CarouselItem key={property.id} className="pl-6 basis-full md:basis-1/2 lg:basis-1/3">
+                                        <PropertyCard property={property} />
+                                    </CarouselItem>
+                                ))}
+                                {commercialProperties.length === 0 && (
+                                    <div className="w-full py-12 text-center text-muted-foreground">
+                                        No commercial properties available at the moment.
+                                    </div>
+                                )}
+                            </CarouselContent>
+                        </div>
+
+                        {/* Pagination Dots - Centered below grid */}
+                        <div className="flex justify-center items-center gap-3 mt-10 relative z-20">
+                            {Array.from({ length: commercialCount }).map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => commercialApi?.scrollTo(index)}
+                                    className={`rounded-full transition-all ${index === commercialCurrent
+                                        ? 'bg-primary w-8 h-2.5'
+                                        : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
+                                        }`}
+                                    aria-label={`Go to slide ${index + 1}`}
+                                />
                             ))}
-                            {commercialProperties.length === 0 && (
-                                <div className="w-full py-12 text-center text-muted-foreground">
-                                    No commercial properties available at the moment.
-                                </div>
-                            )}
                         </div>
                     </div>
-
-                    {/* Pagination Dots - Centered below grid */}
-                    <div className="flex justify-center items-center gap-3 mt-10">
-                        {Array.from({ length: Math.max(1, commercialProperties.length - 2) }).map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCommercialIndex(index)}
-                                className={`rounded-full transition-all ${index === commercialIndex
-                                    ? 'bg-primary w-8 h-2.5'
-                                    : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
-                                    }`}
-                                aria-label={`Go to slide ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                </div>
+                </Carousel>
             </section>
             {/* Services Section */}
             <section className="py-20 bg-muted/30">
@@ -419,6 +403,9 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                     </div>
                 </div>
             </section>
+
+            {/* Gallery Section */}
+            {/* <GallerySection /> */}
 
             {/* Our Agents Section */}
             {/* <section className="py-24 bg-[#f8f9fa]"> */}
