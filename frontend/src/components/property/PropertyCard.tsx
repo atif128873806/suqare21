@@ -6,7 +6,7 @@ import { Property } from '@/types/property';
 import { formatPrice } from '@/data/properties';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MapPin, Ruler, Phone, MessageCircle, ArrowRight } from 'lucide-react';
+import { MapPin, Ruler, Building, ArrowRight } from 'lucide-react';
 
 interface PropertyCardProps {
   property: Property;
@@ -16,11 +16,11 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
   const getStatusBadge = () => {
     switch (property.status) {
       case 'AVAILABLE':
-        return <Badge className="badge-premium badge-available">Available</Badge>;
+        return <Badge className="bg-success text-success-foreground hover:bg-success border-0 px-3 py-1 text-xs uppercase tracking-wider font-bold">Available</Badge>;
       case 'RENTED':
-        return <Badge className="badge-premium badge-rented">Rented</Badge>;
+        return <Badge className="bg-muted text-muted-foreground border-border px-3 py-1 text-xs uppercase tracking-wider font-bold">Rented</Badge>;
       case 'SOLD':
-        return <Badge className="badge-premium badge-sold">Sold</Badge>;
+        return <Badge className="bg-secondary text-secondary-foreground border-0 px-3 py-1 text-xs uppercase tracking-wider font-bold">Sold</Badge>;
       default:
         return null;
     }
@@ -33,7 +33,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       SALE: 'For Sale',
     };
     return (
-      <Badge variant="outline" className="bg-secondary/80 text-secondary-foreground border-0 text-xs uppercase tracking-wider">
+      <Badge variant="outline" className="bg-black/40 backdrop-blur-md text-white border-white/20 text-[10px] font-bold uppercase tracking-wider shadow-sm px-2.5 py-1">
         {labels[property.purpose]}
       </Badge>
     );
@@ -41,12 +41,12 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
   const getTypeBadge = () => {
     const colors = {
-      INDUSTRIAL: 'bg-secondary text-secondary-foreground',
-      COMMERCIAL: 'bg-primary text-primary-foreground',
-      RESIDENTIAL: 'bg-slate-600 text-white',
+      INDUSTRIAL: 'bg-secondary text-secondary-foreground', // Red
+      COMMERCIAL: 'bg-primary text-primary-foreground', // Navy/Black
+      RESIDENTIAL: 'bg-slate-700 text-white', // Dark Slate
     };
     return (
-      <Badge className={`${colors[property.type]} border-0 text-xs uppercase tracking-wider shadow-sm`}>
+      <Badge className={`${colors[property.type]} border-0 text-[10px] font-bold uppercase tracking-wider shadow-sm px-2.5 py-1`}>
         {property.type}
       </Badge>
     );
@@ -58,13 +58,13 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
   };
 
   return (
-    <div className="property-card group">
+    <div className="property-card group flex flex-col h-full bg-card rounded-2xl border border-border/60 overflow-hidden transition-all duration-500 p-4 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/20">
       {/* Media Container */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted flex-shrink-0 rounded-[14px] mb-5">
         {property.videos && property.videos.length > 0 && (!property.images || property.images.length === 0 || property.images[0] === '/assets/property-residential.jpg') ? (
           <video
             src={property.videos[0]}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             autoPlay
             muted
             loop
@@ -74,99 +74,82 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           <img
             src={getImageSrc(property.images?.[0])}
             alt={property.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Badges */}
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+        {/* Subtle Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 transition-opacity duration-500" />
+
+        {/* Badges on Image */}
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
           {getTypeBadge()}
           {getPurposeBadge()}
         </div>
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-4 right-4 z-10">
           {getStatusBadge()}
-        </div>
-
-        {/* Price */}
-        <div className="absolute bottom-4 left-4 right-4">
-          {property.price > 0 ? (
-            <p className="text-white font-display text-2xl font-semibold">
-              {formatPrice(property.price)}
-              <span className="text-sm font-body font-normal text-white/80">
-                {property.priceType === 'monthly' ? ' /month' : property.priceType === 'yearly' ? ' /year' : property.priceType === 'per_sqft' ? ' /sqft' : ''}
-              </span>
-            </p>
-          ) : (
-            <p className="text-white font-display text-xl font-semibold">
-              Rental Spaces Available
-            </p>
-          )}
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-5">
-        <h3 className="font-display text-lg font-semibold text-foreground mb-2 line-clamp-1 group-hover:text-primary transition-colors">
+      <div className="flex flex-col flex-grow relative px-1">
+        <h3 className="font-display text-[22px] font-bold text-foreground mb-2 line-clamp-1 group-hover:text-primary transition-colors duration-300">
           {property.title}
         </h3>
 
-        <div className="flex items-center gap-4 text-muted-foreground text-sm mb-4">
-          <div className="flex items-center gap-1">
-            <MapPin className="w-4 h-4" />
-            <span>
+        <div className="text-muted-foreground text-[15px] font-body mb-6 min-h-[4.5rem] leading-relaxed">
+          {property.description.length > 110
+            ? `${property.description.substring(0, 110).trim()}... `
+            : `${property.description} `}
+          <Link href={`/property/${property.id}`} className="inline-flex">
+            <span className="text-primary underline underline-offset-4 hover:text-secondary font-medium transition-colors cursor-pointer inline-block whitespace-nowrap">
+              Read More
+            </span>
+          </Link>
+        </div>
+
+        {/* Feature Pills */}
+        <div className="flex flex-wrap gap-3 mb-6">
+          {property.area > 0 && (
+            <div className="flex items-center gap-2.5 px-3.5 py-2 bg-muted/50 rounded-full border border-border/50 shadow-sm">
+              <Ruler className="w-[15px] h-[15px] text-muted-foreground" />
+              <span className="text-foreground text-[13px] font-medium tracking-wide">{property.area.toLocaleString()} {property.areaUnit}</span>
+            </div>
+          )}
+          <div className="flex items-center gap-2.5 px-3.5 py-2 bg-muted/50 rounded-full border border-border/50 shadow-sm">
+            <MapPin className="w-[15px] h-[15px] text-muted-foreground" />
+            <span className="text-foreground text-[13px] font-medium tracking-wide">
               {property.location.includes(' | ')
-                ? `${property.location.split(' | ')[0]}, ${property.location.split(' | ')[1]}`
+                ? property.location.split(' | ')[0]
                 : property.location}
             </span>
           </div>
-          {property.area > 0 && (
-            <div className="flex items-center gap-1">
-              <Ruler className="w-4 h-4" />
-              <span>{property.area.toLocaleString()} {property.areaUnit}</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2.5 px-3.5 py-2 bg-muted/50 rounded-full border border-border/50 shadow-sm">
+            <Building className="w-[15px] h-[15px] text-muted-foreground" />
+            <span className="text-foreground text-[13px] font-medium tracking-wide capitalize">{property.type.toLowerCase()}</span>
+          </div>
         </div>
 
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-          {property.description}
-        </p>
-
-        {/* Features */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {property.features.slice(0, 3).map((feature) => (
-            <span
-              key={feature}
-              className="text-xs px-2 py-1 bg-muted rounded-md text-muted-foreground"
-            >
-              {feature}
+        {/* Actions Bottom Row */}
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/40 gap-4">
+          {/* Price */}
+          <div className="flex flex-col flex-shrink-0 min-w-[110px]">
+            <span className="text-muted-foreground text-[13px] font-semibold mb-1">Price</span>
+            <span className="text-foreground font-body text-[22px] font-bold tracking-tight">
+              {property.price > 0 ? (
+                formatPrice(property.price)
+              ) : (
+                <span className="text-lg text-primary">Available</span>
+              )}
             </span>
-          ))}
-          {property.features.length > 3 && (
-            <span className="text-xs px-2 py-1 bg-muted rounded-md text-muted-foreground">
-              +{property.features.length - 3} more
-            </span>
-          )}
-        </div>
+          </div>
 
-        {/* Actions */}
-        <div className="flex gap-2 pt-4 border-t border-border">
-          <Link href={`/property/${property.id}`} className="flex-1">
-            <Button variant="luxury-outline" className="w-full group/btn">
-              View Details
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+          {/* CTA Button */}
+          <Link href={`/property/${property.id}`} className="flex-grow w-full">
+            <Button className="w-full bg-secondary text-white hover:bg-secondary/90 hover:shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all font-medium rounded-[10px] py-[22px] text-[14px] tracking-wide border-0 active:scale-[0.98]">
+              View Property Details
             </Button>
           </Link>
-          <a href="tel:+923083333818">
-            <Button variant="secondary" size="icon">
-              <Phone className="w-4 h-4" />
-            </Button>
-          </a>
-          <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
-            <Button variant="whatsapp" size="icon">
-              <MessageCircle className="w-4 h-4" />
-            </Button>
-          </a>
         </div>
       </div>
     </div>

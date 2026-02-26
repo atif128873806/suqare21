@@ -73,10 +73,10 @@ export default function PropertyDetailClient({ property }: PropertyDetailClientP
                 <div className="section-container relative z-10">
                     <div className="bg-card border border-border rounded-xl p-6 shadow-lg">
                         <div className="flex flex-wrap gap-2 mb-4">
-                            <Badge className="bg-primary text-primary-foreground uppercase tracking-wider">
+                            <Badge className={`${property.type === 'INDUSTRIAL' ? 'bg-secondary text-secondary-foreground' : property.type === 'COMMERCIAL' ? 'bg-primary text-primary-foreground' : 'bg-slate-700 text-white'} border-0 text-[10px] font-bold uppercase tracking-wider shadow-sm px-2.5 py-1`}>
                                 {property.type}
                             </Badge>
-                            <Badge variant="outline" className="uppercase tracking-wider">
+                            <Badge variant="outline" className="text-primary border-primary/20 text-[10px] font-bold uppercase tracking-wider shadow-sm px-2.5 py-1">
                                 For {property.purpose}
                             </Badge>
                             {getStatusBadge()}
@@ -110,17 +110,17 @@ export default function PropertyDetailClient({ property }: PropertyDetailClientP
                             <div className="bg-card rounded-xl border border-border p-6">
                                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
                                     <div>
-                                        <p className="text-muted-foreground text-sm mb-1">Price</p>
-                                        <p className="font-display text-3xl font-bold text-primary">
+                                        <p className="text-muted-foreground text-sm mb-1 uppercase tracking-widest font-semibold">Listing Price</p>
+                                        <p className="font-body text-3xl font-extrabold text-foreground tracking-tight">
                                             {property.price > 0 ? (
                                                 <>
                                                     {formatPrice(property.price)}
-                                                    <span className="text-lg font-normal text-muted-foreground">
-                                                        {property.priceType === 'monthly' ? ' /month' : property.priceType === 'yearly' ? ' /year' : property.priceType === 'per_sqft' ? ' /sqft' : ''}
+                                                    <span className="text-lg font-medium text-muted-foreground ml-1">
+                                                        {property.priceType === 'monthly' ? '/month' : property.priceType === 'yearly' ? '/year' : property.priceType === 'per_sqft' ? '/sqft' : ''}
                                                     </span>
                                                 </>
                                             ) : (
-                                                <span className="text-2xl">Rental Spaces Available</span>
+                                                <span className="text-2xl text-secondary">Rental Spaces Available</span>
                                             )}
                                         </p>
                                     </div>
@@ -173,8 +173,8 @@ export default function PropertyDetailClient({ property }: PropertyDetailClientP
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                     {property.features.map((feature) => (
                                         <div key={feature} className="flex items-center gap-2">
-                                            <CheckCircle className="w-5 h-5 text-success" />
-                                            <span className="text-muted-foreground">{feature}</span>
+                                            <CheckCircle className="w-5 h-5 text-secondary" />
+                                            <span className="text-muted-foreground font-medium">{feature}</span>
                                         </div>
                                     ))}
                                 </div>

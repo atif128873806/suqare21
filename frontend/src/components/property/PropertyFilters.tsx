@@ -161,7 +161,7 @@ const PropertyFilters = ({ filters, onFilterChange, onReset }: PropertyFiltersPr
             Reset Filters
           </Button>
         )}
-        <Button variant="default" className="gap-2 px-8">
+        <Button variant="secondary" className="gap-2 px-8">
           <Search className="w-4 h-4" />
           Show Results
         </Button>

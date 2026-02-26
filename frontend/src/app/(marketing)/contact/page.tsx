@@ -60,11 +60,17 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen">
             {/* Header */}
-            <section className="bg-secondary text-secondary-foreground py-20">
-                <div className="section-container">
-                    <span className="text-primary text-sm font-semibold uppercase tracking-wider">Get in Touch</span>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold mt-2 mb-4">Contact Us</h1>
-                    <p className="text-secondary-foreground/70 max-w-2xl">
+            <section className="bg-primary text-primary-foreground py-20 relative overflow-hidden">
+                <div className="bg-texture-grain" />
+                {/* Subtle red gradient glow to tie into brand */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                <div className="section-container relative z-10">
+                    <div className="inline-flex items-center gap-2 mb-4">
+                        <span className="w-8 h-[2px] bg-secondary" />
+                        <span className="text-secondary text-sm font-bold uppercase tracking-widest">Get in Touch</span>
+                    </div>
+                    <h1 className="font-display text-4xl md:text-5xl font-bold mt-2 mb-4 tracking-tight">Contact Us</h1>
+                    <p className="text-primary-foreground/80 max-w-2xl font-medium">
                         Have questions about a property or need expert advice? We&apos;re here to help you find the perfect solution.
                     </p>
                 </div>

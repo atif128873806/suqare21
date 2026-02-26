@@ -4,46 +4,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Square21 Marketing - Professional Business Design System */
-/* Colors: Red, Black, White - Corporate, Trustworthy, Bold */
+/* Square21 Marketing - Ultra-Premium Real Estate Design System */
+/* Colors: Obsidian Black, Crimson Red, Alabaster White - Bespoke, High-End, Elite */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    /* Pure White */
-    --foreground: 222 47% 11%;
-    /* Deep Navy Text */
+    --background: 0 0% 98%;
+    /* Alabaster Off-White for depth */
+    --foreground: 240 10% 4%;
+    /* Obsidian Black text */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    /* Pure White floating cards */
+    --card-foreground: 240 10% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 240 10% 4%;
 
-    /* Primary: Deep Navy Blue (Luxury/Trust) */
-    --primary: 222 47% 11%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary: Obsidian Black (True Luxury/Power) */
+    --primary: 240 10% 4%;
+    --primary-foreground: 0 0% 98%;
 
-    /* Secondary: Vibrant Red (Brand/Attention) */
-    --secondary: 0 84% 60%;
+    /* Secondary: Rich Crimson / Ruby Red (Brand/Accent) */
+    --secondary: 350 89% 45%;
+    /* Darker, elegant Crimson */
     --secondary-foreground: 0 0% 100%;
     /* White on Red */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 240 5% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 350 89% 45%;
+    /* Red for luxury highlights */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222 47% 11%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 350 89% 45%;
+    /* Focus rings use red */
 
-    --radius: 0.15rem;
-    /* Sharp, elegant corners */
+    --radius: 0.5rem;
+    /* Slightly softer corners for a modern feel */
 
     /* Custom tokens */
     --success: 142 70% 30%;
@@ -54,56 +58,57 @@
     --font-body: 'Inter', sans-serif;
 
     /* Sidebar */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 222 47% 11%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 222 47% 11%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 10% 4%;
+    --sidebar-primary: 240 10% 4%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 92%;
+    --sidebar-accent-foreground: 240 10% 4%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 350 89% 45%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    /* Deep Navy Background */
-    --foreground: 210 40% 98%;
+    --background: 240 10% 4%;
+    /* Very Deep Obsidian Background */
+    --foreground: 0 0% 98%;
 
-    --card: 222 47% 13%;
-    /* Slightly lighter Navy */
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 6%;
+    /* Slightly lighter Obsidian for depth */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 38 45% 56%;
-    /* Gold as Primary in Dark Mode - Optional, maybe keep logic */
-    --primary-foreground: 222 47% 11%;
+    --primary: 350 89% 45%;
+    /* Red as Primary in Dark Mode */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 84% 60%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 10% 8%;
+    /* Darker Obsidian for secondary elements */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 350 89% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 350 89% 45%;
 
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 38 45% 56%;
-    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-primary: 350 89% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 217.2 32.6% 17.5%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 212.7 26.8% 83.9%;
+    --sidebar-ring: 350 89% 45%;
   }
 }
 
@@ -113,7 +118,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-background text-foreground font-body antialiased selection:bg-secondary/30 selection:text-primary;
     font-family: var(--font-body);
   }
 
@@ -124,7 +129,8 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    @apply tracking-tight;
+    @apply tracking-tight font-medium;
+    /* More elegant heading weight */
   }
 }
 
@@ -132,24 +138,40 @@
 
   /* Clean Professional Hero */
   .hero-section {
-    @apply relative min-h-screen flex items-center justify-center overflow-hidden bg-background;
-    /* Optional: Minimal pattern or solid color instead of heavy gradient */
+    @apply relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background;
+  }
+
+  /* Subtly Grainy Texture for Dark Backgrounds to remove generic flat look */
+  .bg-texture-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.05'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 150px;
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   .hero-overlay {
-    @apply absolute inset-0 bg-primary/60 z-0;
-    /* Navy tint for brand consistency */
+    @apply absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80 z-0;
+    /* Rich Obsidian gradient, pure dark base */
   }
 
-  /* Professional Card */
+  /* Professional Premium Card */
   .property-card {
-    @apply bg-card rounded border border-border overflow-hidden transition-all duration-200;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    @apply bg-card rounded-xl border border-transparent overflow-hidden transition-all duration-500;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+    /* Soft, luxurious baseline shadow */
   }
 
   .property-card:hover {
-    @apply border-primary/50;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    @apply border-border/80;
+    /* Subtle border appears */
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(220, 20, 60, 0.05);
+    /* Deep hovering effect, red hint */
+    transform: translateY(-4px);
   }
 
   /* Section Container */

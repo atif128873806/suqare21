@@ -11,6 +11,7 @@ import { Property } from '@/types/property';
 import heroBuilding from '@/assets/hero-building.jpg';
 import Counter from '@/components/ui/counter';
 import GallerySection from './GallerySection';
+import TestimonialsSection from './TestimonialsSection';
 import {
     Carousel,
     CarouselContent,
@@ -63,43 +64,43 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
 
     const services = [
         {
+            icon: Building2,
+            title: 'Commercial Sales & Leasing',
+            description: 'High-yield retail and office spaces in Blue Area, F-8, and I-8. Average ROI 6-8% annually.',
+            areas: ['Blue Area', 'F-8 Markaz', 'I-8 Markaz'],
+        },
+        {
             icon: Warehouse,
-            title: 'Industrial Rentals',
-            description: 'Premium industrial properties in I-9, I-10, Humak, and Rawat for manufacturing and logistics.',
+            title: 'Industrial Properties',
+            description: 'Warehousing and manufacturing facilities. 5,000 to 50,000+ sq ft available for immediate possession.',
             areas: ['I-9', 'I-10', 'Humak', 'Rawat'],
         },
         {
-            icon: Building2,
-            title: 'Commercial Spaces',
-            description: 'Prime commercial properties for lease and sale in key CDA sectors of Islamabad.',
-            areas: ['I-8 to I-11', 'F-6', 'F-8', 'Blue Area'],
-        },
-        {
             icon: Home,
-            title: 'Residential Rentals',
-            description: 'Quality residential properties for rent and lease across Islamabad\'s best neighborhoods.',
-            areas: ['F-Sectors', 'E-Sectors', 'G-Sectors'],
+            title: 'Residential Sales & Rent',
+            description: 'Premium houses and apartments in CDA sectors. Rentals from PKR 150k to 1M+. Sales from 50M+.',
+            areas: ['F-6', 'F-7', 'E-7', 'DHA'],
         },
         {
             icon: TrendingUp,
-            title: 'Property Valuation',
-            description: 'Professional valuation services for investors and landlords to maximize returns.',
-            areas: ['All CDA Sectors'],
+            title: 'Market Analysis & Valuation',
+            description: 'Data-backed property appraisals and investment strategies based on current Islamabad market trends.',
+            areas: ['Islamabad Capital Territory'],
         },
     ];
 
     const stats = [
-        { number: 500, suffix: '+', label: 'Properties Listed' },
-        { number: 6, suffix: '+', label: 'Years Experience' },
-        { number: 1000, suffix: '+', label: 'Happy Clients' },
-        { number: 8, suffix: '+', label: 'Expert Agents' },
+        { number: 450, suffix: '+', label: 'Active Listings' },
+        { number: 6, suffix: '+', label: 'Years in Islamabad' },
+        { number: 2.5, suffix: 'B+', label: 'Volume Handled (PKR)' },
+        { number: 8, suffix: '', label: 'Specialized Brokers' },
     ];
 
     const whyUs = [
-        { icon: CheckCircle, title: 'Verified Listings', description: 'All properties are personally verified by our team' },
-        { icon: Users, title: 'Expert Guidance', description: 'Dedicated agents with deep market knowledge' },
-        { icon: Award, title: 'Best Deals', description: 'Competitive pricing and exclusive property access' },
-        { icon: Clock, title: 'Quick Process', description: 'Streamlined processes for faster transactions' },
+        { icon: CheckCircle, title: 'Verified Assets', description: 'Clear titles, verified owners, zero disputes' },
+        { icon: Users, title: 'Local Authority', description: 'Sector-specific brokers with deep market data' },
+        { icon: Award, title: 'Aggressive Negotiation', description: 'We focus strictly on your ROI and target price' },
+        { icon: Clock, title: 'Rapid Execution', description: 'Streamlined legal and transfer processes' },
     ];
 
     const agents = [
@@ -154,22 +155,23 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                 </video>
 
                 <div className="hero-overlay" />
+                <div className="bg-texture-grain mix-blend-overlay opacity-20 pointer-events-none" />
 
                 <div className="relative z-10 section-container py-12 md:py-20 pb-32 md:pb-20">
                     <div className="w-full mx-auto text-center">
                         <div className="max-w-3xl mx-auto">
                             <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 py-1 mb-5 animate-fade-in">
                                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                                <span className="text-white/90 text-sm">Pakistan Most Trusted Agency</span>
+                                <span className="text-white/90 text-sm font-semibold tracking-wide">ISLAMABAD REAL ESTATE</span>
                             </div>
 
-                            <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 animate-slide-up tracking-tight">
+                            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-4 animate-slide-up tracking-tight">
                                 Square21
-                                <span className="block text-primary">Marketing</span>
+                                <span className="block text-secondary drop-shadow-md">Marketing</span>
                             </h1>
 
-                            <p className="text-white/80 text-sm md:text-lg mb-8 animate-slide-up leading-relaxed" style={{ animationDelay: '0.1s' }}>
-                                Your trusted partner for commercial, industrial, and residential properties in Islamabad. We are dedicated to making your real estate journey smooth, successful, and rewarding.
+                            <p className="text-white/80 text-sm md:text-lg mb-8 animate-slide-up leading-relaxed font-body max-w-2xl mx-auto" style={{ animationDelay: '0.1s' }}>
+                                Direct access to prime commercial, industrial, and residential properties across Islamabad. Data-driven valuations, clear pricing, and zero friction from listing to closing.
                             </p>
                         </div>
 
@@ -200,8 +202,8 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             <section className="py-16 bg-background">
                 <div className="section-container">
                     <div className="text-center mb-10">
-                        <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Recent Listings</h2>
-                        <p className="text-muted-foreground">Check out some of our latest properties.</p>
+                        <h2 className="font-display text-3xl md:text-4xl font-bold mb-3 tracking-tight">New on the Market</h2>
+                        <p className="text-muted-foreground font-medium">Latest commercial and residential inventory secured by our brokers.</p>
                     </div>
 
                     {/* Mobile: Vertical Stack, Desktop: Horizontal Scroll */}
@@ -247,8 +249,8 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
 
                     <div className="section-container">
                         <div className="text-center mb-10">
-                            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Residential Listing</h2>
-                            <p className="text-muted-foreground">Check out some of our Rental properties.</p>
+                            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3 tracking-tight">Residential Sales & Rentals</h2>
+                            <p className="text-muted-foreground font-medium">Premium properties in F, E, and G sectors. Verified owners, clear titles.</p>
                         </div>
 
                         {/* Property Grid with simple transition effect */}
@@ -289,21 +291,21 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             {/* CTA Section */}
             <section className="py-20 bg-primary">
                 <div className="section-container text-center">
-                    <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                        Ready to Find Your Perfect Property?
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-4 tracking-tight">
+                        Ready to Acquire or Lease?
                     </h2>
-                    <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-                        Let our expert team help you discover the ideal property that matches your requirements and budget.
+                    <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 font-medium">
+                        Speak directly with a broker specialized in your target sector. We handle negotiations, legal documentation, and secure transfers.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         {/* <a href="tel:+923083333818">
-                            <Button variant="heroOutline" size="xl" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                            <Button variant="outline" size="xl" className="border-secondary text-secondary hover:bg-secondary hover:text-white transition-colors duration-300">
                                 <Phone className="w-5 h-5 mr-2" />
                                 Call Us Now
                             </Button>
                         </a> */}
                         <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
-                            <Button variant="heroOutline" size="xl" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                            <Button variant="outline" size="xl" className="border-secondary text-secondary hover:bg-secondary hover:text-white transition-colors duration-300">
                                 <MessageCircle className="w-5 h-5 mr-2" />
                                 WhatsApp Us
                             </Button>
@@ -325,11 +327,11 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                     <div className="section-container">
                         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 relative z-20">
                             <div>
-                                <span className="text-primary text-sm font-semibold uppercase tracking-wider">Commercial Properties</span>
-                                <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">Commercial Listing</h2>
+                                <span className="text-secondary text-sm font-bold uppercase tracking-wider">High-Yield Assets</span>
+                                <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 tracking-tight">Commercial Inventory</h2>
                             </div>
                             <Link href="/properties?type=COMMERCIAL" className="mt-4 md:mt-0">
-                                <Button variant="outline" className="group">
+                                <Button variant="outline" className="group border-secondary text-secondary hover:bg-secondary hover:text-white">
                                     View All Commercial
                                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                                 </Button>
@@ -369,37 +371,61 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                     </div>
                 </Carousel>
             </section>
-            {/* Services Section */}
-            <section className="py-20 bg-muted/30">
+            {/* Services Section - Bento Grid Style */}
+            {/* <section className="py-24 bg-background">
                 <div className="section-container">
-                    <div className="text-center mb-12">
-                        <span className="text-primary text-sm font-semibold uppercase tracking-wider">Our Services</span>
-                        <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 mb-4">What We Offer</h2>
-                        <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Comprehensive real estate services tailored to meet your investment and occupancy needs in Islamabad&apos;s prime locations.
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {services.map((service, index) => (
-                            <div
-                                key={index}
-                                className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-card-hover transition-all duration-300 group"
-                            >
-                                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
-                                    <service.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
-                                </div>
-                                <h3 className="font-display text-xl font-semibold mb-2">{service.title}</h3>
-                                <p className="text-muted-foreground text-sm mb-4">{service.description}</p>
-                                <div className="flex flex-wrap gap-1">
-                                    {service.areas.map((area) => (
-                                        <span key={area} className="text-xs px-2 py-1 bg-muted rounded-md text-muted-foreground">
-                                            {area}
-                                        </span>
-                                    ))}
-                                </div>
+                    <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                        <div className="max-w-2xl">
+                            <div className="inline-flex items-center gap-2 mb-4">
+                                <span className="w-8 h-[2px] bg-secondary" />
+                                <span className="text-primary text-sm font-bold uppercase tracking-widest">Core Operations</span>
                             </div>
-                        ))}
+                            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight">
+                                Islamabad Brokerage Services
+                            </h2>
+                        </div>
+                        <p className="text-muted-foreground md:max-w-sm text-balance font-medium">
+                            We focus on high-value transactions across CDA sectors. Accurate market data, strict legal compliance, and aggressive negotiation.
+                        </p>
+                    </div> */}
+
+                    {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)]"> */}
+                        {/* {services.map((service, index) => { */}
+                            {/* // Make first and last items span 2 columns on tablet/desktop for bento effect */}
+                            {/* const isLarge = index === 0 || index === 3; */}
+                            {/* return ( */}
+                                {/* <div
+                                    // key={index}
+                                    className={`group relative overflow-hidden rounded-2xl bg-card border border-border/50 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 ${isLarge ? 'md:col-span-2' : 'md:col-span-1'
+                                        }`}
+                                > */}
+                                    {/* Decorative gradient overlay */}
+                                    {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                    <div className="relative z-10 h-full flex flex-col">
+                                        <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
+                                            <service.icon className="w-8 h-8 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
+                                        </div>
+
+                                        <h3 className="font-display text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                                            {service.title}
+                                        </h3>
+
+                                        <p className="text-muted-foreground leading-relaxed mb-8 flex-grow">
+                                            {service.description}
+                                        </p>
+
+                                        <div className="flex flex-wrap gap-2 mt-auto">
+                                            {service.areas.map((area) => (
+                                                <span key={area} className="text-xs font-medium px-3 py-1.5 bg-muted/50 rounded-lg text-primary/80 border border-primary/10">
+                                                    {area}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -407,65 +433,85 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             {/* Gallery Section */}
             {/* <GallerySection /> */}
 
-            {/* Our Agents Section */}
-            {/* <section className="py-24 bg-[#f8f9fa]"> */}
-            {/* <div className="section-container">
+            {/* Our Agents Section - Professional Redesign */}
+            {/* <section className="py-24 bg-muted/20">
+                <div className="section-container">
                     <div className="text-center mb-16">
-                        <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4">Our Agents</h2>
-                        <div className="w-24 h-1 bg-primary mx-auto mb-6 opacity-30"></div>
-                        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                            Our highly qualified agents will help you to find a best deal in town
+                        <div className="inline-flex items-center justify-center gap-2 mb-4 mx-auto">
+                            <span className="w-12 h-[2px] bg-secondary" />
+                            <span className="text-primary text-sm font-bold uppercase tracking-widest">The Brokerage Team</span>
+                            <span className="w-12 h-[2px] bg-secondary" />
+                        </div>
+                        <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
+                            Sector Specialists
+                        </h2>
+                        <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
+                            Our brokers cover specific territories within Islamabad. You deal directly with the designated expert for your target area.
                         </p>
                     </div> */}
 
             {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {agents.map((agent, index) => (
-                            <div key={index} className="bg-white rounded-2xl p-8 pt-12 shadow-sm border border-border/50 hover:shadow-xl transition-all duration-500 group relative mt-10"> */}
+                            <div key={index} className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/60 hover:shadow-xl hover:border-secondary/30 transition-all duration-500 group flex flex-col h-full"> */}
             {/* Agent Image Container */}
-            {/* <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-2xl overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-500">
+            {/* <div className="relative h-72 w-full overflow-hidden bg-muted">
                                     <Image
                                         src={agent.image}
                                         alt={agent.name}
-                                        width={100}
-                                        height={100}
-                                        className="w-full h-full object-cover"
+                                        fill
+                                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                                     />
-                                </div> */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
 
-            {/* <div className="text-center">
-                                    <div className="flex items-center justify-center gap-1.5 mb-3 mt-4">
-                                        <h3 className="font-display text-xl font-bold text-[#1a1a1a] group-hover:text-primary transition-colors">
-                                            {agent.name}
-                                        </h3>
-                                        <div className="bg-[#00a3ff] rounded-full p-0.5">
-                                            <CheckCircle className="w-3.5 h-3.5 text-white fill-current" />
-                                        </div>
+                                    {/* Verification Badge */}
+            {/* <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg transform translate-y-0 opacity-100 transition-all duration-300">
+                                        <CheckCircle className="w-3.5 h-3.5 text-success fill-success/20" />
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
                                     </div> */}
 
-            {/* <div className="space-y-1.5 mb-6">
-                                        <p className="text-primary font-semibold text-sm">
-                                            {agent.phone}
-                                        </p>
-                                        <p className="text-muted-foreground text-[13px] break-all">
-                                            {agent.email}
-                                        </p>
-                                    </div> */}
-
-            {/* <div className="mb-8 p-4 bg-muted/30 rounded-xl group-hover:bg-primary/5 transition-colors duration-500">
-                                        <p className="text-primary text-2xl font-bold mb-1">{agent.listedProperties}</p>
-                                        <p className="text-muted-foreground text-[11px] uppercase tracking-wider font-semibold">Listed Properties</p>
-                                    </div>
-
-                                    <div className="flex justify-center items-center gap-4">
-                                        <a href={agent.socials.facebook} className="p-2 rounded-full hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300">
+            {/* Social Links on Hover */}
+            {/* <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out z-20">
+                                        <a href={agent.socials.facebook} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-secondary hover:border-secondary transition-colors">
                                             <Facebook className="w-4 h-4" />
                                         </a>
-                                        <a href={agent.socials.linkedin} className="p-2 rounded-full hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300">
+                                        <a href={agent.socials.linkedin} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-secondary hover:border-secondary transition-colors">
                                             <Linkedin className="w-4 h-4" />
                                         </a>
-                                        <a href={agent.socials.instagram} className="p-2 rounded-full hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300">
+                                        <a href={agent.socials.instagram} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-secondary hover:border-secondary transition-colors">
                                             <Instagram className="w-4 h-4" />
                                         </a>
+                                    </div>
+                                </div> */}
+
+            {/* Agent Info */}
+            {/* <div className="p-6 flex flex-col flex-grow bg-card relative z-10">
+                                    <div className="text-center mb-6">
+                                        <h3 className="font-display text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                                            {agent.name}
+                                        </h3>
+                                        <p className="text-secondary font-medium text-sm tracking-wide">
+                                            Real Estate Consultant
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-3 mb-6 flex-grow border-t border-border/50 pt-5">
+                                        <a href={`tel:${agent.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-secondary/5 transition-colors group/link">
+                                            <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0 group-hover/link:bg-secondary group-hover/link:text-white text-secondary transition-colors">
+                                                <Phone className="w-4 h-4" />
+                                            </div>
+                                            <span className="text-sm font-medium text-foreground group-hover/link:text-secondary transition-colors">{agent.phone}</span>
+                                        </a>
+                                    </div>
+
+                                    <div className="pt-5 border-t border-border/50 flex items-center justify-between">
+                                        <div className="flex flex-col">
+                                            <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Properties</span>
+                                            <span className="text-lg font-bold text-primary">{agent.listedProperties}</span>
+                                        </div>
+                                        <Button variant="outline" size="sm" className="rounded-full text-xs font-semibold hover:bg-primary hover:text-white border-primary/20">
+                                            View Profile
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
@@ -474,6 +520,9 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                 </div>
             </section> */}
 
+
+            {/* Testimonials */}
+            <TestimonialsSection />
 
         </div>
     );
