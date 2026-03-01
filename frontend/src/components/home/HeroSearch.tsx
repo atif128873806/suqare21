@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MapPin, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { sectors } from '@/data/properties';
@@ -13,7 +13,6 @@ type SearchPurpose = 'ALL' | 'RENT' | 'SALE';
 export default function HeroSearch() {
     const router = useRouter();
     const [purpose, setPurpose] = useState<SearchPurpose>('ALL');
-    const [city, setCity] = useState<string>('');
     const [location, setLocation] = useState<string>('');
     const [lookingFor, setLookingFor] = useState<string>('');
 
@@ -78,22 +77,8 @@ export default function HeroSearch() {
             {/* Search Card */}
             <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-xl p-3 md:p-6 border border-border/10">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-                    {/* City Dropdown */}
-                    <div className="md:col-span-3 relative">
-                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none z-10" />
-                        <Select value={city} onValueChange={setCity}>
-                            <SelectTrigger className="pl-10 h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all">
-                                <SelectValue placeholder="City" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="islamabad">Islamabad</SelectItem>
-                                <SelectItem value="rawalpindi">Rawalpindi</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
                     {/* Locations Dropdown */}
-                    <div className="md:col-span-3">
+                    <div className="md:col-span-4">
                         <Select value={location} onValueChange={setLocation}>
                             <SelectTrigger className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all">
                                 <SelectValue placeholder="Locations" />
@@ -110,7 +95,7 @@ export default function HeroSearch() {
                     </div>
 
                     {/* Looking For Dropdown */}
-                    <div className="md:col-span-4">
+                    <div className="md:col-span-6">
                         <Select value={lookingFor} onValueChange={setLookingFor}>
                             <SelectTrigger className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all">
                                 <SelectValue placeholder="Looking For" />

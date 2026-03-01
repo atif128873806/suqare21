@@ -506,12 +506,9 @@ export const sampleProperties: Property[] = [
 ];
 
 export const sectors = [
-  'I-8', 'I-9', 'I-10', 'I-10/1', 'I-11',
-  'F-6', 'F-7', 'F-8', 'F-8/3', 'F-10', 'F-11',
-  'E-11', 'E-7',
-  'G-6', 'G-8', 'G-9', 'G-10', 'G-11',
-  'Blue Area',
-  'Humak', 'Rawat'
+  'I-8', 'I-9', 'I-10', 'I-10/1', 'I-10/3', 'I-10/4', 'I-11',
+  'F-8', 'F-8/3', 'F-11', 'F-11 Markaz', 'F-11/1',
+  'Humak', 'Rawat',
 ];
 
 export const formatPrice = (price: number, unit: string = 'PKR'): string => {

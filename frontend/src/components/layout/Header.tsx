@@ -14,6 +14,7 @@ const Header = () => {
     { name: 'Home', path: '/' },
     { name: 'Properties', path: '/properties' },
     { name: 'Services', path: '/services' },
+    { name: 'Reports', path: '/reports' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -39,11 +40,15 @@ const Header = () => {
           <div className="flex items-center gap-3 text-primary-foreground/60">
             <span className="hidden xl:inline">Follow Us:</span>
             <div className="flex items-center gap-3">
-              <a href="#" className="hover:text-secondary transition-colors duration-300"><Facebook className="w-3 h-3 lg:w-3.5 lg:h-3.5" /></a>
+              <a href="https://www.facebook.com/share/1E5gtR1TDV/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors duration-300"><Facebook className="w-3 h-3 lg:w-3.5 lg:h-3.5" /></a>
               <div className="w-px h-3 bg-primary-foreground/20"></div>
-              <a href="#" className="hover:text-secondary transition-colors duration-300"><Instagram className="w-3 h-3 lg:w-3.5 lg:h-3.5" /></a>
+              <a href="https://www.instagram.com/square21marketing?igsh=MW5hb3luczFyMXp5eQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors duration-300"><Instagram className="w-3 h-3 lg:w-3.5 lg:h-3.5" /></a>
               <div className="w-px h-3 bg-primary-foreground/20"></div>
-              <a href="#" className="hover:text-secondary transition-colors duration-300"><Linkedin className="w-3 h-3 lg:w-3.5 lg:h-3.5" /></a>
+              <a href="https://www.linkedin.com/company/square21-marketing/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors duration-300"><Linkedin className="w-3 h-3 lg:w-3.5 lg:h-3.5" /></a>
+              <div className="w-px h-3 bg-primary-foreground/20"></div>
+              <a href="https://www.tiktok.com/@square.21.marketin?_r=1&_t=ZS-94FNr6ropxy" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors duration-300">
+                <svg className="w-3 h-3 lg:w-3.5 lg:h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.54V6.78a4.85 4.85 0 01-1.03-.09z" /></svg>
+              </a>
             </div>
           </div>
         </div>

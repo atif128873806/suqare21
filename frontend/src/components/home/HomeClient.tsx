@@ -67,25 +67,25 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             icon: Building2,
             title: 'Commercial Sales & Leasing',
             description: 'High-yield retail and office spaces in Blue Area, F-8, and I-8. Average ROI 6-8% annually.',
-            areas: ['Blue Area', 'F-8 Markaz', 'I-8 Markaz'],
+            areas: ['F-8', 'F-11', 'I-8', 'I-9', 'I-10', 'I-11'],
         },
         {
             icon: Warehouse,
             title: 'Industrial Properties',
             description: 'Warehousing and manufacturing facilities. 5,000 to 50,000+ sq ft available for immediate possession.',
-            areas: ['I-9', 'I-10', 'Humak', 'Rawat'],
+            areas: ['I-9', 'I-10', 'I-11', 'Humak', 'Rawat'],
         },
         {
             icon: Home,
             title: 'Residential Sales & Rent',
             description: 'Premium houses and apartments in CDA sectors. Rentals from PKR 150k to 1M+. Sales from 50M+.',
-            areas: ['F-6', 'F-7', 'E-7', 'DHA'],
+            areas: ['F-8', 'F-11', 'I-8', 'I-9', 'I-10', 'I-11'],
         },
         {
             icon: TrendingUp,
             title: 'Market Analysis & Valuation',
             description: 'Data-backed property appraisals and investment strategies based on current Islamabad market trends.',
-            areas: ['Islamabad Capital Territory'],
+            areas: ['I-8', 'I-9', 'I-10', 'I-11', 'F-8', 'F-11', 'Humak', 'Rawat'],
         },
     ];
 
@@ -110,7 +110,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             email: 'Info@brighthomesonline.com',
             listedProperties: 175,
             image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200',
-            socials: { facebook: '#', linkedin: '#', instagram: '#' }
+            socials: { facebook: 'https://www.facebook.com/share/1E5gtR1TDV/?mibextid=wwXIfr', linkedin: 'https://www.linkedin.com/company/square21-marketing/', instagram: 'https://www.instagram.com/square21marketing?igsh=MW5hb3luczFyMXp5eQ%3D%3D&utm_source=qr' }
         },
         {
             name: 'Rao Sharif Luqman',
@@ -157,26 +157,25 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                 <div className="hero-overlay" />
                 <div className="bg-texture-grain mix-blend-overlay opacity-20 pointer-events-none" />
 
-                <div className="relative z-10 section-container py-12 md:py-20 pb-32 md:pb-20">
-                    <div className="w-full mx-auto text-center">
-                        <div className="max-w-3xl mx-auto">
-                            <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 py-1 mb-5 animate-fade-in">
-                                <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                                <span className="text-white/90 text-sm font-semibold tracking-wide">ISLAMABAD REAL ESTATE</span>
-                            </div>
+                <div className="relative z-10 section-container flex items-center justify-center min-h-[70vh] pb-32">
+                    <div className="w-full text-center max-w-2xl mx-auto space-y-5">
 
-                            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-4 animate-slide-up tracking-tight">
-                                Square21
-                                <span className="block text-secondary drop-shadow-md">Marketing</span>
-                            </h1>
+                        <p className="text-white text-xl md:text-2xl font-medium leading-relaxed">
+                            Square21 Marketing connects elite businesses with Islamabad's most strategic commercial and industrial spaces.
+                        </p>
 
-                            <p className="text-white/80 text-sm md:text-lg mb-8 animate-slide-up leading-relaxed font-body max-w-2xl mx-auto" style={{ animationDelay: '0.1s' }}>
-                                Direct access to prime commercial, industrial, and residential properties across Islamabad. Data-driven valuations, clear pricing, and zero friction from listing to closing.
-                            </p>
+                        <p className="text-white/60 text-base md:text-lg leading-relaxed">
+                            From high-visibility retail to premium offices and warehouse solutions — we deliver locations that elevate brands.
+                            Precision, discretion, and market insight from first search to final deal.
+                        </p>
+
+                        <p className="text-secondary text-sm tracking-wide">
+                            Square21 Marketing — Where Position Defines Power.
+                        </p>
+
+                        <div className="pt-4">
+                            <HeroSearch />
                         </div>
-
-                        {/* Hero Search Component */}
-                        <HeroSearch />
                     </div>
                 </div>
 
@@ -389,18 +388,18 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                         </p>
                     </div> */}
 
-                    {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)]"> */}
-                        {/* {services.map((service, index) => { */}
-                            {/* // Make first and last items span 2 columns on tablet/desktop for bento effect */}
-                            {/* const isLarge = index === 0 || index === 3; */}
-                            {/* return ( */}
-                                {/* <div
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)]"> */}
+            {/* {services.map((service, index) => { */}
+            {/* // Make first and last items span 2 columns on tablet/desktop for bento effect */}
+            {/* const isLarge = index === 0 || index === 3; */}
+            {/* return ( */}
+            {/* <div
                                     // key={index}
                                     className={`group relative overflow-hidden rounded-2xl bg-card border border-border/50 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 ${isLarge ? 'md:col-span-2' : 'md:col-span-1'
                                         }`}
                                 > */}
-                                    {/* Decorative gradient overlay */}
-                                    {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Decorative gradient overlay */}
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                     <div className="relative z-10 h-full flex flex-col">
                                         <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
