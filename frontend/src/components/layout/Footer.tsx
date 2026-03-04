@@ -84,7 +84,8 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-secondary mt-0.5" />
                 <span className="text-primary-foreground/70 text-sm">
-                  Office #21, Blue Area,<br />
+                  Ground Floor, Ali Plaza,<br />
+                  Near Allied Bank, I-10 Markaz,<br />
                   Islamabad, Pakistan
                 </span>
               </li>

@@ -27,7 +27,7 @@ const AdminSettings = () => {
         siteDescription: 'Premium Real Estate Solutions in Islamabad & Rawalpindi',
         contactEmail: 'contact@square21.pk',
         contactPhone: '+92 300 1234567',
-        address: 'Office 12, 3rd Floor, Al-Falah Plaza, G-9 Markaz, Islamabad',
+        address: 'Ground Floor, Ali Plaza, Near Allied Bank, I-10 Markaz, Islamabad',
         facebook: 'https://facebook.com/square21',
         instagram: 'https://instagram.com/square21',
         twitter: 'https://twitter.com/square21'

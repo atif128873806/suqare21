@@ -54,7 +54,7 @@ export default function ContactPage() {
         { icon: Phone, title: 'Phone', value: '+92 308 3333818', href: 'tel:+923083333818' },
         { icon: MessageCircle, title: 'WhatsApp', value: '+92 308 3333818', href: 'https://wa.me/923083333818' },
         { icon: Mail, title: 'Email', value: 'info@square21.pk', href: 'mailto:info@square21.pk' },
-        { icon: MapPin, title: 'Office', value: 'Office #21, Blue Area, Islamabad', href: '#' },
+        { icon: MapPin, title: 'Office', value: 'Ground Floor, Ali Plaza, Near Allied Bank, I-10 Markaz, Islamabad', href: '#' },
     ];
 
     return (
@@ -182,7 +182,8 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-semibold mb-2">Location</h3>
                                     <p className="text-muted-foreground">
-                                        Office #21, Blue Area<br />
+                                        Ground Floor, Ali Plaza,<br />
+                                        Near Allied Bank, I-10 Markaz,<br />
                                         Islamabad, Pakistan
                                     </p>
                                 </div>
@@ -227,7 +228,7 @@ export default function ContactPage() {
                 <div className="section-container">
                     <div className="rounded-[2rem] overflow-hidden border border-border bg-card shadow-premium h-[450px]">
                         <GoogleMap
-                            query="Office #21, Blue Area, Islamabad, Pakistan"
+                            query="Ali Plaza, Allied Bank, I-10 Markaz, Islamabad, Pakistan"
                             className="h-full rounded-none border-none"
                             zoom={16}
                         />
