@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 // Mock Data - ideally this comes from a CMS or API
 const galleryImages = [
@@ -106,10 +107,12 @@ export default function GallerySection() {
                 ${image.size === 'small' ? 'md:col-span-1 md:row-span-1' : ''}
               `}
                         >
-                            <img
+                            <Image
                                 src={image.src}
                                 alt={image.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                                 <p className="text-secondary text-xs uppercase tracking-wider font-semibold mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
@@ -164,11 +167,16 @@ export default function GallerySection() {
                             className="relative max-w-5xl w-full max-h-[85vh] rounded-xl overflow-hidden shadow-2xl"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <img
-                                src={selectedImage.src}
-                                alt={selectedImage.title}
-                                className="w-full h-full object-contain max-h-[85vh] bg-black"
-                            />
+                            <div className="relative w-full h-[85vh]">
+                                <Image
+                                    src={selectedImage.src}
+                                    alt={selectedImage.title}
+                                    fill
+                                    className="object-contain"
+                                    sizes="100vw"
+                                    priority
+                                />
+                            </div>
                             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent">
                                 <p className="text-secondary font-bold text-sm uppercase tracking-widest mb-1">{selectedImage.category}</p>
                                 <h3 className="text-white font-display text-3xl font-bold">{selectedImage.title}</h3>

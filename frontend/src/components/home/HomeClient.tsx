@@ -7,11 +7,20 @@ import PropertyCard from '@/components/property/PropertyCard';
 import HeroSearch from '@/components/home/HeroSearch';
 import { ArrowRight, Building2, Warehouse, Home, TrendingUp, Phone, MessageCircle, CheckCircle, Users, Award, Clock, Facebook, Linkedin, Instagram } from 'lucide-react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { Property } from '@/types/property';
 import heroBuilding from '@/assets/hero-building.jpg';
 import Counter from '@/components/ui/counter';
-import GallerySection from './GallerySection';
-import TestimonialsSection from './TestimonialsSection';
+
+const GallerySection = dynamic(() => import('./GallerySection'), {
+    ssr: false,
+    loading: () => <div className="h-[500px] w-full bg-muted/20 animate-pulse rounded-2xl" />
+});
+
+const TestimonialsSection = dynamic(() => import('./TestimonialsSection'), {
+    ssr: false,
+    loading: () => <div className="h-[400px] w-full bg-muted/20 animate-pulse rounded-2xl" />
+});
 import {
     Carousel,
     CarouselContent,

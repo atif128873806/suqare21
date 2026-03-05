@@ -71,10 +71,12 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
             playsInline
           />
         ) : (
-          <img
+          <Image
             src={getImageSrc(property.images?.[0])}
             alt={property.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         )}
 

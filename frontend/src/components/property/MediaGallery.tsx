@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import Image from 'next/image';
 
 interface MediaGalleryProps {
     images: (string | { src: string; height: number; width: number; blurDataURL?: string })[];
@@ -52,10 +53,13 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                             onClick={(e) => e.stopPropagation()}
                         />
                     ) : (
-                        <img
+                        <Image
                             src={currentMedia.src}
                             alt={`${title} - Image ${selectedIndex + 1}`}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
+                            priority
                         />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
@@ -114,10 +118,12 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                         </div>
                                     </>
                                 ) : (
-                                    <img
+                                    <Image
                                         src={media.src}
                                         alt={`Thumbnail ${index + 1}`}
-                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                        fill
+                                        className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                        sizes="120px"
                                     />
                                 )}
                                 {selectedIndex !== index && (
@@ -147,20 +153,23 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                     </div>
 
                     {/* Main Media */}
-                    <div className="relative max-w-7xl max-h-[90vh] w-full"
+                    <div className="relative max-w-7xl w-full h-[70vh] md:h-[85vh]"
                         onClick={(e) => e.stopPropagation()}>
                         {isVideo ? (
                             <video
                                 src={currentMedia.src}
                                 controls
                                 autoPlay
-                                className="w-full h-full max-h-[90vh] rounded-lg"
+                                className="w-full h-full object-contain rounded-lg"
                             />
                         ) : (
-                            <img
+                            <Image
                                 src={currentMedia.src}
                                 alt={`${title} - Media ${selectedIndex + 1}`}
-                                className="w-full h-full object-contain rounded-lg"
+                                fill
+                                className="object-contain rounded-lg"
+                                sizes="100vw"
+                                priority
                             />
                         )}
                     </div>
@@ -203,10 +212,12 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                             </div>
                                         </>
                                     ) : (
-                                        <img
+                                        <Image
                                             src={media.src}
                                             alt={`Thumbnail ${index + 1}`}
-                                            className="w-full h-full object-cover"
+                                            fill
+                                            className="object-cover"
+                                            sizes="80px"
                                         />
                                     )}
                                 </button>
