@@ -168,6 +168,7 @@ export default function Chatbot() {
             <button
               onClick={(e) => { e.stopPropagation(); setShowTeaser(false); }}
               className="absolute -top-2 -left-2 bg-background border border-border text-muted-foreground rounded-full p-1 hover:bg-destructive hover:text-white transition-colors shadow-sm"
+              aria-label="Close teaser"
             >
               <X className="w-3 h-3" />
             </button>
@@ -213,10 +214,19 @@ export default function Chatbot() {
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <button onClick={handleReset} title="Start New Conversation" className="p-1.5 hover:bg-white/20 rounded-lg transition-colors">
+              <button
+                onClick={handleReset}
+                title="Start New Conversation"
+                className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                aria-label="Start new conversation"
+              >
                 <RotateCw className="w-4 h-4" />
               </button>
-              <button onClick={() => setIsMinimized(!isMinimized)} className="p-1.5 hover:bg-white/20 rounded-lg transition-colors hidden sm:block">
+              <button
+                onClick={() => setIsMinimized(!isMinimized)}
+                className="p-1.5 hover:bg-white/20 rounded-lg transition-colors hidden sm:block"
+                aria-label={isMinimized ? "Maximize chat" : "Minimize chat"}
+              >
                 <Minimize2 className="w-4 h-4" />
               </button>
               <button

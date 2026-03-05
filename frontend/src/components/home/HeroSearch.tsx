@@ -80,7 +80,10 @@ export default function HeroSearch() {
                     {/* Locations Dropdown */}
                     <div className="md:col-span-4">
                         <Select value={location} onValueChange={setLocation}>
-                            <SelectTrigger className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all">
+                            <SelectTrigger
+                                className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all"
+                                aria-label="Select location"
+                            >
                                 <SelectValue placeholder="Locations" />
                             </SelectTrigger>
                             <SelectContent>
@@ -97,7 +100,10 @@ export default function HeroSearch() {
                     {/* Looking For Dropdown */}
                     <div className="md:col-span-6">
                         <Select value={lookingFor} onValueChange={setLookingFor}>
-                            <SelectTrigger className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all">
+                            <SelectTrigger
+                                className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all"
+                                aria-label="Select property type"
+                            >
                                 <SelectValue placeholder="Looking For" />
                             </SelectTrigger>
                             <SelectContent>
@@ -114,6 +120,7 @@ export default function HeroSearch() {
                         <Button
                             onClick={handleSearch}
                             className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                            aria-label="Search properties"
                         >
                             <Search className="w-5 h-5" />
                             <span className="hidden md:inline">Search</span>

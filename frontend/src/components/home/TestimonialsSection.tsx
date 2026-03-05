@@ -155,7 +155,7 @@ export default function TestimonialsSection() {
                     <div>
                         <div className="inline-flex items-center gap-2 mb-3">
                             <span className="w-8 h-[2px] bg-secondary" />
-                            <span className="text-secondary text-sm font-bold uppercase tracking-widest">Client Reviews</span>
+                            <span className="text-primary font-bold uppercase tracking-widest text-[13px]">Client Reviews</span>
                         </div>
                         <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight leading-tight">
                             What Our Clients Say
@@ -174,6 +174,7 @@ export default function TestimonialsSection() {
                             onClick={() => setPage((p) => Math.max(0, p - 1))}
                             disabled={page === 0}
                             className="w-12 h-12 rounded-full border border-border/60 flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-border/60 disabled:hover:text-foreground"
+                            aria-label="Previous testimonials"
                         >
                             <ChevronLeft className="w-5 h-5" />
                         </button>
@@ -181,6 +182,7 @@ export default function TestimonialsSection() {
                             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                             disabled={page === totalPages - 1}
                             className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 hover:shadow-lg transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+                            aria-label="Next testimonials"
                         >
                             <ChevronRight className="w-5 h-5" />
                         </button>
@@ -213,8 +215,8 @@ export default function TestimonialsSection() {
                             {/* Reviewer */}
                             <div className="flex items-center gap-4 mt-2 pt-5 border-t border-border/50">
                                 {/* Avatar initials */}
-                                <div className="w-11 h-11 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-secondary font-bold text-[13px] tracking-wide">{t.avatar}</span>
+                                <div className="w-11 h-11 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+                                    <span className="text-white font-bold text-[13px] tracking-wide">{t.avatar}</span>
                                 </div>
                                 <div>
                                     <p className="text-foreground font-semibold text-[15px] leading-tight">{t.name}</p>

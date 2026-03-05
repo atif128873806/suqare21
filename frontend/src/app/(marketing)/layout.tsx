@@ -1,6 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import Chatbot from "@/components/chatbot/Chatbot";
+import ChatbotWrapper from "@/components/chatbot/ChatbotWrapper";
 
 export default function MarketingLayout({
     children,
@@ -13,7 +13,7 @@ export default function MarketingLayout({
             <main className="pt-20">
                 {children}
             </main>
-            <Chatbot />
+            <ChatbotWrapper />
             <Footer />
         </>
     );

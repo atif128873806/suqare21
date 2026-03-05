@@ -154,7 +154,8 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                     <source src="/videos/hero-video.mp4" type="video/mp4" />
                 </video>
 
-                <div className="hero-overlay" />
+                {/* Dark overlay for text readability */}
+                <div className="absolute inset-0 bg-black/60 z-0" />
                 <div className="bg-texture-grain mix-blend-overlay opacity-20 pointer-events-none" />
 
                 <div className="relative z-10 section-container flex items-center justify-center min-h-[70vh] pb-32">
@@ -274,12 +275,15 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                                 <button
                                     key={index}
                                     onClick={() => residentialApi?.scrollTo(index)}
-                                    className={`rounded-full transition-all ${index === residentialCurrent
-                                        ? 'bg-primary w-8 h-2.5'
-                                        : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
-                                        }`}
+                                    className="p-2 transition-all group"
                                     aria-label={`Go to slide ${index + 1}`}
-                                />
+                                >
+                                    <div className={`rounded-full transition-all ${index === residentialCurrent
+                                        ? 'bg-primary w-8 h-2.5'
+                                        : 'bg-primary/20 group-hover:bg-primary/40 w-2.5 h-2.5'
+                                        }`}
+                                    />
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -304,7 +308,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                             </Button>
                         </a> */}
                         <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline" size="xl" className="border-secondary text-secondary hover:bg-secondary hover:text-white transition-colors duration-300">
+                            <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-secondary hover:text-white hover:border-secondary transition-colors duration-300">
                                 <MessageCircle className="w-5 h-5 mr-2" />
                                 WhatsApp Us
                             </Button>
@@ -359,12 +363,15 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                                 <button
                                     key={index}
                                     onClick={() => commercialApi?.scrollTo(index)}
-                                    className={`rounded-full transition-all ${index === commercialCurrent
-                                        ? 'bg-primary w-8 h-2.5'
-                                        : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
-                                        }`}
+                                    className="p-2 transition-all group"
                                     aria-label={`Go to slide ${index + 1}`}
-                                />
+                                >
+                                    <div className={`rounded-full transition-all ${index === commercialCurrent
+                                        ? 'bg-primary w-8 h-2.5'
+                                        : 'bg-primary/20 group-hover:bg-primary/40 w-2.5 h-2.5'
+                                        }`}
+                                    />
+                                </button>
                             ))}
                         </div>
                     </div>

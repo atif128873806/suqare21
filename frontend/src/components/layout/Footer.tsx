@@ -21,16 +21,40 @@ const Footer = () => {
               Islamabad&apos;s premier real estate agency specializing in industrial, commercial, and residential properties across CDA sectors.
             </p>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/share/1E5gtR1TDV/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
+              <a
+                href="https://www.facebook.com/share/1E5gtR1TDV/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
+                aria-label="Square21 Marketing on Facebook"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/square21marketing?igsh=MW5hb3luczFyMXp5eQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
+              <a
+                href="https://www.instagram.com/square21marketing?igsh=MW5hb3luczFyMXp5eQ%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
+                aria-label="Square21 Marketing on Instagram"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://www.linkedin.com/company/square21-marketing/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
+              <a
+                href="https://www.linkedin.com/company/square21-marketing/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
+                aria-label="Square21 Marketing on LinkedIn"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://www.tiktok.com/@square.21.marketin?_r=1&_t=ZS-94FNr6ropxy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
+              <a
+                href="https://www.tiktok.com/@square.21.marketin?_r=1&_t=ZS-94FNr6ropxy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
+                aria-label="Square21 Marketing on TikTok"
+              >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.54V6.78a4.85 4.85 0 01-1.03-.09z" /></svg>
               </a>
             </div>

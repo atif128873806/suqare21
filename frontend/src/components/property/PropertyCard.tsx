@@ -101,9 +101,10 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           {property.description.length > 110
             ? `${property.description.substring(0, 110).trim()}... `
             : `${property.description} `}
-          <Link href={`/property/${property.id}`} className="inline-flex">
+          <Link href={`/property/${property.id}`} className="inline-flex" aria-label={`Read more about ${property.title}`}>
             <span className="text-primary underline underline-offset-4 hover:text-secondary font-medium transition-colors cursor-pointer inline-block whitespace-nowrap">
               Read More
+              <span className="sr-only"> about {property.title}</span>
             </span>
           </Link>
         </div>
