@@ -1,5 +1,4 @@
-defaults
-last 2 versions
-not dead
-not ie 11
-not op_mini all
+chrome >= 100
+firefox >= 100
+safari >= 15.6
+edge >= 100
