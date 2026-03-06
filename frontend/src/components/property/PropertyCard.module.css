@@ -1,0 +1,14 @@
+.property-card {
+    background-color: hsl(var(--card));
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+}
+
+.property-card:hover {
+    border-color: hsl(var(--border) / 0.8);
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(220, 20, 60, 0.05);
+    transform: translateY(-4px);
+}

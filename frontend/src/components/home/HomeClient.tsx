@@ -22,19 +22,10 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import PropertyCard from '@/components/property/PropertyCard';
 import HeroSearch from '@/components/home/HeroSearch';
 import { Property } from '@/types/property';
 import heroBuilding from '@/assets/hero-building.jpg';
 import Counter from '@/components/ui/counter';
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-    type CarouselApi,
-} from '@/components/ui/carousel';
 
 const GallerySection = dynamic(() => import('./GallerySection'), {
     ssr: false,
@@ -45,20 +36,28 @@ const TestimonialsSection = dynamic(() => import('./TestimonialsSection'), {
     ssr: false,
     loading: () => <div className="h-[400px] w-full bg-muted/20 animate-pulse rounded-2xl" />
 });
+
+const RecentListingsSection = dynamic(() => import('./RecentListingsSection'), {
+    ssr: false,
+    loading: () => <div className="h-[600px] w-full bg-muted/20 animate-pulse rounded-2xl" />
+});
+
+const ResidentialListingSection = dynamic(() => import('./ResidentialListingSection'), {
+    ssr: false,
+    loading: () => <div className="h-[500px] w-full bg-muted/20 animate-pulse rounded-2xl" />
+});
+
+const CommercialListingSection = dynamic(() => import('./CommercialListingSection'), {
+    ssr: false,
+    loading: () => <div className="h-[600px] w-full bg-muted/20 animate-pulse rounded-2xl" />
+});
+
 interface HomeClientProps {
     initialProperties: Property[];
 }
 
 export default function HomeClient({ initialProperties }: HomeClientProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
-    const [residentialApi, setResidentialApi] = useState<CarouselApi>();
-    const [commercialApi, setCommercialApi] = useState<CarouselApi>();
-
-    const [residentialCurrent, setResidentialCurrent] = useState(0);
-    const [residentialCount, setResidentialCount] = useState(0);
-
-    const [commercialCurrent, setCommercialCurrent] = useState(0);
-    const [commercialCount, setCommercialCount] = useState(0);
 
     const residentialProperties = useMemo(() =>
         initialProperties.filter((p) => p.type === 'RESIDENTIAL'),
@@ -69,24 +68,6 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
         initialProperties.filter((p) => p.type === 'COMMERCIAL'),
         [initialProperties]
     );
-
-    useEffect(() => {
-        if (!residentialApi) return;
-        setResidentialCount(residentialApi.scrollSnapList().length);
-        setResidentialCurrent(residentialApi.selectedScrollSnap());
-        residentialApi.on("select", () => {
-            setResidentialCurrent(residentialApi.selectedScrollSnap());
-        });
-    }, [residentialApi]);
-
-    useEffect(() => {
-        if (!commercialApi) return;
-        setCommercialCount(commercialApi.scrollSnapList().length);
-        setCommercialCurrent(commercialApi.selectedScrollSnap());
-        commercialApi.on("select", () => {
-            setCommercialCurrent(commercialApi.selectedScrollSnap());
-        });
-    }, [commercialApi]);
 
     useEffect(() => {
         if (videoRef.current) {
@@ -188,7 +169,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                     muted
                     playsInline
                     poster="/assets/hero-poster.webp"
-                    preload="auto"
+                    preload="metadata"
                     className="absolute inset-0 w-full h-full object-cover"
                 >
                     <source src="/videos/hero-video.webm" type="video/webm" />
@@ -240,97 +221,10 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             </section>
 
             {/* Recent Listings Section */}
-            <section className="py-16 bg-background">
-                <div className="section-container">
-                    <div className="text-center mb-10">
-                        <h2 className="font-display text-3xl md:text-4xl font-bold mb-3 tracking-tight">New on the Market</h2>
-                        <p className="text-muted-foreground font-medium">Latest commercial and residential inventory secured by our brokers.</p>
-                    </div>
-
-                    {/* Mobile: Vertical Stack, Desktop: Horizontal Scroll */}
-                    <div className="relative">
-                        {/* Mobile View - Vertical Stack */}
-                        <div className="md:hidden flex flex-col gap-6">
-                            {initialProperties.slice(0, 6).map((property) => (
-                                <PropertyCard key={property.id} property={property} />
-                            ))}
-                        </div>
-
-                        {/* Desktop/Tablet View - Horizontal Scroll */}
-                        <div className="hidden md:flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-                            {initialProperties.slice(0, 6).map((property) => (
-                                <div key={property.id} className="flex-none w-[45%] lg:w-[32%] snap-start">
-                                    <PropertyCard property={property} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* View All Button */}
-                    <div className="text-center mt-8">
-                        <Link href="/properties">
-                            <Button variant="outline" className="group">
-                                View All Properties
-                                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-            </section>
+            <RecentListingsSection properties={initialProperties} />
 
             {/* Residential Listing Section */}
-            <section className="py-16 bg-muted/30 relative overflow-hidden">
-                <Carousel
-                    setApi={setResidentialApi}
-                    opts={{ align: "start" }}
-                    className="w-full relative"
-                >
-                    <CarouselPrevious className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg left-4 z-10" />
-                    <CarouselNext className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg right-4 z-10" />
-
-                    <div className="section-container">
-                        <div className="text-center mb-10">
-                            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3 tracking-tight">Residential Sales & Rentals</h2>
-                            <p className="text-muted-foreground font-medium">Premium properties in F, E, and G sectors. Verified owners, clear titles.</p>
-                        </div>
-
-                        {/* Property Grid with simple transition effect */}
-                        <div className="overflow-hidden">
-                            <CarouselContent className="-ml-6">
-                                {residentialProperties.map((property) => (
-                                    <CarouselItem key={property.id} className="pl-6 basis-full md:basis-1/2 lg:basis-1/3">
-                                        <PropertyCard property={property} />
-                                    </CarouselItem>
-                                ))}
-                                {residentialProperties.length === 0 && (
-                                    <div className="w-full py-12 text-center text-muted-foreground">
-                                        No residential properties available at the moment.
-                                    </div>
-                                )}
-                            </CarouselContent>
-                        </div>
-
-                        {/* Pagination Dots - Centered below grid for all devices */}
-                        <div className="flex justify-center items-center gap-3 mt-10 relative z-20">
-                            {Array.from({ length: residentialCount }).map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => residentialApi?.scrollTo(index)}
-                                    className="p-2 transition-all group"
-                                    aria-label={`Go to slide ${index + 1}`}
-                                >
-                                    <div className={`rounded-full transition-all ${index === residentialCurrent
-                                        ? 'bg-primary w-8 h-2.5'
-                                        : 'bg-primary/20 group-hover:bg-primary/40 w-2.5 h-2.5'
-                                        }`}
-                                    />
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </Carousel>
-            </section>
-
+            <ResidentialListingSection properties={residentialProperties} />
 
             {/* CTA Section */}
             <section className="py-20 bg-primary">
@@ -342,12 +236,6 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                         Speak directly with a broker specialized in your target sector. We handle negotiations, legal documentation, and secure transfers.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        {/* <a href="tel:+923083333818">
-                            <Button variant="outline" size="xl" className="border-secondary text-secondary hover:bg-secondary hover:text-white transition-colors duration-300">
-                                <Phone className="w-5 h-5 mr-2" />
-                                Call Us Now
-                            </Button>
-                        </a> */}
                         <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-secondary hover:text-white hover:border-secondary transition-colors duration-300">
                                 <MessageCircle className="w-5 h-5 mr-2" />
@@ -359,65 +247,7 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             </section>
 
             {/* Commercial Listing Section */}
-            <section className="py-20 relative overflow-hidden">
-                <Carousel
-                    setApi={setCommercialApi}
-                    opts={{ align: "start" }}
-                    className="w-full relative"
-                >
-                    <CarouselPrevious className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg left-4 z-10" />
-                    <CarouselNext className="flex w-10 h-10 lg:w-12 lg:h-12 bg-white/80 hover:bg-primary hover:text-white text-primary border-primary/20 shadow-lg right-4 z-10" />
-
-                    <div className="section-container">
-                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 relative z-20">
-                            <div>
-                                <span className="text-secondary text-sm font-bold uppercase tracking-wider">High-Yield Assets</span>
-                                <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 tracking-tight">Commercial Inventory</h2>
-                            </div>
-                            <Link href="/properties?type=COMMERCIAL" className="mt-4 md:mt-0">
-                                <Button variant="outline" className="group border-secondary text-secondary hover:bg-secondary hover:text-white">
-                                    View All Commercial
-                                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                                </Button>
-                            </Link>
-                        </div>
-
-                        {/* Property Grid with simple transition effect */}
-                        <div className="overflow-hidden">
-                            <CarouselContent className="-ml-6">
-                                {commercialProperties.map((property) => (
-                                    <CarouselItem key={property.id} className="pl-6 basis-full md:basis-1/2 lg:basis-1/3">
-                                        <PropertyCard property={property} />
-                                    </CarouselItem>
-                                ))}
-                                {commercialProperties.length === 0 && (
-                                    <div className="w-full py-12 text-center text-muted-foreground">
-                                        No commercial properties available at the moment.
-                                    </div>
-                                )}
-                            </CarouselContent>
-                        </div>
-
-                        {/* Pagination Dots - Centered below grid */}
-                        <div className="flex justify-center items-center gap-3 mt-10 relative z-20">
-                            {Array.from({ length: commercialCount }).map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => commercialApi?.scrollTo(index)}
-                                    className="p-2 transition-all group"
-                                    aria-label={`Go to slide ${index + 1}`}
-                                >
-                                    <div className={`rounded-full transition-all ${index === commercialCurrent
-                                        ? 'bg-primary w-8 h-2.5'
-                                        : 'bg-primary/20 group-hover:bg-primary/40 w-2.5 h-2.5'
-                                        }`}
-                                    />
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </Carousel>
-            </section>
+            <CommercialListingSection properties={commercialProperties} />
             {/* Services Section - Bento Grid Style */}
             {/* <section className="py-24 bg-background">
                 <div className="section-container">

@@ -8,6 +8,7 @@ import { formatPrice } from '@/data/properties';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MapPin, Ruler, Building, ArrowRight } from 'lucide-react';
+import styles from './PropertyCard.module.css';
 
 interface PropertyCardProps {
   property: Property;
@@ -78,7 +79,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
   return (
     <div
-      className="property-card group flex flex-col h-full bg-card rounded-2xl border border-border/60 overflow-hidden transition-all duration-500 p-4 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/20"
+      className={`${styles.propertyCard} group flex flex-col h-full bg-card rounded-2xl border border-border/60 overflow-hidden transition-all duration-500 p-4 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/20`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
