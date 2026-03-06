@@ -181,11 +181,13 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
                 {/* Video Background - Optimized with WebM and Compressed MP4 */}
                 <video
                     ref={videoRef}
+                    // @ts-ignore
+                    fetchPriority="high"
                     autoPlay
                     loop
                     muted
                     playsInline
-                    poster={heroBuilding.src}
+                    poster="/assets/hero-poster.webp"
                     preload="auto"
                     className="absolute inset-0 w-full h-full object-cover"
                 >
