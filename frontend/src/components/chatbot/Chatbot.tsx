@@ -67,6 +67,8 @@ export default function Chatbot() {
 
   // Auto-scroll to bottom
   useEffect(() => {
+    if (!isOpen) return;
+
     // Wrap in double rAF to ensure layout is settled before scrolling
     const scroll = () => {
       requestAnimationFrame(() => {
@@ -74,7 +76,7 @@ export default function Chatbot() {
       });
     };
     scroll();
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isOpen]);
 
   // Send welcome message when chatbot opens
   useEffect(() => {

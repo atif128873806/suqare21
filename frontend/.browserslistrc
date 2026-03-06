@@ -1,4 +1,7 @@
-chrome >= 100
-firefox >= 100
-safari >= 15.6
-edge >= 100
+chrome >= 90
+firefox >= 90
+safari >= 15
+edge >= 90
+ios >= 15
+not dead
+not IE 11

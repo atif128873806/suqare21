@@ -18,7 +18,10 @@ export default function Counter({ end, duration = 2000, suffix = '', className }
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting) {
-                    setIsVisible(true);
+                    // Stagger the start of counters to avoid layout thrashing
+                    setTimeout(() => {
+                        setIsVisible(true);
+                    }, Math.random() * 200 + 50);
                 }
             },
             { threshold: 0.1 }
