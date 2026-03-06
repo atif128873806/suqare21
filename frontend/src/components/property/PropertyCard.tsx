@@ -1,4 +1,5 @@
 'use client';
+import { useState, useRef } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,6 +14,24 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({ property }: PropertyCardProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => console.log("Video play failed:", err));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      // Optionally reset to start
+      videoRef.current.currentTime = 0;
+    }
+  };
   const getStatusBadge = () => {
     switch (property.status) {
       case 'AVAILABLE':
@@ -58,17 +77,23 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
   };
 
   return (
-    <div className="property-card group flex flex-col h-full bg-card rounded-2xl border border-border/60 overflow-hidden transition-all duration-500 p-4 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/20">
+    <div
+      className="property-card group flex flex-col h-full bg-card rounded-2xl border border-border/60 overflow-hidden transition-all duration-500 p-4 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/20"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Media Container */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted flex-shrink-0 rounded-[14px] mb-5">
         {property.videos && property.videos.length > 0 && (!property.images || property.images.length === 0 || property.images[0] === '/assets/property-residential.jpg') ? (
           <video
+            ref={videoRef}
             src={property.videos[0]}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            autoPlay
             muted
             loop
             playsInline
+            preload="none"
+            poster={getImageSrc(property.images?.[0])}
           />
         ) : (
           <Image

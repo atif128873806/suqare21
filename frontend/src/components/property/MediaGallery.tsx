@@ -10,6 +10,12 @@ interface MediaGalleryProps {
     title: string;
 }
 
+const getImageSrc = (image: string | { src: string; height: number; width: number; blurDataURL?: string } | undefined | null) => {
+    if (!image) return '/placeholder.svg';
+    return typeof image === 'string' ? image : image.src;
+};
+
+
 const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
     // Combine media items for unified navigation
     const mediaItems = [
@@ -50,6 +56,8 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                             src={currentMedia.src}
                             className="w-full h-full object-contain"
                             controls
+                            preload="metadata"
+                            poster={getImageSrc(images[0])}
                             onClick={(e) => e.stopPropagation()}
                         />
                     ) : (
@@ -112,6 +120,8 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                         <video
                                             src={media.src}
                                             className="w-full h-full object-cover"
+                                            preload="none"
+                                            poster={getImageSrc(images[0])}
                                         />
                                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                                             <Play className="w-8 h-8 text-white fill-white" />
@@ -160,6 +170,8 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                 src={currentMedia.src}
                                 controls
                                 autoPlay
+                                preload="auto"
+                                poster={getImageSrc(images[0])}
                                 className="w-full h-full object-contain rounded-lg"
                             />
                         ) : (
@@ -206,7 +218,12 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                 >
                                     {media.type === 'video' ? (
                                         <>
-                                            <video src={media.src} className="w-full h-full object-cover" />
+                                            <video
+                                                src={media.src}
+                                                className="w-full h-full object-cover"
+                                                preload="none"
+                                                poster={getImageSrc(images[0])}
+                                            />
                                             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                                                 <Play className="w-6 h-6 text-white fill-white" />
                                             </div>

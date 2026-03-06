@@ -1,16 +1,40 @@
 'use client';
-import { useState, useMemo, useEffect } from 'react';
 
+import { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import {
+    ArrowRight,
+    Building2,
+    Warehouse,
+    Home,
+    TrendingUp,
+    Phone,
+    MessageCircle,
+    CheckCircle,
+    Users,
+    Award,
+    Clock,
+    Facebook,
+    Linkedin,
+    Instagram
+} from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import PropertyCard from '@/components/property/PropertyCard';
 import HeroSearch from '@/components/home/HeroSearch';
-import { ArrowRight, Building2, Warehouse, Home, TrendingUp, Phone, MessageCircle, CheckCircle, Users, Award, Clock, Facebook, Linkedin, Instagram } from 'lucide-react';
-import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { Property } from '@/types/property';
 import heroBuilding from '@/assets/hero-building.jpg';
 import Counter from '@/components/ui/counter';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+    type CarouselApi,
+} from '@/components/ui/carousel';
 
 const GallerySection = dynamic(() => import('./GallerySection'), {
     ssr: false,
@@ -21,19 +45,12 @@ const TestimonialsSection = dynamic(() => import('./TestimonialsSection'), {
     ssr: false,
     loading: () => <div className="h-[400px] w-full bg-muted/20 animate-pulse rounded-2xl" />
 });
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-    type CarouselApi,
-} from '@/components/ui/carousel';
 interface HomeClientProps {
     initialProperties: Property[];
 }
 
 export default function HomeClient({ initialProperties }: HomeClientProps) {
+    const videoRef = useRef<HTMLVideoElement>(null);
     const [residentialApi, setResidentialApi] = useState<CarouselApi>();
     const [commercialApi, setCommercialApi] = useState<CarouselApi>();
 
@@ -70,6 +87,14 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
             setCommercialCurrent(commercialApi.selectedScrollSnap());
         });
     }, [commercialApi]);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(error => {
+                console.error("Hero video autoplay failed:", error);
+            });
+        }
+    }, []);
 
     const services = [
         {
@@ -147,20 +172,25 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
         }
     ];
 
+
     return (
         <div className="min-h-screen">
             {/* Hero Section */}
             {/* Hero Section with Video Background */}
             <section className="relative min-h-screen flex items-center overflow-hidden">
-                {/* Video Background */}
+                {/* Video Background - Optimized with WebM and Compressed MP4 */}
                 <video
+                    ref={videoRef}
                     autoPlay
                     loop
                     muted
                     playsInline
+                    poster={heroBuilding.src}
+                    preload="auto"
                     className="absolute inset-0 w-full h-full object-cover"
                 >
-                    <source src="/videos/hero-video.mp4" type="video/mp4" />
+                    <source src="/videos/hero-video.webm" type="video/webm" />
+                    <source src="/videos/hero-video-compressed.mp4" type="video/mp4" />
                 </video>
 
                 {/* Dark overlay for text readability */}

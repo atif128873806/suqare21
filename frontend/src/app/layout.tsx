@@ -11,11 +11,13 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({
   subsets: ["latin"],
   variable: '--font-body',
+  display: 'swap',
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: '--font-display',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -80,6 +82,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+      </head>
       <body className="antialiased" suppressHydrationWarning={true}>
         <AuthProvider>
           {children}
