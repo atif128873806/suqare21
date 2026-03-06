@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatbotWrapper from "@/components/chatbot/ChatbotWrapper";
-import { LazyMotion, domAnimation } from "framer-motion";
+import { MotionProvider } from "@/components/providers/MotionProvider";
 
 export default function MarketingLayout({
     children,
@@ -9,13 +9,13 @@ export default function MarketingLayout({
     children: React.ReactNode;
 }) {
     return (
-        <LazyMotion features={domAnimation}>
+        <MotionProvider>
             <Header />
             <main className="pt-20">
                 {children}
             </main>
             <ChatbotWrapper />
             <Footer />
-        </LazyMotion>
+        </MotionProvider>
     );
 }
