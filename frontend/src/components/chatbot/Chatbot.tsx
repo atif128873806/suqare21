@@ -67,7 +67,13 @@ export default function Chatbot() {
 
   // Auto-scroll to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Wrap in double rAF to ensure layout is settled before scrolling
+    const scroll = () => {
+      requestAnimationFrame(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      });
+    };
+    scroll();
   }, [messages, isTyping]);
 
   // Send welcome message when chatbot opens

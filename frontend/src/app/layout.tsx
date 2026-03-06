@@ -84,6 +84,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preload" as="image" href="/assets/hero-poster.webp" fetchPriority="high" />
       </head>
       <body className="antialiased" suppressHydrationWarning={true}>
         <AuthProvider>
