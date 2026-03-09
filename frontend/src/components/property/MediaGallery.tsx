@@ -57,7 +57,7 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                             className="w-full h-full object-contain"
                             controls
                             preload="metadata"
-                            poster={getImageSrc(images[0])}
+                            poster={`/assets/thumbnails/${currentMedia.src.split('/').pop()?.split('.')[0]}.jpg`}
                             onClick={(e) => e.stopPropagation()}
                         />
                     ) : (
@@ -121,7 +121,7 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                             src={media.src}
                                             className="w-full h-full object-cover"
                                             preload="none"
-                                            poster={getImageSrc(images[0])}
+                                            poster={`/assets/thumbnails/${media.src.split('/').pop()?.split('.')[0]}.jpg`}
                                         />
                                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                                             <Play className="w-8 h-8 text-white fill-white" />
@@ -171,7 +171,7 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                 controls
                                 autoPlay
                                 preload="auto"
-                                poster={getImageSrc(images[0])}
+                                poster={`/assets/thumbnails/${currentMedia.src.split('/').pop()?.split('.')[0]}.jpg`}
                                 className="w-full h-full object-contain rounded-lg"
                             />
                         ) : (
@@ -222,7 +222,7 @@ const MediaGallery = ({ images, videos = [], title }: MediaGalleryProps) => {
                                                 src={media.src}
                                                 className="w-full h-full object-cover"
                                                 preload="none"
-                                                poster={getImageSrc(images[0])}
+                                                poster={`/assets/thumbnails/${media.src.split('/').pop()?.split('.')[0]}.jpg`}
                                             />
                                             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                                                 <Play className="w-6 h-6 text-white fill-white" />

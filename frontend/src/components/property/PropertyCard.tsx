@@ -94,7 +94,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
             loop
             playsInline
             preload="none"
-            poster={getImageSrc(property.images?.[0])}
+            poster={property.videos[0] ? `/assets/thumbnails/${property.videos[0].split('/').pop()?.split('.')[0]}.jpg` : getImageSrc(property.images?.[0])}
           />
         ) : (
           <Image
