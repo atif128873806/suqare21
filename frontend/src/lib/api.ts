@@ -36,11 +36,16 @@ class ApiClient {
         });
 
         if (!response.ok) {
-            const error = await response.json().catch(() => ({
-                message: response.statusText,
-            }));
-            console.error('API Error:', error);
-            throw new Error(error.message || error.error || JSON.stringify(error) || 'API request failed');
+            const errorText = await response.text();
+            let errorJson = {};
+            try {
+                errorJson = JSON.parse(errorText);
+            } catch (e) {
+                errorJson = { message: errorText };
+            }
+
+            console.error(`API Error [${response.status}]:`, errorJson);
+            throw new Error((errorJson as any).message || (errorJson as any).error || JSON.stringify(errorJson) || `API request failed with status ${response.status}`);
         }
 
         return response.json();
@@ -187,6 +192,87 @@ class ApiClient {
         });
     }
 
+    async syncUser(data: {
+        email: string;
+        name?: string;
+        image?: string;
+        googleId?: string;
+        loginMethod: 'GOOGLE' | 'EMAIL';
+    }) {
+        return this.request<{ access_token: string; user: any }>('/auth/sync-user', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
+
+    // Users API
+    async getUsers(token: string) {
+        return this.request('/users', { token });
+    }
+
+    async updateUserStatus(id: string, status: string, token: string) {
+        return this.request(`/users/${id}/status`, {
+            method: 'PATCH',
+            body: JSON.stringify({ status }),
+            token,
+        });
+    }
+
+    async updatePreferences(preferences: any, token: string) {
+        return this.request('/users/preferences', {
+            method: 'PATCH',
+            body: JSON.stringify(preferences),
+            token,
+        });
+    }
+
+    async deleteUser(id: string, token: string) {
+        return this.request(`/users/${id}`, {
+            method: 'DELETE',
+            token,
+        });
+    }
+
+    // News API
+    async getNews() {
+        return this.request('/news');
+    }
+
+    async createNews(data: any, token: string) {
+        return this.request('/news', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            token,
+        });
+    }
+
+    async updateNews(id: string, data: any, token: string) {
+        return this.request(`/news/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            token,
+        });
+    }
+
+    async deleteNews(id: string, token: string) {
+        return this.request(`/news/${id}`, {
+            method: 'DELETE',
+            token,
+        });
+    }
+
+    // Notifications API
+    async getNotifications(token: string) {
+        return this.request<any[]>('/notifications', { token });
+    }
+
+    async markNotificationAsRead(id: string, token: string) {
+        return this.request(`/notifications/${id}/read`, {
+            method: 'PATCH',
+            token,
+        });
+    }
+
     // Chatbot API
     async sendChatMessage(visitorId: string, message: string) {
         return this.request<{ response: string; conversationId: string }>(
@@ -219,6 +305,25 @@ class ApiClient {
 
     async getChatLeads(token: string) {
         return this.request('/chatbot/leads', { token });
+    }
+
+    // Subscriber API
+    async subscribe(email: string) {
+        return this.request('/subscribers', {
+            method: 'POST',
+            body: JSON.stringify({ email }),
+        });
+    }
+
+    async getSubscribers(token: string) {
+        return this.request('/subscribers', { token });
+    }
+
+    async deleteSubscriber(id: string, token: string) {
+        return this.request(`/subscribers/${id}`, {
+            method: 'DELETE',
+            token,
+        });
     }
 }
 

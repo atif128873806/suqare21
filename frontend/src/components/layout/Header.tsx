@@ -5,8 +5,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone, MessageCircle, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { useSession, signIn, signOut } from "next-auth/react";
+import NotificationBell from "../notifications/NotificationBell";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
+  const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -124,10 +134,60 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
+              {session && (session.user as any).role === 'ADMIN' && (
+                <Link
+                  href="/admin/users"
+                  className={`text-sm font-bold transition-colors hover:text-secondary border-l border-border pl-8 text-primary uppercase tracking-widest`}
+                >
+                  User Logs
+                </Link>
+              )}
             </nav>
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-3">
+              <NotificationBell />
+
+              {session ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="rounded-full overflow-hidden">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={session.user?.image || ""} />
+                        <AvatarFallback>{session.user?.name?.[0] || "U"}</AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="bg-white border-border">
+                    {(session.user as any).role === 'ADMIN' && (
+                      <>
+                        <DropdownMenuItem asChild className="hover:bg-muted cursor-pointer">
+                          <Link href="/dashboard" className="w-full">Dashboard</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="hover:bg-muted cursor-pointer">
+                          <Link href="/admin/users" className="w-full">User Logs</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="hover:bg-muted cursor-pointer">
+                          <Link href="/admin/news" className="w-full">Manage News</Link>
+                        </DropdownMenuItem>
+                      </>
+                    )}
+                    <DropdownMenuItem onClick={() => signOut()} className="hover:bg-muted cursor-pointer text-destructive">
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => signIn('google')}
+                  className="border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                >
+                  Login
+                </Button>
+              )}
+
               {/* Desktop CTA */}
               <div className="hidden lg:flex">
                 <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
@@ -167,6 +227,33 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
+
+              {session && (session.user as any).role === 'ADMIN' && (
+                <div className="pt-2 flex flex-col space-y-1">
+                  <div className="px-4 py-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Admin Control</div>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-4 py-3 rounded-md text-sm font-medium text-primary hover:bg-muted flex items-center gap-2"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/admin/users"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-4 py-3 rounded-md text-sm font-medium text-primary hover:bg-muted flex items-center gap-2"
+                  >
+                    User Logs
+                  </Link>
+                  <Link
+                    href="/admin/news"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-4 py-3 rounded-md text-sm font-medium text-primary hover:bg-muted flex items-center gap-2"
+                  >
+                    Manage News
+                  </Link>
+                </div>
+              )}
               <div className="pt-4 mt-2 border-t border-border grid grid-cols-2 gap-3">
                 <a href="tel:+923083333818" className="flex items-center justify-center gap-2 p-3 rounded-md bg-muted text-primary text-sm font-medium">
                   <Phone className="w-4 h-4" />

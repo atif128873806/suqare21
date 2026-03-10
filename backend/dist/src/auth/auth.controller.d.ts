@@ -1,12 +1,36 @@
 import { AuthService } from './auth.service';
-import { LoginDto, RegisterDto } from './dto/auth.dto';
+import { LoginDto, RegisterDto, SyncUserDto } from './dto/auth.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
     register(registerDto: RegisterDto): Promise<{
         access_token: string;
+        user: {
+            id: any;
+            email: any;
+            name: any;
+            role: any;
+            image: any;
+        };
     }>;
     login(loginDto: LoginDto): Promise<{
         access_token: string;
+        user: {
+            id: any;
+            email: any;
+            name: any;
+            role: any;
+            image: any;
+        };
+    }>;
+    syncUser(syncUserDto: SyncUserDto): Promise<{
+        access_token: string;
+        user: {
+            id: any;
+            email: any;
+            name: any;
+            role: any;
+            image: any;
+        };
     }>;
 }

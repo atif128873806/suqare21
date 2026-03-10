@@ -16,7 +16,7 @@ exports.PropertyModule = PropertyModule;
 exports.PropertyModule = PropertyModule = __decorate([
     (0, common_1.Module)({
         providers: [property_service_1.PropertyService],
-        controllers: [property_controller_1.PropertyController]
+        controllers: [property_controller_1.PropertyController],
     })
 ], PropertyModule);
 //# sourceMappingURL=property.module.js.map

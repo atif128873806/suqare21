@@ -4,8 +4,11 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Providers } from "@/components/auth/Providers";
+import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Toaster } from "@/components/ui/toaster";
+import NewsletterPopup from "@/components/newsletter/NewsletterPopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -80,15 +83,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preload" as="image" href="/assets/hero-poster.webp" fetchPriority="high" />
       </head>
       <body className="antialiased" suppressHydrationWarning={true}>
         <AuthProvider>
-          {children}
-          <Toaster />
+          <Providers>
+            {children}
+            <NewsletterPopup />
+            <Toaster />
+            <SonnerToaster />
+          </Providers>
         </AuthProvider>
       </body>
     </html>

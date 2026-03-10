@@ -55,7 +55,9 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
     }
     async register(dto) {
-        const exists = await this.prisma.user.findUnique({ where: { email: dto.email } });
+        const exists = await this.prisma.user.findUnique({
+            where: { email: dto.email },
+        });
         if (exists)
             throw new common_1.ConflictException('Email already registered');
         const hashedPassword = await bcrypt.hash(dto.password, 10);
@@ -64,23 +66,77 @@ let AuthService = class AuthService {
                 email: dto.email,
                 password: hashedPassword,
                 name: dto.name,
+                loginMethod: 'EMAIL',
             },
         });
-        return this.generateToken(user.id, user.email);
+        return this.generateToken(user);
     }
     async login(dto) {
-        const user = await this.prisma.user.findUnique({ where: { email: dto.email } });
+        const user = await this.prisma.user.findUnique({
+            where: { email: dto.email },
+        });
         if (!user)
             throw new common_1.UnauthorizedException('Invalid credentials');
+        if (user.status === 'DISABLED')
+            throw new common_1.UnauthorizedException('Account is disabled');
+        if (!user.password) {
+            throw new common_1.UnauthorizedException('Please login with Google');
+        }
         const isValid = await bcrypt.compare(dto.password, user.password);
         if (!isValid)
             throw new common_1.UnauthorizedException('Invalid credentials');
-        return this.generateToken(user.id, user.email);
+        await this.prisma.user.update({
+            where: { id: user.id },
+            data: { lastActive: new Date() },
+        });
+        return this.generateToken(user);
     }
-    generateToken(userId, email) {
-        const payload = { sub: userId, email };
+    async syncUser(dto) {
+        let user = await this.prisma.user.findUnique({
+            where: { email: dto.email },
+        });
+        if (user) {
+            if (user.status === 'DISABLED')
+                throw new common_1.UnauthorizedException('Account is disabled');
+            user = await this.prisma.user.update({
+                where: { email: dto.email },
+                data: {
+                    googleId: dto.googleId || user.googleId,
+                    image: dto.image || user.image,
+                    name: dto.name || user.name,
+                    lastActive: new Date(),
+                },
+            });
+        }
+        else {
+            user = await this.prisma.user.create({
+                data: {
+                    email: dto.email,
+                    name: dto.name,
+                    image: dto.image,
+                    googleId: dto.googleId,
+                    loginMethod: 'GOOGLE',
+                    role: 'USER',
+                    lastActive: new Date(),
+                    preferences: {
+                        receiveAll: true,
+                    },
+                },
+            });
+        }
+        return this.generateToken(user);
+    }
+    generateToken(user) {
+        const payload = { sub: user.id, email: user.email, role: user.role };
         return {
             access_token: this.jwtService.sign(payload),
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                role: user.role,
+                image: user.image,
+            },
         };
     }
 };

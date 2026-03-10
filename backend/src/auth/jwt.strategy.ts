@@ -6,26 +6,27 @@ import { PrismaService } from '../common/prisma.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(
-        private configService: ConfigService,
-        private prisma: PrismaService,
-    ) {
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            ignoreExpiration: false,
-            secretOrKey: configService.get<string>('JWT_SECRET') || 'square21-secret-key',
-        });
+  constructor(
+    private configService: ConfigService,
+    private prisma: PrismaService,
+  ) {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey:
+        configService.get<string>('JWT_SECRET') || 'square21-secret-key',
+    });
+  }
+
+  async validate(payload: any) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: payload.sub },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException();
     }
 
-    async validate(payload: any) {
-        const user = await this.prisma.user.findUnique({
-            where: { id: payload.sub },
-        });
-
-        if (!user) {
-            throw new UnauthorizedException();
-        }
-
-        return user;
-    }
+    return user;
+  }
 }

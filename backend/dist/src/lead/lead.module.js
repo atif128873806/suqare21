@@ -16,7 +16,7 @@ exports.LeadModule = LeadModule;
 exports.LeadModule = LeadModule = __decorate([
     (0, common_1.Module)({
         providers: [lead_service_1.LeadService],
-        controllers: [lead_controller_1.LeadController]
+        controllers: [lead_controller_1.LeadController],
     })
 ], LeadModule);
 //# sourceMappingURL=lead.module.js.map

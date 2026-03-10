@@ -31,8 +31,8 @@ let CloudinaryService = class CloudinaryService {
                 transformation: [
                     { width: 1920, height: 1080, crop: 'limit' },
                     { quality: 'auto:good' },
-                    { fetch_format: 'auto' }
-                ]
+                    { fetch_format: 'auto' },
+                ],
             }, (error, result) => {
                 if (error)
                     return reject(error);
@@ -44,7 +44,7 @@ let CloudinaryService = class CloudinaryService {
         });
     }
     async uploadMultipleImages(files) {
-        const uploadPromises = files.map(file => this.uploadImage(file));
+        const uploadPromises = files.map((file) => this.uploadImage(file));
         return Promise.all(uploadPromises);
     }
     async uploadVideo(file) {
@@ -55,8 +55,8 @@ let CloudinaryService = class CloudinaryService {
                 transformation: [
                     { width: 1920, height: 1080, crop: 'limit' },
                     { quality: 'auto:good' },
-                    { fetch_format: 'auto' }
-                ]
+                    { fetch_format: 'auto' },
+                ],
             }, (error, result) => {
                 if (error)
                     return reject(error);
@@ -68,7 +68,7 @@ let CloudinaryService = class CloudinaryService {
         });
     }
     async uploadMultipleVideos(files) {
-        const uploadPromises = files.map(file => this.uploadVideo(file));
+        const uploadPromises = files.map((file) => this.uploadVideo(file));
         return Promise.all(uploadPromises);
     }
     async deleteImage(imageUrl) {

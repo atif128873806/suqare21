@@ -48,14 +48,14 @@ let PropertyService = class PropertyService {
                 { features: { has: search } },
             ];
         }
-        if (minPrice || maxPrice) {
+        if (minPrice ?? maxPrice) {
             whereClause.price = {};
             if (minPrice)
                 whereClause.price.gte = parseFloat(minPrice);
             if (maxPrice)
                 whereClause.price.lte = parseFloat(maxPrice);
         }
-        return this.prisma.property.findMany({
+        return await this.prisma.property.findMany({
             where: whereClause,
             orderBy: { createdAt: 'desc' },
         });
@@ -81,7 +81,7 @@ let PropertyService = class PropertyService {
         }
     }
     async remove(id) {
-        return this.prisma.property.delete({
+        return await this.prisma.property.delete({
             where: { id },
         });
     }

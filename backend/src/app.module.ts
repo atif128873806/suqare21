@@ -8,6 +8,10 @@ import { AuthModule } from './auth/auth.module';
 import { PropertyModule } from './property/property.module';
 import { LeadModule } from './lead/lead.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
+import { UsersModule } from './users/users.module';
+import { NewsModule } from './news/news.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -17,7 +21,11 @@ import { ChatbotModule } from './chatbot/chatbot.module';
     AuthModule,
     PropertyModule,
     LeadModule,
-    ChatbotModule
+    ChatbotModule,
+    UsersModule,
+    NewsModule,
+    NotificationsModule,
+    SubscribersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

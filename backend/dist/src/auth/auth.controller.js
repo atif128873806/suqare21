@@ -27,6 +27,9 @@ let AuthController = class AuthController {
     login(loginDto) {
         return this.authService.login(loginDto);
     }
+    syncUser(syncUserDto) {
+        return this.authService.syncUser(syncUserDto);
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -44,6 +47,14 @@ __decorate([
     __metadata("design:paramtypes", [auth_dto_1.LoginDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('sync-user'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.SyncUserDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "syncUser", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

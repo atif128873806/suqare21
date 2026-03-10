@@ -19,7 +19,7 @@ exports.ChatbotModule = ChatbotModule = __decorate([
     (0, common_1.Module)({
         imports: [common_module_1.CommonModule],
         providers: [chatbot_service_1.ChatbotService, langchain_service_1.LangChainService],
-        controllers: [chatbot_controller_1.ChatbotController]
+        controllers: [chatbot_controller_1.ChatbotController],
     })
 ], ChatbotModule);
 //# sourceMappingURL=chatbot.module.js.map

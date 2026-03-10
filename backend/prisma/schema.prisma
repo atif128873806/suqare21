@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,13 +7,142 @@ datasource db {
 }
 
 model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  password      String?
+  name          String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  googleId      String?        @unique
+  image         String?
+  lastActive    DateTime?
+  location      String?
+  loginMethod   LoginMethod    @default(EMAIL)
+  preferences   Json?
+  status        UserStatus     @default(ACTIVE)
+  role          UserRole       @default(USER)
+  sentNews      News[]         @relation("AdminNews")
+  notifications Notification[]
+}
+
+model Subscriber {
   id        String   @id @default(uuid())
   email     String   @unique
-  password  String
-  name      String?
-  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+}
+
+model News {
+  id          String       @id @default(uuid())
+  title       String
+  content     String
+  image       String?
+  category    NewsCategory
+  status      NewsStatus   @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  authorId    String?
+  author      User?        @relation("AdminNews", fields: [authorId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  title     String
+  message   String
+  type      String
+  link      String?
+  isRead    Boolean  @default(false)
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Property {
+  id          String          @id @default(uuid())
+  title       String
+  description String
+  type        PropertyType
+  purpose     PropertyPurpose
+  status      PropertyStatus  @default(AVAILABLE)
+  area        Float?
+  areaUnit    String?
+  price       Float
+  priceUnit   String?
+  priceType   String?
+  location    String
+  images      String[]
+  features    String[]
+  isFeatured  Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  videos      String[]
+  mapHtml     String?
+  leads       Lead[]
+}
+
+model Lead {
+  id            String    @id @default(uuid())
+  name          String
+  phone         String
+  email         String?
+  preferredArea String?
+  budget        Float?
+  source        String
+  propertyId    String?
+  message       String?
+  status        String    @default("NEW")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  property      Property? @relation(fields: [propertyId], references: [id])
+}
+
+model ChatConversation {
+  id        String   @id @default(uuid())
+  visitorId String   @unique
+  history   Json     @default("[]")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ChatLead {
+  id           String   @id @default(uuid())
+  visitorId    String   @unique
+  name         String
+  phone        String
+  budget       String?
+  area         String?
+  intent       String?
+  propertyType String?
+  source       String   @default("chatbot")
+  createdAt    DateTime @default(now())
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum LoginMethod {
+  EMAIL
+  GOOGLE
+}
+
+enum NewsStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+}
+
+enum NewsCategory {
+  MARKET_UPDATE
+  INVESTMENT_TIPS
+  NEW_PROJECTS
+  PROPERTY_NEWS
 }
 
 enum PropertyType {
@@ -38,64 +161,4 @@ enum PropertyStatus {
   AVAILABLE
   RENTED
   SOLD
-}
-
-model Property {
-  id          String         @id @default(uuid())
-  title       String
-  description String
-  type        PropertyType
-  purpose     PropertyPurpose
-  status      PropertyStatus  @default(AVAILABLE)
-  area        Float?         // in Kanal/Marla/SqFt
-  areaUnit    String?        // "Marla", "Kanal", "SqFt"
-  price       Float
-  priceUnit   String?        // "PKR", "USD"
-  priceType   String?        // "monthly", "yearly", "total"
-  location    String         // CDA Sector/Area
-  mapHtml     String?        // Custom Google Map embed code
-  images      String[]       // Cloudinary URLs
-  videos      String[]       // Cloudinary video URLs
-  features    String[]
-  isFeatured  Boolean         @default(false)
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  leads       Lead[]
-}
-
-model Lead {
-  id            String   @id @default(uuid())
-  name          String
-  phone         String
-  email         String?
-  preferredArea String?
-  budget        Float?
-  source        String   // "WEBSITE_FORM", "CHATBOT"
-  property      Property? @relation(fields: [propertyId], references: [id])
-  propertyId    String?
-  message       String?
-  status        String   @default("NEW")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model ChatConversation {
-  id         String   @id @default(uuid())
-  visitorId  String   @unique
-  history    Json     @default("[]") // [{role: "user", text: "..."}, {role: "model", text: "..."}]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
-
-model ChatLead {
-  id           String   @id @default(uuid())
-  visitorId    String   @unique
-  name         String
-  phone        String
-  budget       String?
-  area         String?
-  intent       String?  // "rent", "lease", "buy"
-  propertyType String?  // "industrial", "commercial", "residential"
-  source       String   @default("chatbot")
-  createdAt    DateTime @default(now())
 }

@@ -1,36 +1,36 @@
 import { IsString, IsOptional, IsEmail, IsNumber } from 'class-validator';
 
 export class CreateLeadDto {
-    @IsString()
-    name: string;
+  @IsString()
+  name: string;
 
-    @IsString()
-    phone: string;
+  @IsString()
+  phone: string;
 
-    @IsEmail()
-    @IsOptional()
-    email?: string;
+  @IsEmail()
+  @IsOptional()
+  email?: string;
 
-    @IsString()
-    @IsOptional()
-    preferredArea?: string;
+  @IsString()
+  @IsOptional()
+  preferredArea?: string;
 
-    @IsNumber()
-    @IsOptional()
-    budget?: number;
+  @IsNumber()
+  @IsOptional()
+  budget?: number;
 
-    @IsString()
-    source: string; // "WEBSITE_FORM", "CHATBOT"
+  @IsString()
+  source: string; // "WEBSITE_FORM", "CHATBOT"
 
-    @IsString()
-    @IsOptional()
-    propertyId?: string;
+  @IsString()
+  @IsOptional()
+  propertyId?: string;
 
-    @IsString()
-    @IsOptional()
-    message?: string;
+  @IsString()
+  @IsOptional()
+  message?: string;
 
-    @IsString()
-    @IsOptional()
-    conversationId?: string;
+  @IsString()
+  @IsOptional()
+  conversationId?: string;
 }

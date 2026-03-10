@@ -17,6 +17,10 @@ const auth_module_1 = require("./auth/auth.module");
 const property_module_1 = require("./property/property.module");
 const lead_module_1 = require("./lead/lead.module");
 const chatbot_module_1 = require("./chatbot/chatbot.module");
+const users_module_1 = require("./users/users.module");
+const news_module_1 = require("./news/news.module");
+const notifications_module_1 = require("./notifications/notifications.module");
+const subscribers_module_1 = require("./subscribers/subscribers.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,7 +33,11 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             property_module_1.PropertyModule,
             lead_module_1.LeadModule,
-            chatbot_module_1.ChatbotModule
+            chatbot_module_1.ChatbotModule,
+            users_module_1.UsersModule,
+            news_module_1.NewsModule,
+            notifications_module_1.NotificationsModule,
+            subscribers_module_1.SubscribersModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

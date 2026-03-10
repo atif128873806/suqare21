@@ -7,6 +7,6 @@ import { LangChainService } from '../common/langchain.service';
 @Module({
   imports: [CommonModule],
   providers: [ChatbotService, LangChainService],
-  controllers: [ChatbotController]
+  controllers: [ChatbotController],
 })
-export class ChatbotModule { }
+export class ChatbotModule {}

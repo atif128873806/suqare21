@@ -25,24 +25,26 @@ let ChatbotService = class ChatbotService {
     }
     async handleMessage(visitorId, message) {
         const existingConvo = await this.prisma.chatConversation.findUnique({
-            where: { visitorId }
+            where: { visitorId },
         });
-        const conversationHistory = existingConvo?.history ? existingConvo.history : [];
+        const conversationHistory = existingConvo?.history
+            ? existingConvo.history
+            : [];
         const { response, extractedData } = await this.langChainService.generateResponse(visitorId, message, conversationHistory);
         const updatedHistory = [
             ...conversationHistory,
             { role: 'user', text: message, timestamp: new Date().toISOString() },
-            { role: 'model', text: response, timestamp: new Date().toISOString() }
+            { role: 'model', text: response, timestamp: new Date().toISOString() },
         ];
         const conversation = await this.prisma.chatConversation.upsert({
             where: { visitorId },
             update: {
-                history: updatedHistory
+                history: updatedHistory,
             },
             create: {
                 visitorId,
-                history: updatedHistory
-            }
+                history: updatedHistory,
+            },
         });
         if (extractedData.phone || extractedData.name) {
             await this.captureLead({
@@ -52,7 +54,7 @@ let ChatbotService = class ChatbotService {
                 budget: extractedData.budget,
                 area: extractedData.area,
                 intent: extractedData.intent,
-                propertyType: extractedData.propertyType
+                propertyType: extractedData.propertyType,
             });
         }
         return { response, conversationId: conversation.id };
@@ -66,7 +68,7 @@ let ChatbotService = class ChatbotService {
                 budget: data.budget,
                 area: data.area,
                 intent: data.intent,
-                propertyType: data.propertyType
+                propertyType: data.propertyType,
             },
             create: {
                 visitorId: data.visitorId,
@@ -75,8 +77,8 @@ let ChatbotService = class ChatbotService {
                 budget: data.budget,
                 area: data.area,
                 intent: data.intent,
-                propertyType: data.propertyType
-            }
+                propertyType: data.propertyType,
+            },
         });
         await this.prisma.lead.create({
             data: {
@@ -84,20 +86,20 @@ let ChatbotService = class ChatbotService {
                 phone: data.phone,
                 preferredArea: data.area,
                 source: 'CHATBOT',
-                message: `Budget: ${data.budget || 'Not specified'}, Intent: ${data.intent || 'Not specified'}, Property Type: ${data.propertyType || 'Not specified'}`
-            }
+                message: `Budget: ${data.budget || 'Not specified'}, Intent: ${data.intent || 'Not specified'}, Property Type: ${data.propertyType || 'Not specified'}`,
+            },
         });
         return chatLead;
     }
     async getConversations() {
         return this.prisma.chatConversation.findMany({
             orderBy: { updatedAt: 'desc' },
-            take: 50
+            take: 50,
         });
     }
     async getChatLeads() {
         return this.prisma.chatLead.findMany({
-            orderBy: { createdAt: 'desc' }
+            orderBy: { createdAt: 'desc' },
         });
     }
 };

@@ -35,20 +35,27 @@ let LangChainService = class LangChainService {
     async generateResponse(visitorId, userMessage, history = []) {
         const safeHistory = Array.isArray(history) ? history : [];
         const extractedData = this.extractUserInfoStructured(safeHistory, userMessage);
-        let propertyContext = "";
-        if (extractedData.area || extractedData.propertyType || extractedData.intent) {
+        let propertyContext = '';
+        if (extractedData.area ||
+            extractedData.propertyType ||
+            extractedData.intent) {
             const properties = await this.searchProperties(extractedData);
             if (properties.length > 0) {
-                propertyContext = "\nRELEVANT PROPERTIES FOUND:\n" + properties.map((p) => `- ${p.title} in ${p.location}: ${p.price} ${p.priceUnit} (${p.type}, ${p.purpose})`).join('\n');
+                propertyContext =
+                    '\nRELEVANT PROPERTIES FOUND:\n' +
+                        properties
+                            .map((p) => `- ${p.title} in ${p.location}: ${p.price} ${p.priceUnit} (${p.type}, ${p.purpose})`)
+                            .join('\n');
             }
             else {
-                propertyContext = "\nNo specific matching properties found in database currently. Continue being helpful.";
+                propertyContext =
+                    '\nNo specific matching properties found in database currently. Continue being helpful.';
             }
         }
         console.log(`[Chatbot] Turn for ${visitorId}. Extracted:`, extractedData);
         const prompt = prompts_1.ChatPromptTemplate.fromMessages([
             [
-                "system",
+                'system',
                 `You are a Senior Real Estate Consultant at Square21 Marketing, the premier agency in Islamabad. 
 Your goal is to provide expert guidance and transition leads into high-value consultations.
 
@@ -80,19 +87,21 @@ CONSULTATION PROTOCOL (CRITICAL):
      - **RULE**: Once the lead is complete, DO NOT ask more questions.
 
 4. **TONE**:
-   - Senior expert, authoritative, extremely helpful, and concise (1-2 sentences).`
+   - Senior expert, authoritative, extremely helpful, and concise (1-2 sentences).`,
             ],
-            new prompts_1.MessagesPlaceholder("chat_history"),
-            ["human", "{input}"],
+            new prompts_1.MessagesPlaceholder('chat_history'),
+            ['human', '{input}'],
         ]);
-        const chatHistory = safeHistory.map(h => h && h.role?.toLowerCase() === 'user' ? new messages_1.HumanMessage(h.text || '') : new messages_1.AIMessage(h.text || ''));
+        const chatHistory = safeHistory.map((h) => h && h.role?.toLowerCase() === 'user'
+            ? new messages_1.HumanMessage(h.text || '')
+            : new messages_1.AIMessage(h.text || ''));
         const chain = prompt.pipe(this.model).pipe(new output_parsers_1.StringOutputParser());
         try {
             const response = await chain.invoke({
                 input: userMessage,
                 chat_history: chatHistory,
                 memory_text: this.formatMemoryText(extractedData),
-                property_context: propertyContext
+                property_context: propertyContext,
             });
             return { response, extractedData };
         }
@@ -100,8 +109,8 @@ CONSULTATION PROTOCOL (CRITICAL):
             console.error('[Chatbot] AI Error:', error);
             if (error.message?.includes('429') || error.message?.includes('quota')) {
                 return {
-                    response: "I apologize, but I am currently experiencing a high volume of inquiries. Please call us directly at +92 308 3333818 so our human consultants can assist you immediately.",
-                    extractedData
+                    response: 'I apologize, but I am currently experiencing a high volume of inquiries. Please call us directly at +92 308 3333818 so our human consultants can assist you immediately.',
+                    extractedData,
                 };
             }
             throw error;
@@ -112,26 +121,37 @@ CONSULTATION PROTOCOL (CRITICAL):
             return await this.prisma.property.findMany({
                 where: {
                     OR: [
-                        data.area ? { location: { contains: data.area, mode: 'insensitive' } } : {},
+                        data.area
+                            ? {
+                                location: { contains: data.area, mode: 'insensitive' },
+                            }
+                            : {},
                         data.propertyType ? { type: data.propertyType } : {},
-                        data.intent ? { purpose: data.intent } : {}
-                    ].filter(cond => Object.keys(cond).length > 0)
+                        data.intent ? { purpose: data.intent } : {},
+                    ].filter((cond) => Object.keys(cond).length > 0),
                 },
-                take: 3
+                take: 3,
             });
         }
         catch (e) {
-            console.error("[Chatbot] Property Search Error:", e);
+            console.error('[Chatbot] Property Search Error:', e);
             return [];
         }
     }
     extractUserInfoStructured(history, currentMessage) {
-        const allMessages = [...history.filter(m => m && m.role?.toLowerCase() === 'user').map(m => m.text), currentMessage];
+        const allMessages = [
+            ...history
+                .filter((m) => m && m.role?.toLowerCase() === 'user')
+                .map((m) => m.text),
+            currentMessage,
+        ];
         const combinedText = allMessages.join(' ').toLowerCase();
         const result = {};
         if (combinedText.includes('rent'))
             result.intent = 'RENT';
-        else if (combinedText.includes('buy') || combinedText.includes('sale') || combinedText.includes('purchase'))
+        else if (combinedText.includes('buy') ||
+            combinedText.includes('sale') ||
+            combinedText.includes('purchase'))
             result.intent = 'SALE';
         const sectorRegex = /\b([efghi]|dha|bahria|blue|gulberg|bani gala)[-\s]?(\d+|area|town|ph\d+|gala)\b/gi;
         const sectorsFound = combinedText.match(sectorRegex);
@@ -139,9 +159,12 @@ CONSULTATION PROTOCOL (CRITICAL):
             result.area = Array.from(new Set(sectorsFound)).join(', ').toUpperCase();
         if (combinedText.includes('house'))
             result.propertyType = 'RESIDENTIAL';
-        else if (combinedText.includes('apartment') || combinedText.includes('flat'))
+        else if (combinedText.includes('apartment') ||
+            combinedText.includes('flat'))
             result.propertyType = 'RESIDENTIAL';
-        else if (combinedText.includes('office') || combinedText.includes('shop') || combinedText.includes('commercial'))
+        else if (combinedText.includes('office') ||
+            combinedText.includes('shop') ||
+            combinedText.includes('commercial'))
             result.propertyType = 'COMMERCIAL';
         else if (combinedText.includes('plot'))
             result.propertyType = 'RESIDENTIAL';
@@ -170,7 +193,9 @@ CONSULTATION PROTOCOL (CRITICAL):
             lines.push(`- Phone: ${data.phone}`);
         if (data.name)
             lines.push(`- Name: ${data.name}`);
-        return lines.length > 0 ? lines.join('\n') : "- No client details captured yet.";
+        return lines.length > 0
+            ? lines.join('\n')
+            : '- No client details captured yet.';
     }
 };
 exports.LangChainService = LangChainService;

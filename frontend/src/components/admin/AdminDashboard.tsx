@@ -13,6 +13,8 @@ import PropertyForm, { PropertyFormData } from './PropertyForm';
 import LeadManagement from './LeadManagement';
 import ChatbotLogs from './ChatbotLogs';
 import AdminSettings from './AdminSettings';
+import UserManagement from './UserManagement';
+import SubscriberManagement from './SubscriberManagement';
 import { Property } from '@/types/property';
 import { api } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
@@ -34,7 +36,8 @@ import {
     Eye,
     TrendingUp,
     Clock,
-    MapPin
+    MapPin,
+    Mail
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -163,6 +166,8 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
         { id: 'properties', icon: Building2, label: 'Properties' },
         { id: 'leads', icon: Users, label: 'Leads' },
         { id: 'chatbot', icon: MessageSquare, label: 'Chatbot' },
+        { id: 'newsletter', icon: Mail, label: 'Newsletter' },
+        { id: 'user-logs', icon: Users, label: 'User Logs' },
         { id: 'settings', icon: Settings, label: 'Settings' },
     ];
 
@@ -450,6 +455,18 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
                                 chatLeads={chatLeads}
                                 isLoading={isChatbotLoading}
                             />
+                        </div>
+                    )}
+
+                    {activeTab === 'user-logs' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <UserManagement />
+                        </div>
+                    )}
+
+                    {activeTab === 'newsletter' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <SubscriberManagement />
                         </div>
                     )}
 

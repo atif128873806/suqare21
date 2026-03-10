@@ -3,13 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const common_1 = require("@nestjs/common");
 const app_module_1 = require("./app.module");
+const express_1 = require("express");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         bodyParser: true,
         rawBody: true,
     });
-    app.use(require('express').json({ limit: '200mb' }));
-    app.use(require('express').urlencoded({ limit: '200mb', extended: true }));
+    app.use((0, express_1.json)({ limit: '200mb' }));
+    app.use((0, express_1.urlencoded)({ limit: '200mb', extended: true }));
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
         transform: true,

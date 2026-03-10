@@ -31,13 +31,13 @@ export declare class LeadService {
             priceUnit: string | null;
             priceType: string | null;
             location: string;
-            mapHtml: string | null;
             images: string[];
-            videos: string[];
             features: string[];
             isFeatured: boolean;
             createdAt: Date;
             updatedAt: Date;
+            videos: string[];
+            mapHtml: string | null;
         } | null;
     } & {
         id: string;
@@ -67,13 +67,13 @@ export declare class LeadService {
             priceUnit: string | null;
             priceType: string | null;
             location: string;
-            mapHtml: string | null;
             images: string[];
-            videos: string[];
             features: string[];
             isFeatured: boolean;
             createdAt: Date;
             updatedAt: Date;
+            videos: string[];
+            mapHtml: string | null;
         } | null;
     } & {
         id: string;
