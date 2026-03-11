@@ -13,7 +13,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async register(dto: RegisterDto) {
     const exists = await this.prisma.user.findUnique({
@@ -73,7 +73,7 @@ export class AuthService {
       if ((user as any).status === 'DISABLED')
         throw new UnauthorizedException('Account is disabled');
 
-      // Update existing user with Google info if not already set
+      // Update existing user with Google info, but preserve their existing role
       user = await this.prisma.user.update({
         where: { email: dto.email },
         data: {
@@ -81,6 +81,7 @@ export class AuthService {
           image: dto.image || (user as any).image,
           name: dto.name || user.name,
           lastActive: new Date(),
+          // Note: role is intentionally NOT updated here to preserve ADMIN status
         } as any,
       });
     } else {

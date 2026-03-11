@@ -55,8 +55,28 @@ export default function UserManagement() {
     const [search, setSearch] = useState('');
     const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
-    const nextAuthToken = (session as any)?.accessToken as string | undefined;
-    const token = authContextToken || nextAuthToken;
+    const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Evaluate token on mount and when auth states change
+        const checkToken = () => {
+            const nextAuthToken = (session as any)?.accessToken as string | undefined;
+            if (nextAuthToken) {
+                setToken(nextAuthToken);
+                return;
+            }
+            if (authContextToken) {
+                setToken(authContextToken);
+                return;
+            }
+            // Fallback to localStorage just in case context is slow
+            const stored = localStorage.getItem('auth_token');
+            if (stored) {
+                setToken(stored);
+            }
+        };
+        checkToken();
+    }, [session, authContextToken]);
 
     const fetchUsers = async () => {
         if (!token) return;
