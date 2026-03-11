@@ -57,6 +57,21 @@ const authOptions = {
         error: '/login', // Redirect back to login on error
     },
     secret: process.env.NEXTAUTH_SECRET,
+    // Suppress internal /api/auth/_log 404 noise in production
+    logger: {
+        error(code: string, ...message: unknown[]) {
+            if (code === "CLIENT_FETCH_ERROR") return;
+            console.error(code, ...message);
+        },
+        warn(code: string) {
+            console.warn(code);
+        },
+        debug(code: string, ...message: unknown[]) {
+            if (process.env.NODE_ENV === "development") {
+                console.debug(code, ...message);
+            }
+        },
+    },
 };
 
 const handler = NextAuth(authOptions);
