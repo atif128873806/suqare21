@@ -54,6 +54,7 @@ const authOptions = {
     },
     pages: {
         signIn: '/login',
+        error: '/login', // Redirect back to login on error
     },
 };
 
