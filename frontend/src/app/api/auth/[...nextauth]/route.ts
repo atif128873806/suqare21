@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { api } from "@/lib/api";
 
-export const authOptions = {
+const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -32,14 +32,6 @@ export const authOptions = {
                     return true;
                 } catch (error: any) {
                     console.error("Error syncing user with backend:", error);
-                    // Log to a file we can read
-                    try {
-                        const fs = require('fs');
-                        const logData = `[${new Date().toISOString()}] Login Error: ${error.message}\n` +
-                            `Data sent: ${JSON.stringify({ email: user.email, name: user.name, id: user.id, sub: profile?.sub })}\n` +
-                            `Stack: ${error.stack}\n\n`;
-                        fs.appendFileSync('/tmp/auth_error.log', logData);
-                    } catch (e) { }
                     return false;
                 }
             }
@@ -67,4 +59,11 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export async function GET(req: any, context: any) {
+    return handler(req, context);
+}
+
+export async function POST(req: any, context: any) {
+    return handler(req, context);
+}
+
