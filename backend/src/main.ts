@@ -23,6 +23,7 @@ async function bootstrap() {
   );
 
   app.enableCors();
+  app.setGlobalPrefix('api-v1');
 
   await app.listen(process.env.PORT ?? 3001);
   console.log(`Application is running on: ${await app.getUrl()}`);
