@@ -7,7 +7,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <NextThemesProvider attribute="class" forcedTheme="light">
-            <SessionProvider basePath="/next-auth">
+            <SessionProvider>
                 <AuthProvider>{children}</AuthProvider>
             </SessionProvider>
         </NextThemesProvider>
