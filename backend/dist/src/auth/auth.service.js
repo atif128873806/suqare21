@@ -47,29 +47,140 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const prisma_service_1 = require("../common/prisma.service");
 const bcrypt = __importStar(require("bcrypt"));
+const resend_1 = require("resend");
 let AuthService = class AuthService {
     prisma;
     jwtService;
+    resend;
     constructor(prisma, jwtService) {
         this.prisma = prisma;
         this.jwtService = jwtService;
+        const apiKey = process.env.RESEND_API_KEY;
+        if (apiKey) {
+            this.resend = new resend_1.Resend(apiKey);
+        }
+        else {
+            console.warn('RESEND_API_KEY is not set. Emails will not be sent.');
+        }
+    }
+    generateOtp() {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+    async sendOtpEmail(email, otp, name) {
+        if (!this.resend) {
+            console.log(`[DEV] OTP for ${email} is: ${otp}`);
+            return;
+        }
+        try {
+            await this.resend.emails.send({
+                from: 'Square21 <noreply@square21marketing.com>',
+                to: email,
+                subject: 'Verify your Square21 account',
+                html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2>Welcome to Square21, ${name}!</h2>
+            <p>Please use the following OTP to verify your account. It will expire in 10 minutes.</p>
+            <div style="background-color: #f4f4f4; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; margin: 20px 0;">
+              ${otp}
+            </div>
+            <p>If you did not request this, please ignore this email.</p>
+          </div>
+        `,
+            });
+        }
+        catch (error) {
+            console.error('Failed to send OTP email:', error);
+        }
     }
     async register(dto) {
-        const exists = await this.prisma.user.findUnique({
+        let user = await this.prisma.user.findUnique({
             where: { email: dto.email },
         });
-        if (exists)
+        if (user && user.status !== 'PENDING') {
             throw new common_1.ConflictException('Email already registered');
+        }
         const hashedPassword = await bcrypt.hash(dto.password, 10);
-        const user = await this.prisma.user.create({
+        const otp = this.generateOtp();
+        const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
+        if (user && user.status === 'PENDING') {
+            user = await this.prisma.user.update({
+                where: { email: dto.email },
+                data: {
+                    password: hashedPassword,
+                    name: dto.name,
+                    otp,
+                    otpExpiresAt,
+                },
+            });
+        }
+        else {
+            user = await this.prisma.user.create({
+                data: {
+                    email: dto.email,
+                    password: hashedPassword,
+                    name: dto.name,
+                    loginMethod: 'EMAIL',
+                    status: 'PENDING',
+                    otp,
+                    otpExpiresAt,
+                },
+            });
+        }
+        this.sendOtpEmail(user.email, otp, user.name || 'User');
+        return {
+            message: 'OTP sent successfully. Please check your email.',
+            status: 'PENDING',
+        };
+    }
+    async verifyOtp(dto) {
+        const user = await this.prisma.user.findUnique({
+            where: { email: dto.email },
+        });
+        if (!user) {
+            throw new common_1.UnauthorizedException('User not found');
+        }
+        if (user.status !== 'PENDING') {
+            throw new common_1.BadRequestException('User is already verified or disabled');
+        }
+        if (!user.otp || !user.otpExpiresAt || user.otp !== dto.otp) {
+            throw new common_1.UnauthorizedException('Invalid OTP');
+        }
+        if (new Date() > user.otpExpiresAt) {
+            throw new common_1.UnauthorizedException('OTP has expired');
+        }
+        const updatedUser = await this.prisma.user.update({
+            where: { id: user.id },
             data: {
-                email: dto.email,
-                password: hashedPassword,
-                name: dto.name,
-                loginMethod: 'EMAIL',
+                status: 'ACTIVE',
+                otp: null,
+                otpExpiresAt: null,
             },
         });
-        return this.generateToken(user);
+        return this.generateToken(updatedUser);
+    }
+    async resendOtp(dto) {
+        const user = await this.prisma.user.findUnique({
+            where: { email: dto.email },
+        });
+        if (!user) {
+            return { message: 'If the email is registered and pending, an OTP will be sent.' };
+        }
+        if (user.status !== 'PENDING') {
+            return { message: 'If the email is registered and pending, an OTP will be sent.' };
+        }
+        const otp = this.generateOtp();
+        const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
+        await this.prisma.user.update({
+            where: { id: user.id },
+            data: {
+                otp,
+                otpExpiresAt,
+            },
+        });
+        this.sendOtpEmail(user.email, otp, user.name || 'User');
+        return {
+            message: 'If the email is registered and pending, an OTP will be sent.',
+        };
     }
     async login(dto) {
         const user = await this.prisma.user.findUnique({
@@ -77,8 +188,12 @@ let AuthService = class AuthService {
         });
         if (!user)
             throw new common_1.UnauthorizedException('Invalid credentials');
-        if (user.status === 'DISABLED')
+        if (user.status === 'PENDING') {
+            throw new common_1.UnauthorizedException('Please verify your email address first by entering the OTP sent to your email.::PENDING');
+        }
+        if (user.status === 'DISABLED') {
             throw new common_1.UnauthorizedException('Account is disabled');
+        }
         if (!user.password) {
             throw new common_1.UnauthorizedException('Please login with Google');
         }

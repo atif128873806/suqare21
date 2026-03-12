@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { api } from "@/lib/api";
 
 const authOptions = {
@@ -8,6 +9,53 @@ const authOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
+        CredentialsProvider({
+            name: 'Credentials',
+            credentials: {
+                email: { label: "Email", type: "email" },
+                password: { label: "Password", type: "password" }
+            },
+            async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) {
+                    throw new Error("Please enter an email and password");
+                }
+
+                try {
+                    // Use a direct fetch or axios, assuming your backend URL is NEXT_PUBLIC_API_URL or similar.
+                    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+                    const res = await fetch(`${backendUrl}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: credentials.email,
+                            password: credentials.password,
+                        }),
+                    });
+
+                    const data = await res.json();
+
+                    if (!res.ok) {
+                        throw new Error(data.message || "Invalid credentials");
+                    }
+
+                    if (data && data.user && data.access_token) {
+                        return {
+                            id: data.user.id,
+                            name: data.user.name,
+                            email: data.user.email,
+                            role: data.user.role,
+                            accessToken: data.access_token,
+                            backendUser: data.user
+                        } as any;
+                    }
+                    return null;
+                } catch (error: any) {
+                    console.error("Credentials Auth Error:", error);
+                    // NextAuth throws the error message to the client
+                    throw new Error(error.message || "Authentication failed");
+                }
+            }
+        })
     ],
     callbacks: {
         async signIn({ user, account, profile }: any) {
@@ -35,6 +83,7 @@ const authOptions = {
                     return false;
                 }
             }
+            // For credentials, it's already handled in authorize callback
             return true;
         },
         async jwt({ token, user }: any) {

@@ -4,12 +4,12 @@ export declare class LeadController {
     private readonly leadService;
     constructor(leadService: LeadService);
     create(createLeadDto: CreateLeadDto): Promise<{
+        email: string | null;
+        name: string;
         id: string;
-        status: string;
         createdAt: Date;
         updatedAt: Date;
-        name: string;
-        email: string | null;
+        status: string;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
@@ -20,32 +20,32 @@ export declare class LeadController {
     findAll(): Promise<({
         property: {
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            location: string;
+            status: import(".prisma/client").$Enums.PropertyStatus;
             title: string;
             description: string;
             type: import(".prisma/client").$Enums.PropertyType;
             purpose: import(".prisma/client").$Enums.PropertyPurpose;
-            status: import(".prisma/client").$Enums.PropertyStatus;
             area: number | null;
             areaUnit: string | null;
             price: number;
             priceUnit: string | null;
             priceType: string | null;
-            location: string;
+            mapHtml: string | null;
             images: string[];
+            videos: string[];
             features: string[];
             isFeatured: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            videos: string[];
-            mapHtml: string | null;
         } | null;
     } & {
+        email: string | null;
+        name: string;
         id: string;
-        status: string;
         createdAt: Date;
         updatedAt: Date;
-        name: string;
-        email: string | null;
+        status: string;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
@@ -56,32 +56,32 @@ export declare class LeadController {
     findOne(id: string): Promise<{
         property: {
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            location: string;
+            status: import(".prisma/client").$Enums.PropertyStatus;
             title: string;
             description: string;
             type: import(".prisma/client").$Enums.PropertyType;
             purpose: import(".prisma/client").$Enums.PropertyPurpose;
-            status: import(".prisma/client").$Enums.PropertyStatus;
             area: number | null;
             areaUnit: string | null;
             price: number;
             priceUnit: string | null;
             priceType: string | null;
-            location: string;
+            mapHtml: string | null;
             images: string[];
+            videos: string[];
             features: string[];
             isFeatured: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            videos: string[];
-            mapHtml: string | null;
         } | null;
     } & {
+        email: string | null;
+        name: string;
         id: string;
-        status: string;
         createdAt: Date;
         updatedAt: Date;
-        name: string;
-        email: string | null;
+        status: string;
         phone: string;
         preferredArea: string | null;
         budget: number | null;
@@ -90,12 +90,12 @@ export declare class LeadController {
         message: string | null;
     }>;
     updateStatus(id: string, status: string): Promise<{
+        email: string | null;
+        name: string;
         id: string;
-        status: string;
         createdAt: Date;
         updatedAt: Date;
-        name: string;
-        email: string | null;
+        status: string;
         phone: string;
         preferredArea: string | null;
         budget: number | null;

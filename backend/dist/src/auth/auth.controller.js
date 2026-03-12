@@ -24,6 +24,12 @@ let AuthController = class AuthController {
     register(registerDto) {
         return this.authService.register(registerDto);
     }
+    verifyOtp(verifyOtpDto) {
+        return this.authService.verifyOtp(verifyOtpDto);
+    }
+    resendOtp(resendOtpDto) {
+        return this.authService.resendOtp(resendOtpDto);
+    }
     login(loginDto) {
         return this.authService.login(loginDto);
     }
@@ -39,6 +45,22 @@ __decorate([
     __metadata("design:paramtypes", [auth_dto_1.RegisterDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Post)('verify-otp'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.VerifyOtpDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "verifyOtp", null);
+__decorate([
+    (0, common_1.Post)('resend-otp'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.ResendOtpDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "resendOtp", null);
 __decorate([
     (0, common_1.Post)('login'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),

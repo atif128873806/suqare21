@@ -8,10 +8,10 @@ export declare class ChatbotController {
         conversationId: string;
     }>;
     captureLead(body: CaptureChatLeadDto): Promise<{
-        id: string;
-        area: string | null;
-        createdAt: Date;
         name: string;
+        id: string;
+        createdAt: Date;
+        area: string | null;
         phone: string;
         budget: string | null;
         source: string;
@@ -27,10 +27,10 @@ export declare class ChatbotController {
         history: import("@prisma/client/runtime/client").JsonValue;
     }[]>;
     getChatLeads(): Promise<{
-        id: string;
-        area: string | null;
-        createdAt: Date;
         name: string;
+        id: string;
+        createdAt: Date;
+        area: string | null;
         phone: string;
         budget: string | null;
         source: string;

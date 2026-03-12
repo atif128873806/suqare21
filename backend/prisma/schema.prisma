@@ -19,8 +19,10 @@ model User {
   location      String?
   loginMethod   LoginMethod    @default(EMAIL)
   preferences   Json?
-  status        UserStatus     @default(ACTIVE)
+  status        UserStatus     @default(PENDING) // Default to PENDING for OTP verification
   role          UserRole       @default(USER)
+  otp           String?        // Temp OTP code
+  otpExpiresAt  DateTime?      // When OTP expires
   sentNews      News[]         @relation("AdminNews")
   notifications Notification[]
 }
@@ -123,6 +125,7 @@ enum UserRole {
 }
 
 enum UserStatus {
+  PENDING
   ACTIVE
   DISABLED
 }

@@ -178,14 +178,23 @@ const Header = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => signIn('google')}
-                  className="border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                >
-                  Login
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    asChild
+                    className="border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                  >
+                    <Link href="/login">Login</Link>
+                  </Button>
+                  <Button
+                    size="sm"
+                    asChild
+                    className="bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm"
+                  >
+                    <Link href="/signup">Sign Up</Link>
+                  </Button>
+                </div>
               )}
 
               {/* Desktop CTA */}

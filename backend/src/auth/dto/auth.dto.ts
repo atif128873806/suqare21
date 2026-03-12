@@ -30,3 +30,17 @@ export class SyncUserDto {
   @IsString()
   loginMethod: 'GOOGLE';
 }
+
+export class VerifyOtpDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(6)
+  otp: string;
+}
+
+export class ResendOtpDto {
+  @IsEmail()
+  email: string;
+}

@@ -12,10 +12,10 @@ export declare class ChatbotService {
         conversationId: string;
     }>;
     captureLead(data: CaptureChatLeadDto): Promise<{
-        id: string;
-        area: string | null;
-        createdAt: Date;
         name: string;
+        id: string;
+        createdAt: Date;
+        area: string | null;
         phone: string;
         budget: string | null;
         source: string;
@@ -31,10 +31,10 @@ export declare class ChatbotService {
         history: import("@prisma/client/runtime/client").JsonValue;
     }[]>;
     getChatLeads(): Promise<{
-        id: string;
-        area: string | null;
-        createdAt: Date;
         name: string;
+        id: string;
+        createdAt: Date;
+        area: string | null;
         phone: string;
         budget: string | null;
         source: string;

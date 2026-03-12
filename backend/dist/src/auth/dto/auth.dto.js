@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SyncUserDto = exports.RegisterDto = exports.LoginDto = void 0;
+exports.ResendOtpDto = exports.VerifyOtpDto = exports.SyncUserDto = exports.RegisterDto = exports.LoginDto = void 0;
 const class_validator_1 = require("class-validator");
 class LoginDto {
     email;
@@ -61,4 +61,26 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], SyncUserDto.prototype, "loginMethod", void 0);
+class VerifyOtpDto {
+    email;
+    otp;
+}
+exports.VerifyOtpDto = VerifyOtpDto;
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], VerifyOtpDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(6),
+    __metadata("design:type", String)
+], VerifyOtpDto.prototype, "otp", void 0);
+class ResendOtpDto {
+    email;
+}
+exports.ResendOtpDto = ResendOtpDto;
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], ResendOtpDto.prototype, "email", void 0);
 //# sourceMappingURL=auth.dto.js.map

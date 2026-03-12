@@ -12,3 +12,10 @@ export declare class SyncUserDto {
     image?: string;
     loginMethod: 'GOOGLE';
 }
+export declare class VerifyOtpDto {
+    email: string;
+    otp: string;
+}
+export declare class ResendOtpDto {
+    email: string;
+}
