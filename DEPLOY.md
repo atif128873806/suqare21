@@ -33,10 +33,19 @@ df -h / ; free -h
 crontab -l                                 # any existing scheduled jobs
 ```
 
-Repo layout on the VPS is assumed to be `/root/square21` (override with `SQUARE21_ROOT`). Verify:
+**Repo path.** This guide writes `/root/square21`, but the checkout on this
+server lives at **`/root/suqare21`** (the directory name is misspelled). That
+matters for nothing except paths you type or paste:
+
+- `deploy/release.sh` and `deploy/ecosystem.config.js` both derive the repo
+  root from their own location, so they work regardless of the directory name.
+- Only commands you copy from this document, and the optional
+  `location /videos/` alias in the Nginx template, need the real path.
+
+Verify:
 
 ```bash
-ls -la /root/square21/{backend,frontend,deploy}
+cd /root/suqare21 && ls -la backend frontend deploy
 ```
 
 ---

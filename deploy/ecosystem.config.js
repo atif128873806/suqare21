@@ -22,14 +22,19 @@
  *    currently stopped and must stay stopped, that is fine; the snapshot
  *    simply records it as stopped.
  *
- * Overridable without editing this file:
- *   SQUARE21_ROOT=/root/square21 SQUARE21_API_PORT=3001 \
+ * The repo path is taken from this file's location, so a differently named
+ * checkout works unchanged. Overridable:
+ *   SQUARE21_ROOT=/path/to/repo SQUARE21_API_PORT=3001 \
  *   SQUARE21_WEB_PORT=3000 pm2 startOrReload deploy/ecosystem.config.js
  * ===========================================================================
  */
 const path = require('path');
 
-const ROOT = process.env.SQUARE21_ROOT || '/root/square21';
+// The repository root is derived from this file's own location, so the
+// directory can be named anything, anywhere (/root/square21, /root/suqare21,
+// a staging copy, ...) without editing this file. Override only if you really
+// need to: SQUARE21_ROOT=/some/other/path pm2 startOrReload ...
+const ROOT = process.env.SQUARE21_ROOT || path.resolve(__dirname, '..');
 const API_PORT = process.env.SQUARE21_API_PORT || 3001;
 const WEB_PORT = process.env.SQUARE21_WEB_PORT || 3000;
 
