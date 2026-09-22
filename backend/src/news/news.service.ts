@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../common/prisma.service';
 import { Resend } from 'resend';
 
@@ -10,8 +11,11 @@ export class NewsService {
     return this.prisma;
   }
 
-  constructor(private prisma: PrismaService) {
-    const apiKey = process.env.RESEND_API_KEY;
+  constructor(
+    private prisma: PrismaService,
+    private configService: ConfigService,
+  ) {
+    const apiKey = this.configService.get<string>('RESEND_API_KEY');
     if (apiKey) {
       this.resend = new Resend(apiKey);
     } else {

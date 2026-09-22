@@ -5,6 +5,7 @@ export declare class LeadController {
     constructor(leadService: LeadService);
     create(createLeadDto: CreateLeadDto): Promise<{
         email: string | null;
+        message: string | null;
         name: string;
         id: string;
         createdAt: Date;
@@ -15,7 +16,6 @@ export declare class LeadController {
         budget: number | null;
         source: string;
         propertyId: string | null;
-        message: string | null;
     }>;
     findAll(): Promise<({
         property: {
@@ -41,6 +41,7 @@ export declare class LeadController {
         } | null;
     } & {
         email: string | null;
+        message: string | null;
         name: string;
         id: string;
         createdAt: Date;
@@ -51,7 +52,6 @@ export declare class LeadController {
         budget: number | null;
         source: string;
         propertyId: string | null;
-        message: string | null;
     })[]>;
     findOne(id: string): Promise<{
         property: {
@@ -77,6 +77,7 @@ export declare class LeadController {
         } | null;
     } & {
         email: string | null;
+        message: string | null;
         name: string;
         id: string;
         createdAt: Date;
@@ -87,10 +88,10 @@ export declare class LeadController {
         budget: number | null;
         source: string;
         propertyId: string | null;
-        message: string | null;
     }>;
     updateStatus(id: string, status: string): Promise<{
         email: string | null;
+        message: string | null;
         name: string;
         id: string;
         createdAt: Date;
@@ -101,6 +102,5 @@ export declare class LeadController {
         budget: number | null;
         source: string;
         propertyId: string | null;
-        message: string | null;
     }>;
 }

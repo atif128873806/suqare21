@@ -8,7 +8,6 @@ import { Providers } from "@/components/auth/Providers";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Toaster } from "@/components/ui/toaster";
-import NewsletterPopup from "@/components/newsletter/NewsletterPopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -92,7 +91,6 @@ export default function RootLayout({
         <AuthProvider>
           <Providers>
             {children}
-            <NewsletterPopup />
             <Toaster />
             <SonnerToaster />
           </Providers>

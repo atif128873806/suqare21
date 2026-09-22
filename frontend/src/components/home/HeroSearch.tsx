@@ -40,51 +40,36 @@ export default function HeroSearch() {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            {/* Purpose Toggle Buttons */}
-            <div className="flex justify-center mb-6">
-                <div className="inline-flex bg-card/80 backdrop-blur-md rounded-full p-1.5 shadow-lg border border-border/50">
-                    <button
-                        onClick={() => setPurpose('ALL')}
-                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${purpose === 'ALL'
-                            ? 'bg-primary text-primary-foreground shadow-md scale-105'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                            }`}
-                    >
-                        All
-                    </button>
-                    <button
-                        onClick={() => setPurpose('RENT')}
-                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${purpose === 'RENT'
-                            ? 'bg-primary text-primary-foreground shadow-md scale-105'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                            }`}
-                    >
-                        Rent
-                    </button>
-                    <button
-                        onClick={() => setPurpose('SALE')}
-                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${purpose === 'SALE'
-                            ? 'bg-primary text-primary-foreground shadow-md scale-105'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                            }`}
-                    >
-                        Sale
-                    </button>
+        <div className="w-full animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            {/* Purpose Toggle */}
+            <div className="flex justify-center mb-3 sm:mb-4">
+                <div className="inline-flex bg-white/[0.06] backdrop-blur-md rounded-full p-0.5 sm:p-1 border border-white/[0.1]">
+                    {(['ALL', 'RENT', 'SALE'] as const).map(p => (
+                        <button
+                            key={p}
+                            onClick={() => setPurpose(p)}
+                            className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-medium transition-all duration-300 ${purpose === p
+                                ? 'bg-secondary text-white shadow-md'
+                                : 'text-white/50 hover:text-white/80'
+                                }`}
+                        >
+                            {p === 'ALL' ? 'All' : p === 'RENT' ? 'Rent' : 'Sale'}
+                        </button>
+                    ))}
                 </div>
             </div>
 
-            {/* Search Card */}
-            <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-xl p-3 md:p-6 border border-border/10">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-                    {/* Locations Dropdown */}
-                    <div className="md:col-span-4">
+            {/* Search Bar */}
+            <div className="bg-white/[0.06] backdrop-blur-md rounded-xl sm:rounded-2xl p-1.5 sm:p-2.5 border border-white/[0.1]">
+                <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2">
+                    {/* Location */}
+                    <div className="flex-1 min-w-0">
                         <Select value={location} onValueChange={setLocation}>
                             <SelectTrigger
-                                className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all"
+                                className="h-10 sm:h-11 bg-white/[0.06] border-white/[0.08] text-white/80 text-sm hover:bg-white/[0.1] focus:ring-secondary/50 transition-all rounded-lg"
                                 aria-label="Select location"
                             >
-                                <SelectValue placeholder="Locations" />
+                                <SelectValue placeholder="Location" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="all">All Locations</SelectItem>
@@ -97,17 +82,17 @@ export default function HeroSearch() {
                         </Select>
                     </div>
 
-                    {/* Looking For Dropdown */}
-                    <div className="md:col-span-6">
+                    {/* Property Type */}
+                    <div className="flex-1 min-w-0">
                         <Select value={lookingFor} onValueChange={setLookingFor}>
                             <SelectTrigger
-                                className="h-12 bg-background border-border hover:border-primary focus:ring-primary transition-all"
+                                className="h-10 sm:h-11 bg-white/[0.06] border-white/[0.08] text-white/80 text-sm hover:bg-white/[0.1] focus:ring-secondary/50 transition-all rounded-lg"
                                 aria-label="Select property type"
                             >
-                                <SelectValue placeholder="Looking For" />
+                                <SelectValue placeholder="Property Type" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Property Types</SelectItem>
+                                <SelectItem value="all">All Types</SelectItem>
                                 <SelectItem value="INDUSTRIAL">Industrial</SelectItem>
                                 <SelectItem value="COMMERCIAL">Commercial</SelectItem>
                                 <SelectItem value="RESIDENTIAL">Residential</SelectItem>
@@ -116,16 +101,14 @@ export default function HeroSearch() {
                     </div>
 
                     {/* Search Button */}
-                    <div className="md:col-span-2">
-                        <Button
-                            onClick={handleSearch}
-                            className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
-                            aria-label="Search properties"
-                        >
-                            <Search className="w-5 h-5" />
-                            <span className="hidden md:inline">Search</span>
-                        </Button>
-                    </div>
+                    <Button
+                        onClick={handleSearch}
+                        className="h-10 sm:h-11 px-5 sm:px-6 bg-secondary hover:bg-secondary/90 text-white text-sm font-semibold rounded-lg shadow-lg shadow-secondary/20 hover:shadow-secondary/30 transition-all duration-300 flex items-center justify-center gap-2 shrink-0"
+                        aria-label="Search properties"
+                    >
+                        <Search className="w-4 h-4" />
+                        <span>Search</span>
+                    </Button>
                 </div>
             </div>
         </div>

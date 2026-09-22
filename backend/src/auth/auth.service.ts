@@ -5,6 +5,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../common/prisma.service';
 import { LoginDto, RegisterDto, VerifyOtpDto, ResendOtpDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
@@ -17,8 +18,9 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {
-    const apiKey = process.env.RESEND_API_KEY;
+    const apiKey = this.configService.get<string>('RESEND_API_KEY');
     if (apiKey) {
       this.resend = new Resend(apiKey);
     } else {

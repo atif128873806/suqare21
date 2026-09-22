@@ -1,0 +1,16 @@
+# ---------------------------------------------------------------------------
+# Square21 repository root
+# (backend/ and frontend/ keep their own .gitignore files)
+# ---------------------------------------------------------------------------
+
+# Local release bookkeeping written by deploy/release.sh — contains only
+# commit SHAs and timestamps, never secrets.
+deploy/.last-release
+
+# Local logs and scratch/backup files
+logs/
+*.log
+*.bak
+
+# Agent/IDE scratch state
+.freebuff/

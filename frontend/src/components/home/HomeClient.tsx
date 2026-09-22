@@ -6,31 +6,19 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import {
     ArrowRight,
-    Building2,
-    Warehouse,
-    Home,
-    TrendingUp,
+    MapPin,
     Phone,
     MessageCircle,
     CheckCircle,
     Users,
     Award,
     Clock,
-    Facebook,
-    Linkedin,
-    Instagram
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import HeroSearch from '@/components/home/HeroSearch';
 import { Property } from '@/types/property';
-import heroBuilding from '@/assets/hero-building.jpg';
 import Counter from '@/components/ui/counter';
-
-const GallerySection = dynamic(() => import('./GallerySection'), {
-    ssr: false,
-    loading: () => <div className="h-[500px] w-full bg-muted/20 animate-pulse rounded-2xl" />
-});
 
 const TestimonialsSection = dynamic(() => import('./TestimonialsSection'), {
     ssr: false,
@@ -52,12 +40,95 @@ const CommercialListingSection = dynamic(() => import('./CommercialListingSectio
     loading: () => <div className="h-[600px] w-full bg-muted/20 animate-pulse rounded-2xl" />
 });
 
+const areaGuides = [
+    {
+        sector: 'I-10',
+        label: 'I-10 Sector',
+        description: 'Prime residential & commercial hub with CDA-approved plots, modern houses, and active markaz. Close to motorway access.',
+        types: ['Residential', 'Commercial'],
+        priceRange: '2.75 Cr – 8.75 Cr',
+        highlights: ['Near Markaz', 'CDA Approved', 'Wide Roads'],
+        image: 'https://res.cloudinary.com/dwufqlkzv/image/upload/v1771739432/square21/properties/fvtb5wpxtqf1vpo9bmwc.jpg',
+    },
+    {
+        sector: 'I-9',
+        label: 'I-9 Sector',
+        description: "Islamabad's industrial backbone. Warehouses, factories, and commercial sheds near Dry Port Road with excellent logistics access.",
+        types: ['Industrial', 'Warehouse'],
+        priceRange: 'Rent from 150K/mo',
+        highlights: ['Dry Port Access', 'Industrial Zone', 'High Ceilings'],
+        image: 'https://res.cloudinary.com/dwufqlkzv/image/upload/v1771739850/square21/properties/qs5crmtnphtdit0ci4zn.jpg',
+    },
+    {
+        sector: 'F-11',
+        label: 'F-11 Sector',
+        description: 'Elite residential area with modern apartments and luxury residences. F-11 Markaz is a premium commercial destination.',
+        types: ['Apartments', 'Luxury'],
+        priceRange: '1.50 – 2.50 Lac/mo',
+        highlights: ['Premium Living', 'Furnished Options', 'Markaz Access'],
+        image: 'https://res.cloudinary.com/dwufqlkzv/image/upload/v1772113174/square21/properties/et83lav9hghfayahd089.jpg',
+    },
+    {
+        sector: 'F-8',
+        label: 'F-8 Sector',
+        description: "One of Islamabad's most prestigious sectors. High-demand commercial spaces and exclusive residential properties.",
+        types: ['Commercial', 'Office Space'],
+        priceRange: '20 Lac/mo',
+        highlights: ['Prestigious Area', 'High Footfall', 'Blue Area Adjacent'],
+        image: 'https://res.cloudinary.com/dwufqlkzv/image/upload/v1771740419/square21/properties/b3vwasrkxa6yx4wngfe9.jpg',
+    },
+    {
+        sector: 'G-11',
+        label: 'G-11 Sector',
+        description: 'Growing residential sector with modern apartment complexes. Great value for families seeking quality living spaces.',
+        types: ['Apartments', 'Residential'],
+        priceRange: '1.85 Lac/mo',
+        highlights: ['Family Friendly', 'Modern Buildings', 'Good Value'],
+        image: 'https://res.cloudinary.com/dwufqlkzv/image/upload/v1772113174/square21/properties/rdbyqtwlkzxahbgbyccs.jpg',
+    },
+];
+
+const recentDeals = [
+    {
+        type: 'Sold',
+        title: 'Corner House – I-10/4',
+        area: '6 Marla',
+        price: 'PKR 7.00 Cr',
+        timeline: 'Closed in 12 days',
+        sector: 'I-10',
+    },
+    {
+        type: 'Rented',
+        title: 'Furnished Apartment – F-11/1',
+        area: '18 West Residencia',
+        price: 'PKR 2.50 Lac/mo',
+        timeline: 'Closed in 5 days',
+        sector: 'F-11',
+    },
+    {
+        type: 'Rented',
+        title: 'Commercial Building – I-10/1',
+        area: '2,602 sqft',
+        price: 'PKR 4.20 Lac/mo',
+        timeline: 'Closed in 8 days',
+        sector: 'I-10',
+    },
+    {
+        type: 'Rented',
+        title: 'RCC Warehouse – I-9',
+        area: '11,000 sqft',
+        price: 'PKR 1.50 Lac/mo',
+        timeline: 'Closed in 3 days',
+        sector: 'I-9',
+    },
+];
+
 interface HomeClientProps {
     initialProperties: Property[];
 }
 
 export default function HomeClient({ initialProperties }: HomeClientProps) {
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
     const residentialProperties = useMemo(() =>
         initialProperties.filter((p) => p.type === 'RESIDENTIAL'),
@@ -65,342 +136,374 @@ export default function HomeClient({ initialProperties }: HomeClientProps) {
     );
 
     const commercialProperties = useMemo(() =>
-        initialProperties.filter((p) => p.type === 'COMMERCIAL'),
+        initialProperties.filter((p) => p.type === 'COMMERCIAL' || p.type === 'INDUSTRIAL'),
         [initialProperties]
     );
 
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play().catch(error => {
-                console.error("Hero video autoplay failed:", error);
-            });
-        }
+        videoRefs.current.forEach(v => v?.play().catch(() => { }));
     }, []);
 
-    const services = [
-        {
-            icon: Building2,
-            title: 'Commercial Sales & Leasing',
-            description: 'High-yield retail and office spaces in Blue Area, F-8, and I-8. Average ROI 6-8% annually.',
-            areas: ['F-8', 'F-11', 'I-8', 'I-9', 'I-10', 'I-11'],
-        },
-        {
-            icon: Warehouse,
-            title: 'Industrial Properties',
-            description: 'Warehousing and manufacturing facilities. 5,000 to 50,000+ sq ft available for immediate possession.',
-            areas: ['I-9', 'I-10', 'I-11', 'Humak', 'Rawat'],
-        },
-        {
-            icon: Home,
-            title: 'Residential Sales & Rent',
-            description: 'Premium houses and apartments in CDA sectors. Rentals from PKR 150k to 1M+. Sales from 50M+.',
-            areas: ['F-8', 'F-11', 'I-8', 'I-9', 'I-10', 'I-11'],
-        },
-        {
-            icon: TrendingUp,
-            title: 'Market Analysis & Valuation',
-            description: 'Data-backed property appraisals and investment strategies based on current Islamabad market trends.',
-            areas: ['I-8', 'I-9', 'I-10', 'I-11', 'F-8', 'F-11', 'Humak', 'Rawat'],
-        },
+    const heroVideos = [
+        { src: '/videos/hero-property.mp4', label: 'Residential', location: 'I-10/4', badge: 'SOLD', badgeColor: 'bg-secondary' },
+        { src: '/videos/hero-commercial.mp4', label: 'Commercial', location: 'F-8 Markaz', badge: 'AVAILABLE', badgeColor: 'bg-emerald-500' },
+        { src: '/videos/hero-apartment.mp4', label: 'Apartment', location: 'F-11', badge: 'RENTED', badgeColor: 'bg-secondary' },
     ];
 
     const stats = [
-        { number: 450, suffix: '+', label: 'Active Listings' },
-        { number: 6, suffix: '+', label: 'Years in Islamabad' },
-        { number: 2.5, suffix: 'B+', label: 'Volume Handled (PKR)' },
-        { number: 8, suffix: '', label: 'Specialized Brokers' },
+        { number: initialProperties.length || 13, suffix: '', label: 'Active Listings' },
+        { number: 5, suffix: '', label: 'Areas Covered' },
+        { number: 14, suffix: '+', label: 'Happy Clients' },
+        { number: 6, suffix: '+', label: 'Years Experience' },
     ];
 
     const whyUs = [
-        { icon: CheckCircle, title: 'Verified Assets', description: 'Clear titles, verified owners, zero disputes' },
-        { icon: Users, title: 'Local Authority', description: 'Sector-specific brokers with deep market data' },
-        { icon: Award, title: 'Aggressive Negotiation', description: 'We focus strictly on your ROI and target price' },
-        { icon: Clock, title: 'Rapid Execution', description: 'Streamlined legal and transfer processes' },
+        { icon: CheckCircle, title: 'Verified Properties', description: 'Every listing is personally inspected. Clear titles, verified owners.' },
+        { icon: Users, title: 'Sector Specialists', description: 'Our brokers know I-10, I-9, F-11 inside out — every street, every rate.' },
+        { icon: Award, title: 'Transparent Pricing', description: 'No hidden fees. Market-rate pricing with honest negotiation.' },
+        { icon: Clock, title: 'Fast Closings', description: 'Average 8-day closing time. We handle legal, CDA, and transfers.' },
     ];
-
-    const agents = [
-        {
-            name: 'Furqan Ur Rehman Khattak',
-            phone: '+92 300 855 6388',
-            email: 'Info@brighthomesonline.com',
-            listedProperties: 175,
-            image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200',
-            socials: { facebook: 'https://www.facebook.com/share/1E5gtR1TDV/?mibextid=wwXIfr', linkedin: 'https://www.linkedin.com/company/square21-marketing/', instagram: 'https://www.instagram.com/square21marketing?igsh=MW5hb3luczFyMXp5eQ%3D%3D&utm_source=qr' }
-        },
-        {
-            name: 'Rao Sharif Luqman',
-            phone: '+92 300 855 6388',
-            email: 'Info@brighthomesonline.com',
-            listedProperties: 17,
-            image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200&h=200',
-            socials: { facebook: '#', linkedin: '#', instagram: '#' }
-        },
-        {
-            name: 'Maqbool Ur Rehman',
-            phone: '+92 300 855 6388',
-            email: 'Info@brighthomesonline.com',
-            listedProperties: 26,
-            image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200&h=200',
-            socials: { facebook: '#', linkedin: '#', instagram: '#' }
-        },
-        {
-            name: 'Muzammil Shahzad',
-            phone: '+92 300 855 6388',
-            email: 'Info@brighthomesonline.com',
-            listedProperties: 22,
-            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200',
-            socials: { facebook: '#', linkedin: '#', instagram: '#' }
-        }
-    ];
-
 
     return (
         <div className="min-h-screen">
-            {/* Hero Section */}
-            {/* Hero Section with Video Background */}
-            <section className="relative min-h-screen flex items-center overflow-hidden">
-                {/* Video Background - Optimized with WebM and Compressed MP4 */}
-                <video
-                    ref={videoRef}
-                    // @ts-ignore
-                    fetchPriority="high"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    poster="/assets/hero-poster.webp"
-                    preload="metadata"
-                    className="absolute inset-0 w-full h-full object-cover"
-                >
-                    <source src="/videos/hero-video.webm" type="video/webm" />
-                    <source src="/videos/hero-video-compressed.mp4" type="video/mp4" />
-                </video>
+            {/* ========= HERO ========= */}
+            <section className="relative min-h-screen flex items-center overflow-hidden bg-primary">
+                {/* Ambient glows */}
+                <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-secondary/[0.04] rounded-full blur-[120px]" />
+                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/[0.03] rounded-full blur-[100px] translate-x-1/4 translate-y-1/4" />
 
-                {/* Dark overlay for text readability */}
-                <div className="absolute inset-0 bg-black/60 z-0" />
-                <div className="bg-texture-grain mix-blend-overlay opacity-20 pointer-events-none" />
+                <div className="relative z-10 section-container pt-24 sm:pt-28 pb-28 sm:pb-32 flex flex-col items-center justify-center min-h-screen gap-8 sm:gap-10">
 
-                <div className="relative z-10 section-container flex items-center justify-center min-h-[70vh] pb-32">
-                    <div className="w-full text-center max-w-2xl mx-auto space-y-5">
-
-                        <p className="text-white text-xl md:text-2xl font-medium leading-relaxed">
-                            Square21 Marketing connects elite businesses with Islamabad's most strategic commercial and industrial spaces.
+                    {/* Headline block — always centered */}
+                    <div className="text-center max-w-3xl mx-auto space-y-4 sm:space-y-5">
+                        <h1 className="text-white font-display text-[2.2rem] leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                            We Close Deals
+                            <br />
+                            <span className="text-secondary">Across Islamabad</span>
+                        </h1>
+                        <p className="text-white/40 text-sm sm:text-base md:text-lg leading-relaxed max-w-lg mx-auto">
+                            Verified residential, commercial &amp; industrial properties in I-10, I-9, F-11, F-8 and G-11.
                         </p>
+                    </div>
 
-                        <p className="text-white/60 text-base md:text-lg leading-relaxed">
-                            From high-visibility retail to premium offices and warehouse solutions — we deliver locations that elevate brands.
-                            Precision, discretion, and market insight from first search to final deal.
-                        </p>
+                    {/* Video showcase strip — 3 cards */}
+                    <div className="w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-5 lg:gap-6">
+                            {heroVideos.map((vid, i) => (
+                                <div key={i} className="group relative rounded-xl sm:rounded-2xl overflow-hidden ring-1 ring-white/[0.08] hover:ring-secondary/40 transition-all duration-500 cursor-pointer shadow-xl shadow-black/20">
+                                    <video
+                                        ref={el => { videoRefs.current[i] = el; }}
+                                        autoPlay loop muted playsInline
+                                        preload="metadata"
+                                        className="w-full aspect-[9/14] sm:aspect-[9/15] lg:aspect-[9/13] object-cover group-hover:scale-105 transition-transform duration-700"
+                                    >
+                                        <source src={vid.src} type="video/mp4" />
+                                    </video>
 
-                        <p className="text-secondary text-sm tracking-wide">
-                            Square21 Marketing — Where Position Defines Power.
-                        </p>
+                                    {/* Badge */}
+                                    <div className="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5">
+                                        <span className={`${vid.badgeColor} text-white text-[8px] sm:text-[10px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full`}>
+                                            {vid.badge}
+                                        </span>
+                                    </div>
 
-                        <div className="pt-4">
-                            <HeroSearch />
+                                    {/* Bottom gradient + label */}
+                                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2 sm:p-3 pt-8 sm:pt-12">
+                                        <p className="text-white font-semibold text-[11px] sm:text-sm leading-tight">{vid.label}</p>
+                                        <p className="text-white/40 text-[9px] sm:text-xs mt-0.5 flex items-center gap-1">
+                                            <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                                            {vid.location}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                    </div>
+
+                    {/* Search bar */}
+                    <div className="w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto">
+                        <HeroSearch />
                     </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 bg-primary/95 backdrop-blur-md border-t border-white/10">
-                    <div className="section-container py-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {/* Stats bar */}
+                <div className="absolute bottom-0 left-0 right-0 bg-white/[0.03] backdrop-blur-md border-t border-white/[0.06]">
+                    <div className="section-container py-4 sm:py-5">
+                        <div className="grid grid-cols-4 gap-2 sm:gap-6">
                             {stats.map((stat, index) => (
                                 <div key={index} className="text-center">
-                                    <p className="font-display text-2xl md:text-3xl font-bold text-secondary">
+                                    <p className="font-display text-lg sm:text-2xl md:text-3xl font-bold text-secondary">
                                         <Counter end={stat.number} suffix={stat.suffix} />
                                     </p>
-                                    <p className="text-secondary-foreground/70 text-sm">{stat.label}</p>
+                                    <p className="text-white/35 text-[10px] sm:text-xs md:text-sm">{stat.label}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
-
-
             </section>
 
-            {/* Recent Listings Section */}
+            {/* ========= RECENT LISTINGS ========= */}
             <RecentListingsSection properties={initialProperties} />
 
-            {/* Residential Listing Section */}
-            <ResidentialListingSection properties={residentialProperties} />
-
-            {/* CTA Section */}
-            <section className="py-20 bg-primary">
-                <div className="section-container text-center">
-                    <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-4 tracking-tight">
-                        Ready to Acquire or Lease?
-                    </h2>
-                    <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 font-medium">
-                        Speak directly with a broker specialized in your target sector. We handle negotiations, legal documentation, and secure transfers.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-4">
-                        <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-secondary hover:text-white hover:border-secondary transition-colors duration-300">
-                                <MessageCircle className="w-5 h-5 mr-2" />
-                                WhatsApp Us
-                            </Button>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            {/* Commercial Listing Section */}
-            <CommercialListingSection properties={commercialProperties} />
-            {/* Services Section - Bento Grid Style */}
-            {/* <section className="py-24 bg-background">
+            {/* ========= AREA GUIDES ========= */}
+            <section className="py-20 bg-muted/30">
                 <div className="section-container">
-                    <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div className="max-w-2xl">
-                            <div className="inline-flex items-center gap-2 mb-4">
-                                <span className="w-8 h-[2px] bg-secondary" />
-                                <span className="text-primary text-sm font-bold uppercase tracking-widest">Core Operations</span>
-                            </div>
-                            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight">
-                                Islamabad Brokerage Services
-                            </h2>
+                    <div className="text-center mb-14">
+                        <div className="inline-flex items-center gap-2 mb-3">
+                            <span className="w-8 h-[2px] bg-secondary" />
+                            <span className="text-primary font-bold uppercase tracking-widest text-[13px]">Explore Areas</span>
+                            <span className="w-8 h-[2px] bg-secondary" />
                         </div>
-                        <p className="text-muted-foreground md:max-w-sm text-balance font-medium">
-                            We focus on high-value transactions across CDA sectors. Accurate market data, strict legal compliance, and aggressive negotiation.
+                        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground tracking-tight">
+                            Islamabad Sector Guide
+                        </h2>
+                        <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+                            We specialize in these high-demand sectors. Each one has been carefully selected based on investment potential and market activity.
                         </p>
-                    </div> */}
+                    </div>
 
-            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)]"> */}
-            {/* {services.map((service, index) => { */}
-            {/* // Make first and last items span 2 columns on tablet/desktop for bento effect */}
-            {/* const isLarge = index === 0 || index === 3; */}
-            {/* return ( */}
-            {/* <div
-                                    // key={index}
-                                    className={`group relative overflow-hidden rounded-2xl bg-card border border-border/50 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 ${isLarge ? 'md:col-span-2' : 'md:col-span-1'
-                                        }`}
-                                > */}
-            {/* Decorative gradient overlay */}
-            {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                    <div className="relative z-10 h-full flex flex-col">
-                                        <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
-                                            <service.icon className="w-8 h-8 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
-                                        </div>
-
-                                        <h3 className="font-display text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                                            {service.title}
-                                        </h3>
-
-                                        <p className="text-muted-foreground leading-relaxed mb-8 flex-grow">
-                                            {service.description}
-                                        </p>
-
-                                        <div className="flex flex-wrap gap-2 mt-auto">
-                                            {service.areas.map((area) => (
-                                                <span key={area} className="text-xs font-medium px-3 py-1.5 bg-muted/50 rounded-lg text-primary/80 border border-primary/10">
-                                                    {area}
-                                                </span>
-                                            ))}
-                                        </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+                        {areaGuides.map((area) => (
+                            <Link
+                                key={area.sector}
+                                href={`/properties?location=${area.sector}`}
+                                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card border border-border/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 hover:border-secondary/30"
+                            >
+                                <div className="relative overflow-hidden h-44 sm:h-48">
+                                    <Image
+                                        src={area.image}
+                                        alt={area.label}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                    <div className="absolute bottom-3 left-4 sm:bottom-4 sm:left-5">
+                                        <span className="text-secondary text-xs sm:text-sm font-bold tracking-wider">{area.sector}</span>
+                                        <h3 className="text-white font-display text-lg sm:text-xl font-bold">{area.label}</h3>
+                                    </div>
+                                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/10 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full">
+                                        <span className="text-white text-[11px] sm:text-xs font-semibold">{area.priceRange}</span>
                                     </div>
                                 </div>
-                            );
-                        })}
+                                <div className="p-4 sm:p-5">
+                                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">{area.description}</p>
+                                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+                                        {area.highlights.map((h) => (
+                                            <span key={h} className="text-[10px] sm:text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 bg-muted/60 rounded-full text-foreground border border-border/40">{h}</span>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex gap-1.5 sm:gap-2">
+                                            {area.types.map((t) => (
+                                                <span key={t} className="text-[10px] sm:text-[11px] font-bold text-secondary uppercase tracking-wider">{t}</span>
+                                            ))}
+                                        </div>
+                                        <span className="text-primary text-xs sm:text-sm font-semibold group-hover:text-secondary transition-colors flex items-center gap-1">
+                                            View
+                                            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Gallery Section */}
-            {/* <GallerySection /> */}
+            {/* ========= RESIDENTIAL ========= */}
+            <ResidentialListingSection properties={residentialProperties} />
 
-            {/* Our Agents Section - Professional Redesign */}
-            {/* <section className="py-24 bg-muted/20">
+            {/* ========= WHY US ========= */}
+            <section className="py-20 bg-background">
                 <div className="section-container">
-                    <div className="text-center mb-16">
-                        <div className="inline-flex items-center justify-center gap-2 mb-4 mx-auto">
-                            <span className="w-12 h-[2px] bg-secondary" />
-                            <span className="text-primary text-sm font-bold uppercase tracking-widest">The Brokerage Team</span>
-                            <span className="w-12 h-[2px] bg-secondary" />
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <div className="inline-flex items-center gap-2 mb-4">
+                                <span className="w-8 h-[2px] bg-secondary" />
+                                <span className="text-primary font-bold uppercase tracking-widest text-[13px]">Why Square21</span>
+                            </div>
+                            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-6">
+                                We Don&apos;t Just List Properties.
+                                <br />
+                                <span className="text-secondary">We Close Deals.</span>
+                            </h2>
+                            <p className="text-muted-foreground leading-relaxed mb-8">
+                                Square21 Marketing is not a typical property portal. We are a hands-on brokerage that personally verifies every listing, negotiates on your behalf, and handles all legal documentation.
+                            </p>
+                            <div className="flex flex-wrap gap-4">
+                                <a href="https://wa.me/923083333818" target="_blank" rel="noopener noreferrer">
+                                    <Button className="bg-secondary text-white hover:bg-secondary/90 gap-2">
+                                        <MessageCircle className="w-4 h-4" />
+                                        WhatsApp Us
+                                    </Button>
+                                </a>
+                                <a href="tel:+923083333818">
+                                    <Button variant="outline" className="gap-2">
+                                        <Phone className="w-4 h-4" />
+                                        Call Now
+                                    </Button>
+                                </a>
+                            </div>
                         </div>
-                        <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
-                            Sector Specialists
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            {whyUs.map((item, i) => (
+                                <div key={i} className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-secondary/30 hover:shadow-lg transition-all duration-500">
+                                    <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4 group-hover:bg-secondary group-hover:scale-110 transition-all duration-500">
+                                        <item.icon className="w-6 h-6 text-secondary group-hover:text-white transition-colors duration-500" />
+                                    </div>
+                                    <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-secondary transition-colors">{item.title}</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ========= COMMERCIAL ========= */}
+            <CommercialListingSection properties={commercialProperties} />
+
+            {/* ========= RECENT DEALS ========= */}
+            <section className="py-20 bg-primary">
+                <div className="section-container">
+                    <div className="text-center mb-14">
+                        <div className="inline-flex items-center gap-2 mb-3">
+                            <span className="w-8 h-[2px] bg-secondary" />
+                            <span className="text-secondary font-bold uppercase tracking-widest text-[13px]">Track Record</span>
+                            <span className="w-8 h-[2px] bg-secondary" />
+                        </div>
+                        <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground tracking-tight">
+                            Recently Closed Deals
                         </h2>
-                        <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
-                            Our brokers cover specific territories within Islamabad. You deal directly with the designated expert for your target area.
+                        <p className="text-primary-foreground/60 mt-3 max-w-xl mx-auto">
+                            Real transactions. Real results. Here are some of our most recent closings.
                         </p>
-                    </div> */}
+                    </div>
 
-            {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {agents.map((agent, index) => (
-                            <div key={index} className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/60 hover:shadow-xl hover:border-secondary/30 transition-all duration-500 group flex flex-col h-full"> */}
-            {/* Agent Image Container */}
-            {/* <div className="relative h-72 w-full overflow-hidden bg-muted">
-                                    <Image
-                                        src={agent.image}
-                                        alt={agent.name}
-                                        fill
-                                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-
-                                    {/* Verification Badge */}
-            {/* <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg transform translate-y-0 opacity-100 transition-all duration-300">
-                                        <CheckCircle className="w-3.5 h-3.5 text-success fill-success/20" />
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
-                                    </div> */}
-
-            {/* Social Links on Hover */}
-            {/* <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out z-20">
-                                        <a href={agent.socials.facebook} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-secondary hover:border-secondary transition-colors">
-                                            <Facebook className="w-4 h-4" />
-                                        </a>
-                                        <a href={agent.socials.linkedin} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-secondary hover:border-secondary transition-colors">
-                                            <Linkedin className="w-4 h-4" />
-                                        </a>
-                                        <a href={agent.socials.instagram} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-secondary hover:border-secondary transition-colors">
-                                            <Instagram className="w-4 h-4" />
-                                        </a>
-                                    </div>
-                                </div> */}
-
-            {/* Agent Info */}
-            {/* <div className="p-6 flex flex-col flex-grow bg-card relative z-10">
-                                    <div className="text-center mb-6">
-                                        <h3 className="font-display text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                                            {agent.name}
-                                        </h3>
-                                        <p className="text-secondary font-medium text-sm tracking-wide">
-                                            Real Estate Consultant
-                                        </p>
-                                    </div>
-
-                                    <div className="space-y-3 mb-6 flex-grow border-t border-border/50 pt-5">
-                                        <a href={`tel:${agent.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 w-full p-2.5 rounded-lg hover:bg-secondary/5 transition-colors group/link">
-                                            <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0 group-hover/link:bg-secondary group-hover/link:text-white text-secondary transition-colors">
-                                                <Phone className="w-4 h-4" />
-                                            </div>
-                                            <span className="text-sm font-medium text-foreground group-hover/link:text-secondary transition-colors">{agent.phone}</span>
-                                        </a>
-                                    </div>
-
-                                    <div className="pt-5 border-t border-border/50 flex items-center justify-between">
-                                        <div className="flex flex-col">
-                                            <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Properties</span>
-                                            <span className="text-lg font-bold text-primary">{agent.listedProperties}</span>
-                                        </div>
-                                        <Button variant="outline" size="sm" className="rounded-full text-xs font-semibold hover:bg-primary hover:text-white border-primary/20">
-                                            View Profile
-                                        </Button>
-                                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {recentDeals.map((deal, i) => (
+                            <div key={i} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-secondary/30 transition-all duration-500 group">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${deal.type === 'Sold' ? 'bg-secondary/20 text-secondary' : 'bg-green-500/20 text-green-400'}`}>
+                                        {deal.type}
+                                    </span>
+                                    <span className="text-primary-foreground/40 text-xs">{deal.sector}</span>
+                                </div>
+                                <h3 className="text-primary-foreground font-display text-lg font-semibold mb-1 group-hover:text-secondary transition-colors">{deal.title}</h3>
+                                <p className="text-primary-foreground/50 text-sm mb-4">{deal.area}</p>
+                                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                                    <span className="text-secondary font-bold text-lg">{deal.price}</span>
+                                    <span className="text-primary-foreground/40 text-xs flex items-center gap-1">
+                                        <Clock className="w-3 h-3" />
+                                        {deal.timeline}
+                                    </span>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </section> */}
+            </section>
 
-
-            {/* Testimonials */}
+            {/* ========= TESTIMONIALS ========= */}
             <TestimonialsSection />
 
+            {/* ========= INLINE NEWSLETTER ========= */}
+            <section className="py-20 bg-muted/30">
+                <div className="section-container">
+                    <div className="bg-card rounded-3xl border border-border/50 overflow-hidden">
+                        <div className="grid lg:grid-cols-2 gap-0">
+                            <div className="p-10 lg:p-14 flex flex-col justify-center">
+                                <div className="inline-flex items-center gap-2 mb-4">
+                                    <span className="w-8 h-[2px] bg-secondary" />
+                                    <span className="text-primary font-bold uppercase tracking-widest text-[13px]">Stay Updated</span>
+                                </div>
+                                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
+                                    Get Market Insights
+                                    <br />
+                                    <span className="text-secondary">Delivered Weekly</span>
+                                </h2>
+                                <p className="text-muted-foreground mb-8 leading-relaxed">
+                                    CDA sector updates, new listings, price trends, and investment opportunities — straight to your inbox. No spam, just value.
+                                </p>
+                                <NewsletterInlineForm />
+                            </div>
+                            <div className="hidden lg:flex bg-gradient-to-br from-primary to-primary/80 p-14 flex-col justify-center">
+                                <div className="space-y-6">
+                                    {[
+                                        'New property listings before they go public',
+                                        'Weekly Islamabad market price trends',
+                                        'Investment opportunity alerts',
+                                        'CDA sector development updates',
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex items-start gap-3">
+                                            <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
+                                            <span className="text-primary-foreground/90 text-sm font-medium">{item}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
+    );
+}
+
+function NewsletterInlineForm() {
+    const [email, setEmail] = useState('');
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!email.trim() || !email.includes('@')) return;
+        setStatus('loading');
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://square21marketing.com/api'}/subscribers`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            if (res.ok) {
+                setStatus('success');
+                setEmail('');
+            } else {
+                setStatus('error');
+            }
+        } catch {
+            setStatus('error');
+        }
+    };
+
+    if (status === 'success') {
+        return (
+            <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl p-4">
+                <CheckCircle className="w-5 h-5 text-green-600" />
+                <span className="text-green-800 font-medium">You&apos;re subscribed! Check your inbox.</span>
+            </div>
+        );
+    }
+
+    return (
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 h-12 px-5 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-secondary/30 focus:border-secondary outline-none transition-all"
+            />
+            <Button
+                type="submit"
+                disabled={status === 'loading'}
+                className="h-12 px-8 bg-secondary text-white hover:bg-secondary/90 rounded-xl font-semibold"
+            >
+                {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+            </Button>
+        </form>
     );
 }

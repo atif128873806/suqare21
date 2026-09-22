@@ -34,4 +34,11 @@ export class SubscribersController {
     remove(@Param('id') id: string) {
         return this.subscribersService.remove(id);
     }
+
+    @Post('send-newsletter')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('ADMIN')
+    sendNewsletter(@Body() body: { subject: string; body: string }) {
+        return this.subscribersService.sendNewsletter(body.subject, body.body);
+    }
 }

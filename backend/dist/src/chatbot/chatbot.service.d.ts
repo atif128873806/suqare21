@@ -1,16 +1,13 @@
 import { PrismaService } from '../common/prisma.service';
 import { ConfigService } from '@nestjs/config';
-import { LangChainService } from '../common/langchain.service';
+import { LangChainService, ChatResponse } from '../common/langchain.service';
 import { CaptureChatLeadDto } from './dto/chatbot.dto';
 export declare class ChatbotService {
     private prisma;
     private configService;
     private langChainService;
     constructor(prisma: PrismaService, configService: ConfigService, langChainService: LangChainService);
-    handleMessage(visitorId: string, message: string): Promise<{
-        response: string;
-        conversationId: string;
-    }>;
+    handleMessage(visitorId: string, message: string): Promise<ChatResponse>;
     captureLead(data: CaptureChatLeadDto): Promise<{
         name: string;
         id: string;
@@ -19,9 +16,9 @@ export declare class ChatbotService {
         phone: string;
         budget: string | null;
         source: string;
-        visitorId: string;
         intent: string | null;
         propertyType: string | null;
+        visitorId: string;
     }>;
     getConversations(): Promise<{
         id: string;
@@ -38,8 +35,8 @@ export declare class ChatbotService {
         phone: string;
         budget: string | null;
         source: string;
-        visitorId: string;
         intent: string | null;
         propertyType: string | null;
+        visitorId: string;
     }[]>;
 }

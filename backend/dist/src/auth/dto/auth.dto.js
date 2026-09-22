@@ -22,7 +22,8 @@ __decorate([
 ], LoginDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6),
+    (0, class_validator_1.MinLength)(8, { message: 'Password must be at least 8 characters' }),
+    (0, class_validator_1.MaxLength)(64),
     __metadata("design:type", String)
 ], LoginDto.prototype, "password", void 0);
 class RegisterDto extends LoginDto {
@@ -31,6 +32,8 @@ class RegisterDto extends LoginDto {
 exports.RegisterDto = RegisterDto;
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(100),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "name", void 0);
 class SyncUserDto {

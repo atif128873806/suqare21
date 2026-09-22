@@ -5,7 +5,7 @@ import { ChatMessageDto, CaptureChatLeadDto } from './dto/chatbot.dto';
 
 @Controller('chatbot')
 export class ChatbotController {
-  constructor(private readonly chatbotService: ChatbotService) {}
+  constructor(private readonly chatbotService: ChatbotService) { }
 
   @Post('message')
   async handleMessage(@Body() body: ChatMessageDto) {

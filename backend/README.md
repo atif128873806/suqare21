@@ -21,6 +21,14 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+> **Deploying?** See [`../DEPLOY.md`](../DEPLOY.md) for the VPS setup, the
+> `deploy/` release script and rollback instructions.
+>
+> Production build notes: `npm run build` compiles `src/` only (see
+> `tsconfig.build.json`), so the entry point is `dist/main.js`, which is what
+> `npm run start:prod` (`node dist/main`) runs. Root-level helper scripts are
+> deliberately excluded from the build and are not compiled into `dist/`.
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

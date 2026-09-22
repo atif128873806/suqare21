@@ -275,11 +275,28 @@ class ApiClient {
 
     // Chatbot API
     async sendChatMessage(visitorId: string, message: string) {
-        return this.request<{ response: string; conversationId: string }>(
+        return this.request<{
+            message: string;
+            phase: string;
+            properties: any[];
+            quickReplies: string[];
+            extractedData: Record<string, string | undefined>;
+            consultantRequested: boolean;
+        }>(
             '/chatbot/message',
             {
                 method: 'POST',
                 body: JSON.stringify({ visitorId, message }),
+            }
+        );
+    }
+
+    async requestConsultant(visitorId: string) {
+        return this.request<{ message: string; whatsappUrl: string; leadCaptured: boolean }>(
+            '/chatbot/request-consultant',
+            {
+                method: 'POST',
+                body: JSON.stringify({ visitorId }),
             }
         );
     }
@@ -322,6 +339,14 @@ class ApiClient {
     async deleteSubscriber(id: string, token: string) {
         return this.request(`/subscribers/${id}`, {
             method: 'DELETE',
+            token,
+        });
+    }
+
+    async sendNewsletter(subject: string, body: string, token: string) {
+        return this.request('/subscribers/send-newsletter', {
+            method: 'POST',
+            body: JSON.stringify({ subject, body }),
             token,
         });
     }

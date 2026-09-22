@@ -3,10 +3,7 @@ import { ChatMessageDto, CaptureChatLeadDto } from './dto/chatbot.dto';
 export declare class ChatbotController {
     private readonly chatbotService;
     constructor(chatbotService: ChatbotService);
-    handleMessage(body: ChatMessageDto): Promise<{
-        response: string;
-        conversationId: string;
-    }>;
+    handleMessage(body: ChatMessageDto): Promise<import("../common/langchain.service").ChatResponse>;
     captureLead(body: CaptureChatLeadDto): Promise<{
         name: string;
         id: string;
@@ -15,9 +12,9 @@ export declare class ChatbotController {
         phone: string;
         budget: string | null;
         source: string;
-        visitorId: string;
         intent: string | null;
         propertyType: string | null;
+        visitorId: string;
     }>;
     getConversations(): Promise<{
         id: string;
@@ -34,8 +31,8 @@ export declare class ChatbotController {
         phone: string;
         budget: string | null;
         source: string;
-        visitorId: string;
         intent: string | null;
         propertyType: string | null;
+        visitorId: string;
     }[]>;
 }

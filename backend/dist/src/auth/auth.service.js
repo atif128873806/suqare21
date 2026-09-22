@@ -45,17 +45,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 const prisma_service_1 = require("../common/prisma.service");
 const bcrypt = __importStar(require("bcrypt"));
 const resend_1 = require("resend");
 let AuthService = class AuthService {
     prisma;
     jwtService;
+    configService;
     resend;
-    constructor(prisma, jwtService) {
+    constructor(prisma, jwtService, configService) {
         this.prisma = prisma;
         this.jwtService = jwtService;
-        const apiKey = process.env.RESEND_API_KEY;
+        this.configService = configService;
+        const apiKey = this.configService.get('RESEND_API_KEY');
         if (apiKey) {
             this.resend = new resend_1.Resend(apiKey);
         }
@@ -259,6 +262,7 @@ exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

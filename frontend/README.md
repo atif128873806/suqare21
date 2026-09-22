@@ -1,3 +1,8 @@
+> **Deploying?** See [`../DEPLOY.md`](../DEPLOY.md) for the VPS setup, the
+> `deploy/` release script and rollback instructions. Remember that every
+> `NEXT_PUBLIC_*` value (notably `NEXT_PUBLIC_API_URL`) is inlined at **build**
+> time, so changing it requires a rebuild, not just a restart.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

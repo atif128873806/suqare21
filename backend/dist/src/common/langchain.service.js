@@ -8,194 +8,216 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LangChainService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const google_genai_1 = require("@langchain/google-genai");
+const groq_sdk_1 = __importDefault(require("groq-sdk"));
 const prisma_service_1 = require("./prisma.service");
-const prompts_1 = require("@langchain/core/prompts");
-const output_parsers_1 = require("@langchain/core/output_parsers");
-const messages_1 = require("@langchain/core/messages");
+const INTENT_MAP = {
+    buy: 'SALE', purchase: 'SALE', invest: 'SALE', investment: 'SALE', khareed: 'SALE', kharidna: 'SALE',
+    rent: 'RENT', lease: 'RENT', kiraya: 'RENT', kiray: 'RENT',
+};
+function detectArea(msg) {
+    const m = msg.toLowerCase().replace(/\s+/g, ' ').trim();
+    const sectorMatch = m.match(/\b([efgi])\s*[-/]?\s*(\d{1,2})\b/);
+    if (sectorMatch) {
+        const letter = sectorMatch[1].toUpperCase();
+        const num = sectorMatch[2];
+        return `${letter}-${num}`;
+    }
+    if (/dha|defence|defense/.test(m))
+        return 'DHA';
+    if (/bahria/.test(m))
+        return 'Bahria Town';
+    if (/blue\s*area/.test(m))
+        return 'Blue Area';
+    if (/gulberg/.test(m))
+        return 'Gulberg';
+    if (/pwd/.test(m))
+        return 'PWD';
+    const generalSector = m.match(/\b([efgi])\s*[-]?\s*sectors?\b/);
+    if (generalSector)
+        return generalSector[1].toUpperCase();
+    return null;
+}
 let LangChainService = class LangChainService {
     configService;
     prisma;
-    model;
+    groq;
     constructor(configService, prisma) {
         this.configService = configService;
         this.prisma = prisma;
-        const apiKey = this.configService.get('GEMINI_API_KEY');
-        this.model = new google_genai_1.ChatGoogleGenerativeAI({
-            apiKey,
-            model: 'gemini-2.5-flash-lite',
-            maxOutputTokens: 1024,
-            temperature: 0.7,
-        });
+        const apiKey = this.configService.get('GROQ_API_KEY');
+        if (!apiKey)
+            throw new Error('GROQ_API_KEY is required');
+        this.groq = new groq_sdk_1.default({ apiKey });
     }
-    async generateResponse(visitorId, userMessage, history = []) {
-        const safeHistory = Array.isArray(history) ? history : [];
-        const extractedData = this.extractUserInfoStructured(safeHistory, userMessage);
-        let propertyContext = '';
-        if (extractedData.area ||
-            extractedData.propertyType ||
-            extractedData.intent) {
-            const properties = await this.searchProperties(extractedData);
-            if (properties.length > 0) {
-                propertyContext =
-                    '\nRELEVANT PROPERTIES FOUND:\n' +
-                        properties
-                            .map((p) => `- ${p.title} in ${p.location}: ${p.price} ${p.priceUnit} (${p.type}, ${p.purpose})`)
-                            .join('\n');
-            }
-            else {
-                propertyContext =
-                    '\nNo specific matching properties found in database currently. Continue being helpful.';
-            }
+    async generateResponse(visitorId, userMessage, history = [], previousExtracted = {}) {
+        const lowerMsg = userMessage.toLowerCase().trim();
+        if (lowerMsg === 'change area' || lowerMsg === 'try another area') {
+            return {
+                message: 'Sure! Which area would you prefer?',
+                properties: [],
+                quickReplies: ['DHA', 'Bahria Town', 'F-Sectors', 'E-Sectors', 'I-Sectors', 'G-Sectors'],
+                extractedData: { ...previousExtracted, area: undefined },
+            };
         }
-        console.log(`[Chatbot] Turn for ${visitorId}. Extracted:`, extractedData);
-        const prompt = prompts_1.ChatPromptTemplate.fromMessages([
-            [
-                'system',
-                `You are a Senior Real Estate Consultant at Square21 Marketing, the premier agency in Islamabad. 
-Your goal is to provide expert guidance and transition leads into high-value consultations.
-
-ISLAMABAD GEOGRAPHICAL EXPERTISE:
-- CDA Sectors: E-7 (Elite), F-6/F-7 (Premium), F-8/F-10/F-11 (Modern Hubs), G-11 (Emerging), I-8/I-9/I-10 (Solid Investment).
-- Luxury Areas: Bahria Town (Phase 7 & 8 are high-demand), DHA (Phase 2 & 5 for families), Gulberg Greens (Farmhouses), Bani Gala (Scenic Views).
-- Commercial Hubs: Blue Area (Financial district), Centaurus, Centrally located malls and plazas.
-
-COMPANY IDENTITY:
-Square21 is known for transparency, local expertise, and luxury portfolio access.
-
-CONVERSATION MEMORY:
-{memory_text}
-
-{property_context}
-
-CONSULTATION PROTOCOL (CRITICAL):
-1. **The Expert Advisor Phase**:
-   - Check the CONVERSATION MEMORY. If the user provides everything in one message (Name, Phone, Area, Budget, Intent):
-     - **MOVE IMMEDIATELY TO THE FINISH LINE**.
-   - Otherwise, ask only for the specific missing piece.
-
-2. **The Lead Capture Phase**:
-   - If Name or Phone is missing from memory, politely request them.
-
-3. **The Professional Closing (The "Finish Line")**:
-   - **TRIGGER**: If Name, Phone, and core requirements are in memory:
-     - **MANDATORY MESSAGE**: "Thank you, [Name]. I have captured your requirements for [Area]. One of our senior consultants will reach out to you at [Phone] shortly to discuss the best options. In the meantime, you can browse our exclusive catalog here: https://wa.me/923083333818"
-     - **RULE**: Once the lead is complete, DO NOT ask more questions.
-
-4. **TONE**:
-   - Senior expert, authoritative, extremely helpful, and concise (1-2 sentences).`,
-            ],
-            new prompts_1.MessagesPlaceholder('chat_history'),
-            ['human', '{input}'],
-        ]);
-        const chatHistory = safeHistory.map((h) => h && h.role?.toLowerCase() === 'user'
-            ? new messages_1.HumanMessage(h.text || '')
-            : new messages_1.AIMessage(h.text || ''));
-        const chain = prompt.pipe(this.model).pipe(new output_parsers_1.StringOutputParser());
-        try {
-            const response = await chain.invoke({
-                input: userMessage,
-                chat_history: chatHistory,
-                memory_text: this.formatMemoryText(extractedData),
-                property_context: propertyContext,
+        const extractedData = this.extractFromKeywords(lowerMsg, previousExtracted);
+        const needsAI = !extractedData.intent && !previousExtracted.intent;
+        let aiUsed = false;
+        if (needsAI || this.hasContactInfo(lowerMsg)) {
+            const aiExtracted = await this.extractWithAI(lowerMsg, previousExtracted);
+            Object.assign(extractedData, {
+                name: aiExtracted.name || extractedData.name,
+                phone: aiExtracted.phone || extractedData.phone,
+                budget: aiExtracted.budget || extractedData.budget,
+                area: aiExtracted.area || extractedData.area,
+                intent: aiExtracted.intent || extractedData.intent,
+                propertyType: aiExtracted.propertyType || extractedData.propertyType,
             });
-            return { response, extractedData };
+            aiUsed = true;
         }
-        catch (error) {
-            console.error('[Chatbot] AI Error:', error);
-            if (error.message?.includes('429') || error.message?.includes('quota')) {
+        let properties = [];
+        if (extractedData.area && extractedData.intent) {
+            properties = await this.searchProperties(extractedData);
+        }
+        const message = this.buildTemplateResponse(extractedData, properties);
+        const quickReplies = this.getQuickReplies(extractedData, properties.length > 0);
+        console.log(`[Chat] ${visitorId} | ai:${aiUsed} | data:`, extractedData, `| ${properties.length} props`);
+        return { message, properties, quickReplies, extractedData };
+    }
+    hasContactInfo(msg) {
+        return /\d{10,}/.test(msg.replace(/[\s-+]/g, '')) || /my name is|i am |i'm |mera naam/i.test(msg);
+    }
+    extractFromKeywords(msg, prev) {
+        const result = { ...prev };
+        for (const [keyword, value] of Object.entries(INTENT_MAP)) {
+            if (msg.includes(keyword)) {
+                result.intent = value;
+                break;
+            }
+        }
+        const detectedArea = detectArea(msg);
+        if (detectedArea) {
+            result.area = detectedArea;
+        }
+        if (/house|home|makaan|ghar|plot|flat|apartment/i.test(msg)) {
+            result.propertyType = 'RESIDENTIAL';
+        }
+        else if (/shop|office|warehouse|commercial|dukaan/i.test(msg)) {
+            result.propertyType = 'COMMERCIAL';
+        }
+        return result;
+    }
+    async extractWithAI(msg, prev) {
+        try {
+            const response = await this.groq.chat.completions.create({
+                model: 'llama-3.1-8b-instant',
+                messages: [
+                    {
+                        role: 'system',
+                        content: `Extract info from this message. Return ONLY JSON.
+Known: ${JSON.stringify(prev)}
+{"name":null,"phone":null,"budget":null,"area":null,"intent":null,"propertyType":null}
+buy/invest="SALE", rent="RENT", house/plot="RESIDENTIAL", shop/office="COMMERCIAL". Keep known values.`,
+                    },
+                    { role: 'user', content: msg },
+                ],
+                temperature: 0,
+                max_tokens: 100,
+            });
+            const text = response.choices[0]?.message?.content || '';
+            const match = text.match(/\{[\s\S]*\}/);
+            if (match) {
+                const parsed = JSON.parse(match[0]);
                 return {
-                    response: 'I apologize, but I am currently experiencing a high volume of inquiries. Please call us directly at +92 308 3333818 so our human consultants can assist you immediately.',
-                    extractedData,
+                    name: parsed.name || prev.name || undefined,
+                    phone: parsed.phone || prev.phone || undefined,
+                    budget: parsed.budget || prev.budget || undefined,
+                    area: parsed.area || prev.area || undefined,
+                    intent: parsed.intent || prev.intent || undefined,
+                    propertyType: parsed.propertyType || prev.propertyType || undefined,
                 };
             }
-            throw error;
         }
+        catch (e) {
+            console.error('[Chat] AI extraction error:', e);
+        }
+        return prev;
+    }
+    buildTemplateResponse(data, properties) {
+        const hasContact = data.name && data.phone;
+        const hasPrefs = data.area && data.intent;
+        if (hasContact) {
+            return `Thank you ${data.name}! Our consultant will call you at ${data.phone} shortly. You can also WhatsApp us at +92 308 3333818.`;
+        }
+        if (hasPrefs && properties.length > 0) {
+            return `Here are some options in ${data.area} for you. If you'd like more details, share your name and phone number and our consultant will assist you.`;
+        }
+        if (hasPrefs && properties.length === 0) {
+            return `We don't have listings in ${data.area} right now, but our consultant can help find off-market options. Try another area or talk to our consultant directly.`;
+        }
+        if (data.intent && !data.area) {
+            const action = data.intent === 'SALE' ? 'buy' : 'rent';
+            return `Great choice! Which area in Islamabad would you like to ${action} in?`;
+        }
+        return "Welcome to Square21 Marketing! Are you looking to buy, rent, or invest in property?";
+    }
+    getQuickReplies(data, hasProperties) {
+        if (!data.intent) {
+            return ['Buy', 'Rent', 'Invest', 'Talk to Consultant'];
+        }
+        if (!data.area) {
+            return ['DHA', 'Bahria Town', 'F-Sectors', 'E-Sectors', 'I-Sectors', 'G-Sectors'];
+        }
+        if (hasProperties) {
+            return ['Talk to Consultant', 'Change Area'];
+        }
+        return ['DHA', 'Bahria Town', 'F-Sectors', 'E-Sectors', 'Talk to Consultant'];
     }
     async searchProperties(data) {
         try {
-            return await this.prisma.property.findMany({
-                where: {
-                    OR: [
-                        data.area
-                            ? {
-                                location: { contains: data.area, mode: 'insensitive' },
-                            }
-                            : {},
-                        data.propertyType ? { type: data.propertyType } : {},
-                        data.intent ? { purpose: data.intent } : {},
-                    ].filter((cond) => Object.keys(cond).length > 0),
-                },
+            const where = { status: 'AVAILABLE' };
+            const conditions = [];
+            if (data.area) {
+                conditions.push({ location: { contains: data.area, mode: 'insensitive' } });
+            }
+            if (data.propertyType) {
+                conditions.push({ type: data.propertyType });
+            }
+            if (data.intent) {
+                conditions.push({ purpose: data.intent });
+            }
+            if (conditions.length > 0) {
+                where.AND = conditions;
+            }
+            const properties = await this.prisma.property.findMany({
+                where,
                 take: 3,
+                orderBy: { createdAt: 'desc' },
             });
+            return properties.map((p) => ({
+                id: p.id,
+                title: p.title,
+                price: p.price,
+                priceUnit: p.priceUnit || 'PKR',
+                location: p.location,
+                type: p.type,
+                purpose: p.purpose,
+                area: p.area,
+                areaUnit: p.areaUnit,
+                image: p.images?.[0] || null,
+                features: p.features?.slice(0, 3) || [],
+            }));
         }
         catch (e) {
-            console.error('[Chatbot] Property Search Error:', e);
+            console.error('[Chat] DB error:', e);
             return [];
         }
-    }
-    extractUserInfoStructured(history, currentMessage) {
-        const allMessages = [
-            ...history
-                .filter((m) => m && m.role?.toLowerCase() === 'user')
-                .map((m) => m.text),
-            currentMessage,
-        ];
-        const combinedText = allMessages.join(' ').toLowerCase();
-        const result = {};
-        if (combinedText.includes('rent'))
-            result.intent = 'RENT';
-        else if (combinedText.includes('buy') ||
-            combinedText.includes('sale') ||
-            combinedText.includes('purchase'))
-            result.intent = 'SALE';
-        const sectorRegex = /\b([efghi]|dha|bahria|blue|gulberg|bani gala)[-\s]?(\d+|area|town|ph\d+|gala)\b/gi;
-        const sectorsFound = combinedText.match(sectorRegex);
-        if (sectorsFound)
-            result.area = Array.from(new Set(sectorsFound)).join(', ').toUpperCase();
-        if (combinedText.includes('house'))
-            result.propertyType = 'RESIDENTIAL';
-        else if (combinedText.includes('apartment') ||
-            combinedText.includes('flat'))
-            result.propertyType = 'RESIDENTIAL';
-        else if (combinedText.includes('office') ||
-            combinedText.includes('shop') ||
-            combinedText.includes('commercial'))
-            result.propertyType = 'COMMERCIAL';
-        else if (combinedText.includes('plot'))
-            result.propertyType = 'RESIDENTIAL';
-        const budgetMatch = combinedText.match(/(\d+)\s*(lac|lakh|cr|crore|thousand|k)/i);
-        if (budgetMatch)
-            result.budget = budgetMatch[0].toUpperCase();
-        const phoneMatch = combinedText.match(/(?:\+92|0|92)?[-\s]?(\d{7,12})/);
-        if (phoneMatch)
-            result.phone = phoneMatch[0];
-        const nameMatch = currentMessage.match(/(?:my name is|i am|this is)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/i);
-        if (nameMatch)
-            result.name = nameMatch[1];
-        return result;
-    }
-    formatMemoryText(data) {
-        const lines = [];
-        if (data.intent)
-            lines.push(`- Intent: ${data.intent}`);
-        if (data.area)
-            lines.push(`- Area: ${data.area}`);
-        if (data.propertyType)
-            lines.push(`- Type: ${data.propertyType}`);
-        if (data.budget)
-            lines.push(`- Budget: ${data.budget}`);
-        if (data.phone)
-            lines.push(`- Phone: ${data.phone}`);
-        if (data.name)
-            lines.push(`- Name: ${data.name}`);
-        return lines.length > 0
-            ? lines.join('\n')
-            : '- No client details captured yet.';
     }
 };
 exports.LangChainService = LangChainService;

@@ -1,10 +1,14 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, MaxLength, MinLength } from 'class-validator';
 
 export class ChatMessageDto {
   @IsString()
+  @MinLength(1)
+  @MaxLength(100)
   visitorId: string;
 
   @IsString()
+  @MinLength(1)
+  @MaxLength(2000)
   message: string;
 }
 

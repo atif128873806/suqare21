@@ -30,77 +30,79 @@ let ChatbotService = class ChatbotService {
         const conversationHistory = existingConvo?.history
             ? existingConvo.history
             : [];
-        const { response, extractedData } = await this.langChainService.generateResponse(visitorId, message, conversationHistory);
+        const existingLead = await this.prisma.chatLead.findUnique({
+            where: { visitorId },
+        });
+        const previousExtracted = existingLead
+            ? {
+                name: existingLead.name !== 'Anonymous Visitor' ? existingLead.name : undefined,
+                phone: existingLead.phone !== 'Not provided' ? existingLead.phone : undefined,
+                budget: existingLead.budget || undefined,
+                area: existingLead.area || undefined,
+                intent: existingLead.intent || undefined,
+                propertyType: existingLead.propertyType || undefined,
+            }
+            : {};
+        const result = await this.langChainService.generateResponse(visitorId, message, conversationHistory, previousExtracted);
         const updatedHistory = [
             ...conversationHistory,
             { role: 'user', text: message, timestamp: new Date().toISOString() },
-            { role: 'model', text: response, timestamp: new Date().toISOString() },
+            { role: 'model', text: result.message, timestamp: new Date().toISOString() },
         ];
-        const conversation = await this.prisma.chatConversation.upsert({
+        await this.prisma.chatConversation.upsert({
             where: { visitorId },
-            update: {
-                history: updatedHistory,
-            },
-            create: {
-                visitorId,
-                history: updatedHistory,
-            },
+            update: { history: updatedHistory },
+            create: { visitorId, history: updatedHistory },
         });
-        if (extractedData.phone || extractedData.name) {
-            await this.captureLead({
-                visitorId,
-                name: extractedData.name || 'Anonymous Visitor',
-                phone: extractedData.phone || 'Not provided',
-                budget: extractedData.budget,
-                area: extractedData.area,
-                intent: extractedData.intent,
-                propertyType: extractedData.propertyType,
+        const d = result.extractedData;
+        if (d.name || d.phone || d.budget || d.area || d.intent) {
+            await this.prisma.chatLead.upsert({
+                where: { visitorId },
+                update: {
+                    name: d.name || existingLead?.name || 'Anonymous Visitor',
+                    phone: d.phone || existingLead?.phone || 'Not provided',
+                    budget: d.budget || existingLead?.budget,
+                    area: d.area || existingLead?.area,
+                    intent: d.intent || existingLead?.intent,
+                    propertyType: d.propertyType || existingLead?.propertyType,
+                },
+                create: {
+                    visitorId,
+                    name: d.name || 'Anonymous Visitor',
+                    phone: d.phone || 'Not provided',
+                    budget: d.budget, area: d.area,
+                    intent: d.intent, propertyType: d.propertyType,
+                },
             });
+            if (d.name && d.phone) {
+                const exists = await this.prisma.lead.findFirst({
+                    where: { phone: d.phone, source: 'CHATBOT' },
+                });
+                if (!exists) {
+                    await this.prisma.lead.create({
+                        data: {
+                            name: d.name, phone: d.phone,
+                            preferredArea: d.area, source: 'CHATBOT',
+                            message: `Budget: ${d.budget || 'N/A'}, Intent: ${d.intent || 'N/A'}, Type: ${d.propertyType || 'N/A'}`,
+                        },
+                    });
+                }
+            }
         }
-        return { response, conversationId: conversation.id };
+        return result;
     }
     async captureLead(data) {
-        const chatLead = await this.prisma.chatLead.upsert({
+        return this.prisma.chatLead.upsert({
             where: { visitorId: data.visitorId },
-            update: {
-                name: data.name,
-                phone: data.phone,
-                budget: data.budget,
-                area: data.area,
-                intent: data.intent,
-                propertyType: data.propertyType,
-            },
-            create: {
-                visitorId: data.visitorId,
-                name: data.name,
-                phone: data.phone,
-                budget: data.budget,
-                area: data.area,
-                intent: data.intent,
-                propertyType: data.propertyType,
-            },
+            update: { name: data.name, phone: data.phone, budget: data.budget, area: data.area, intent: data.intent, propertyType: data.propertyType },
+            create: { visitorId: data.visitorId, name: data.name, phone: data.phone, budget: data.budget, area: data.area, intent: data.intent, propertyType: data.propertyType },
         });
-        await this.prisma.lead.create({
-            data: {
-                name: data.name,
-                phone: data.phone,
-                preferredArea: data.area,
-                source: 'CHATBOT',
-                message: `Budget: ${data.budget || 'Not specified'}, Intent: ${data.intent || 'Not specified'}, Property Type: ${data.propertyType || 'Not specified'}`,
-            },
-        });
-        return chatLead;
     }
     async getConversations() {
-        return this.prisma.chatConversation.findMany({
-            orderBy: { updatedAt: 'desc' },
-            take: 50,
-        });
+        return this.prisma.chatConversation.findMany({ orderBy: { updatedAt: 'desc' }, take: 50 });
     }
     async getChatLeads() {
-        return this.prisma.chatLead.findMany({
-            orderBy: { createdAt: 'desc' },
-        });
+        return this.prisma.chatLead.findMany({ orderBy: { createdAt: 'desc' } });
     }
 };
 exports.ChatbotService = ChatbotService;
